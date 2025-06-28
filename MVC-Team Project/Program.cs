@@ -1,3 +1,7 @@
+using System;
+using Microsoft.EntityFrameworkCore;
+using MVC_Team_Project.Models;
+
 namespace MVC_Team_Project
 {
     public class Program
@@ -8,6 +12,11 @@ namespace MVC_Team_Project
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            
+        builder.Services.AddDbContext<ClinicSystemContext>(
+            options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
             var app = builder.Build();
 

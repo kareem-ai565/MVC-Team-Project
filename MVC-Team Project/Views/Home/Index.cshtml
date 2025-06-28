@@ -1,1 +1,151 @@
-// Index.cshtml placeholder
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- Banner -->
+<section id="banner">
+    <div class="content">
+        <header>
+            <h2>Your clinic&nbsp;— at your fingertips</h2>
+            <p>
+                Book appointments, track medical history, and pay securely<br />
+                in one unified Medical Appointment System.
+            </p>
+        </header>
+        <span class="image"><img src="~/images/pic01.jpg" alt="Doctor with patient" /></span>
+    </div>
+    <a href="#one" class="goto-next scrolly">Next</a>
+</section>
+
+<!-- One -->
+<section id="one" class="spotlight style1 bottom">
+    <span class="image fit main"><img src="~/images/pic02.jpg" alt="Doctors list" /></span>
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-4 col-12-medium">
+                    <header>
+                        <h2>Find the right doctor</h2>
+                        <p>Browse verified specialists, see consultation fees, and view ratings.</p>
+                    </header>
+                </div>
+                <div class="col-4 col-12-medium">
+                    <p>
+                        Use our <strong>Doctors</strong> page to filter by specialty, experience, and availability.
+                        Each profile is synced with real‑time schedules so you can book instantly.
+                    </p>
+                </div>
+                <div class="col-4 col-12-medium">
+                    <p>
+                        Every doctor is linked to secure <strong>Medical Records</strong>, ensuring your history
+                        is always up to date for better, faster care.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#two" class="goto-next scrolly">Next</a>
+</section>
+
+<!-- Two -->
+<section id="two" class="spotlight style2 right">
+    <span class="image fit main"><img src="~/images/pic03.jpg" alt="Calendar booking" /></span>
+    <div class="content">
+        <header>
+            <h2>Seamless appointments</h2>
+            <p>Confirm, reschedule, or cancel—in one click.</p>
+        </header>
+        <p>
+            The <strong>Appointments</strong> page shows real‑time status (Scheduled, Confirmed, In‑Progress, Completed).
+            Smart reminders keep both patients and doctors in sync, reducing no‑shows.
+        </p>
+        <ul class="actions">
+            <li><a href="@Url.Action("Index", "Appointments")" class="button">View Appointments</a></li>
+        </ul>
+    </div>
+    <a href="#three" class="goto-next scrolly">Next</a>
+</section>
+
+<!-- Three -->
+<section id="three" class="spotlight style3 left">
+    <span class="image fit main bottom"><img src="~/images/pic04.jpg" alt="Payment gateway" /></span>
+    <div class="content">
+        <header>
+            <h2>Secure online payments</h2>
+            <p>Pay consultation fees or track insurance claims effortlessly.</p>
+        </header>
+        <p>
+            Our PCI‑compliant <strong>Payments</strong> module supports card, cash, and insurance settlements.
+            Each transaction is logged in real time for full transparency.
+        </p>
+        <ul class="actions">
+            <li><a href="@Url.Action("Index", "Payments")" class="button">Payment History</a></li>
+        </ul>
+    </div>
+    <a href="#four" class="goto-next scrolly">Next</a>
+</section>
+
+<!-- Four -->
+<section id="four" class="wrapper style1 special fade-up">
+    <div class="container">
+        <header class="major">
+            <h2>Why choose our system?</h2>
+            <p>All‑in‑one healthcare management, built for patients, doctors, and admins.</p>
+        </header>
+        <div class="box alt">
+            <div class="row gtr-uniform">
+                <section class="col-4 col-6-medium col-12-xsmall">
+                    <span class="icon solid alt major fa-calendar"></span>
+                    <h3>Real‑time scheduling</h3>
+                    <p>Instant availability updates reduce double‑booking.</p>
+                </section>
+                <section class="col-4 col-6-medium col-12-xsmall">
+                    <span class="icon solid alt major fa-user-md"></span>
+                    <h3>Verified doctors</h3>
+                    <p>Licensing and credentials checked and displayed.</p>
+                </section>
+                <section class="col-4 col-6-medium col-12-xsmall">
+                    <span class="icon solid alt major fa-file-medical"></span>
+                    <h3>Secure records</h3>
+                    <p>HIPAA‑ready storage with granular confidentiality flags.</p>
+                </section>
+                <section class="col-4 col-6-medium col-12-xsmall">
+                    <span class="icon solid alt major fa-credit-card"></span>
+                    <h3>Flexible payments</h3>
+                    <p>Card, cash, insurance, or online wallets—your choice.</p>
+                </section>
+                <section class="col-4 col-6-medium col-12-xsmall">
+                    <span class="icon solid alt major fa-bell"></span>
+                    <h3>Instant notifications</h3>
+                    <p>Email &amp; SMS alerts keep everyone informed.</p>
+                </section>
+                <section class="col-4 col-6-medium col-12-xsmall">
+                    <span class="icon solid alt major fa-shield-alt"></span>
+                    <h3>Audit &amp; compliance</h3>
+                    <p>Every action logged for full accountability.</p>
+                </section>
+            </div>
+        </div>
+        <footer class="major">
+            <ul class="actions special">
+                <li><a href="@Url.Action("Register", "Auth")" class="button">Get Started</a></li>
+            </ul>
+        </footer>
+    </div>
+</section>
+
+<!-- Five -->
+<section id="five" class="wrapper style2 special fade">
+    <div class="container">
+        <header>
+            <h2>Stay in the loop</h2>
+            <p>Join our mailing list for product updates and health tips.</p>
+        </header>
+        <form method="post" action="#" class="cta">
+            <div class="row gtr-uniform gtr-50">
+                <div class="col-8 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Your Email Address" /></div>
+                <div class="col-4 col-12-xsmall"><input type="submit" value="Subscribe" class="fit primary" /></div>
+            </div>
+        </form>
+    </div>
+</section>
