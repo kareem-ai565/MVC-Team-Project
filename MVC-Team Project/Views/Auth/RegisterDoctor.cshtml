@@ -1,0 +1,181 @@
+﻿@model MVC_Team_Project.View_Models.RegisterDoctorViewModel
+@{
+    ViewData["Title"] = "Register as Doctor";
+    Layout = "_Layout";
+}
+
+<section class="d-flex justify-content-center align-items-center  register-wrapper">
+    <div class="card">
+        <div class="card-header text-center">
+            <h3 class="mb-0">Register as Doctor</h3>
+        </div>
+        <div class="card-body p-4">
+            <form asp-controller="Auth" asp-action="RegisterDoctor" method="post">
+                <input type="hidden" name="Role" value="Doctor" />
+                <div class="row">
+                    <div class="col-md-6 form-row">
+                        <label asp-for="FullName" class="form-label"></label>
+                        <input asp-for="FullName" class="form-control" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 form-row">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 form-row">
+                        <label asp-for="PhoneNumber" class="form-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 form-row">
+                        <label asp-for="Password" class="form-label"></label>
+                        <input asp-for="Password" type="password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 form-row">
+                        <label asp-for="ConfirmPassword" class="form-label"></label>
+                        <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 form-row">
+                        <label asp-for="LicenseNumber" class="form-label"></label>
+                        <input asp-for="LicenseNumber" class="form-control" />
+                        <span asp-validation-for="LicenseNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 form-row">
+                        <label asp-for="SpecialtyId" class="form-label">Specialty</label>
+                        <select asp-for="SpecialtyId" class="form-control" asp-items="@(new SelectList(ViewBag.Specialties, "Id", "Name"))">
+                            <option value="">Select a specialty</option>
+                        </select>
+                        <span asp-validation-for="SpecialtyId" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 form-row">
+                        <label asp-for="ClinicAddress" class="form-label"></label>
+                        <input asp-for="ClinicAddress" class="form-control" />
+                        <span asp-validation-for="ClinicAddress" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12 form-row">
+                        <label asp-for="Bio" class="form-label"></label>
+                        <textarea asp-for="Bio" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Bio" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 form-row">
+                        <label asp-for="Education" class="form-label"></label>
+                        <input asp-for="Education" class="form-control" />
+                        <span asp-validation-for="Education" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 form-row">
+                        <label asp-for="Certifications" class="form-label"></label>
+                        <input asp-for="Certifications" class="form-control" />
+                        <span asp-validation-for="Certifications" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 form-row">
+                        <label asp-for="ExperienceYears" class="form-label"></label>
+                        <input asp-for="ExperienceYears" type="number" class="form-control" />
+                        <span asp-validation-for="ExperienceYears" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 form-row">
+                        <label asp-for="ConsultationFee" class="form-label"></label>
+                        <input asp-for="ConsultationFee" type="number" step="0.01" class="form-control" />
+                        <span asp-validation-for="ConsultationFee" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100 mt-4 fw-bold">
+                    Register as Doctor
+                </button>
+            </form>
+        </div>
+        <div class="card-footer text-center small py-4">
+            Already have an account? <a href="@Url.Action("Login", "Auth")">Login here</a>
+        </div>
+    </div>
+</section>
+
+<style>
+    .register-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* min-height: 100vh; */
+        /* background: var(--back); */
+        padding: 40px 15px;
+    }
+
+    .card {
+        background-color: var(--white);
+        width: 100%;
+        max-width: 850px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        margin: auto;
+    }
+
+
+    .card-header {
+        background-color: var(--teal) !important;
+        color: var(--white) !important;
+		padding: 12px;
+        font-size: 1.5rem !important;
+
+    }
+
+    .form-label {
+        color: var(--title);
+        font-weight: 600;
+    }
+
+    .form-control {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: var(--light);
+        color: #000;
+    }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 5px var(--primary);
+        }
+
+    .text-danger {
+        color: var(--danger);
+        font-size: 0.85rem;
+    }
+
+    .form-row {
+        margin-bottom: 1rem;
+    }
+
+    .btn-primary, .btn-success {
+        background-color: var(--teal);
+        border-color: var(--teal);
+        font-size: 1.5rem !important;
+        color: var(--white);
+        width:fit-content !important;
+		padding: 10px 20px;
+    }
+
+    .form-control{
+        font-size: 1.5rem !important;
+    }
+
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

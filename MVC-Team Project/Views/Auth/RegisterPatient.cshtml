@@ -1,0 +1,122 @@
+﻿@model MVC_Team_Project.View_Models.RegisterPatientViewModel
+@{
+    ViewData["Title"] = "Register as Patient";
+    Layout = "_Layout";
+}
+
+
+<section class="d-flex justify-content-center align-items-center register-wrapper">
+    <div class="card shadow-lg border-0 rounded-3">
+        <div class="card-header bg-primary text-white text-center" style="background-color: var(--teal) !important; color: var(--white) !important; padding: 12px; font-size: 1.5rem !important;">
+            <h3 class="mb-0">Register as Patient</h3>
+        </div>
+        <div class="card-body p-4">
+            <form asp-controller="Auth" asp-action="RegisterPatient" method="post">
+                <input type="hidden" name="Role" value="Patient" />
+
+                <div class="form-group mb-3 form-row">
+                    <label asp-for="FullName" class="form-label" style="color: var(--title); font-weight: 600;"></label>
+                    <input asp-for="FullName" class="form-control" style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; background-color: var(--light); color: #000; font-size: 1.5rem !important;" />
+                    <span asp-validation-for="FullName" class="text-danger" style="color: var(--danger); font-size: 0.85rem;"></span>
+                </div>
+
+                <div class="form-group mb-3 form-row">
+                    <label asp-for="Email" class="form-label" style="color: var(--title); font-weight: 600;"></label>
+                    <input asp-for="Email" class="form-control" style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; background-color: var(--light); color: #000; font-size: 1.5rem !important;" />
+                    <span asp-validation-for="Email" class="text-danger" style="color: var(--danger); font-size: 0.85rem;"></span>
+                </div>
+
+                <div class="form-group mb-3 form-row">
+                    <label asp-for="PhoneNumber" class="form-label" style="color: var(--title); font-weight: 600;"></label>
+                    <input asp-for="PhoneNumber" class="form-control" style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; background-color: var(--light); color: #000; font-size: 1.5rem !important;" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger" style="color: var(--danger); font-size: 0.85rem;"></span>
+                </div>
+
+                <div class="form-group mb-3 form-row">
+                    <label asp-for="Password" class="form-label" style="color: var(--title); font-weight: 600;"></label>
+                    <input asp-for="Password" type="password" class="form-control" style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; background-color: var(--light); color: #000; font-size: 1.5rem !important;" />
+                    <span asp-validation-for="Password" class="text-danger" style="color: var(--danger); font-size: 0.85rem;"></span>
+                </div>
+
+                <div class="form-group mb-3 form-row">
+                    <label asp-for="ConfirmPassword" class="form-label" style="color: var(--title); font-weight: 600;"></label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; background-color: var(--light); color: #000; font-size: 1.5rem !important;" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger" style="color: var(--danger); font-size: 0.85rem;"></span>
+                </div>
+
+                <input type="submit" class="btn btn-success w-100 py-2 fw-bold mt-4" value="Register as Patient" style="background-color: var(--teal); border-color: var(--teal); font-size: 1.5rem !important; color: var(--white); width: fit-content !important; padding: 10px 20px;" />
+            </form>
+        </div>
+        <div class="card-footer text-center small py-4">
+            Already have an account? <a href="@Url.Action("Login", "Auth")">Login here</a>
+        </div>
+    </div>
+</section>
+
+<style>
+    .register-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* min-height: 100vh; */
+        /* background: var(--back); */
+        padding: 40px 15px;
+    }
+
+    .card {
+        background-color: var(--white);
+        width: 100%;
+        max-width: 850px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        margin: auto;
+    }
+
+    .card-header {
+        background-color: var(--teal) !important;
+        color: var(--white) !important;
+        padding: 12px;
+        font-size: 1.5rem !important;
+    }
+
+    .form-label {
+        color: var(--title);
+        font-weight: 600;
+    }
+
+    .form-control {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: var(--light);
+        color: #000;
+    }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 5px var(--primary);
+        }
+
+    .text-danger {
+        color: var(--danger);
+        font-size: 0.85rem;
+    }
+
+    .form-row {
+        margin-bottom: 1rem;
+    }
+
+    .btn-primary, .btn-success {
+        background-color: var(--teal);
+        border-color: var(--teal);
+        font-size: 1.5rem !important;
+        color: var(--white);
+        width: fit-content !important;
+        padding: 10px 20px;
+    }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

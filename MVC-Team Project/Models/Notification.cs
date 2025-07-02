@@ -47,5 +47,5 @@ public partial class Notification
 
     [ForeignKey("UserId")]
     [InverseProperty("Notifications")]
-    public virtual User User { get; set; }
+    public virtual ApplicationUser User { get; set; }
 }
