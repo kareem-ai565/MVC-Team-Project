@@ -75,7 +75,8 @@ public partial class Appointment
 
     [ForeignKey("DeletedBy")]
     [InverseProperty("Appointments")]
-    public virtual User DeletedByNavigation { get; set; }
+    //public virtual User DeletedByNavigation { get; set; }
+    public virtual ApplicationUser DeletedByNavigation { get; set; }
 
     [ForeignKey("DoctorId")]
     [InverseProperty("Appointments")]
