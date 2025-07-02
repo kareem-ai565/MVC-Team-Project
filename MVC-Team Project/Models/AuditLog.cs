@@ -44,5 +44,5 @@ public partial class AuditLog
 
     [ForeignKey("UserId")]
     [InverseProperty("AuditLogs")]
-    public virtual User User { get; set; }
+    public virtual ApplicationUser User { get; set; }
 }

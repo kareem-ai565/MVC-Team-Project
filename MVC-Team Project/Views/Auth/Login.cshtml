@@ -1,0 +1,119 @@
+﻿@model MVC_Team_Project.View_Models.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_Layout";
+}
+
+<section class="d-flex justify-content-center align-items-center  register-wrapper">
+    <div class="card">
+        <div class="card-header text-center">
+            <h3 class="mb-0">Login</h3>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Login" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-12 form-row">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 form-row">
+                        <label asp-for="Password" class="form-label"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 form-row">
+                        <label asp-for="RememberMe" class="form-label"></label>
+                        <input asp-for="RememberMe" />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success w-100 mt-4 fw-bold">
+                    Login
+                </button>
+            </form>
+        </div>
+        <div class="card-footer text-center small py-4">
+            Don't have an account? 
+            <a href="@Url.Action("RegisterPatient", "Auth")">Register as a Patient</a>
+            ,
+            <a href="@Url.Action("RegisterDoctor", "Auth")">Register as a Doctor</a>
+        </div>
+    </div>
+</section>
+
+<style>
+    .register-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* min-height: 100vh; */
+        /* background: var(--back); */
+        padding: 40px 15px;
+       
+    }
+
+    .card {
+        background-color: var(--white);
+        width: 100%;
+        width: 600px !important;
+        max-width: 850px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        margin: auto;
+    }
+
+
+    .card-header {
+        background-color: var(--teal) !important;
+        color: var(--white) !important;
+        padding: 12px;
+        font-size: 1.5rem !important;
+    }
+
+    .form-label {
+        color: var(--title);
+        font-weight: 600;
+    }
+
+    .form-control {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: var(--light);
+        color: #000;
+    }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 5px var(--primary);
+        }
+
+    .text-danger {
+        color: var(--danger);
+        font-size: 0.85rem;
+    }
+
+    .form-row {
+        margin-bottom: 1rem;
+    }
+
+    .btn-primary, .btn-success {
+        background-color: var(--teal);
+        border-color: var(--teal);
+        font-size: 1.5rem !important;
+        color: var(--white);
+        width: fit-content !important;
+        padding: 10px 20px;
+    }
+
+    .form-control {
+        font-size: 1.5rem !important;
+    }
+
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
