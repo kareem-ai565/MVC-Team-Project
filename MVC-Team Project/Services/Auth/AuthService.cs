@@ -111,6 +111,16 @@ namespace MVC_Team_Project.Services.Auth
             return result;
         }
 
+        public async Task<ApplicationUser> GetUserByEmailAsync(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
+        }
+
+        public async Task<IList<string>> GetRolesAsync(ApplicationUser user)
+        {
+            return await _userManager.GetRolesAsync(user);
+        }
+
         public async Task LogoutAsync()
         {
             await _signInManager.SignOutAsync();

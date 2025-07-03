@@ -56,6 +56,38 @@ Version      : 1.0
 	1. General
 -----------------------*/
 
+:root {
+	--hover: rgb(56,74,235);
+	--back: linear-gradient(90deg,rgb(90, 85, 85),#050505,#000,#000,#000);
+	--font: #fff;
+	--foot: rgba(0, 0, 0,00.9);
+	--title: #000;
+	--card: aliceblue;
+	--icon: rgb(56,74,235);
+	--blue: #007bff;
+	--indigo: #6610f2;
+	--purple: #6f42c1;
+	--pink: #e83e8c;
+	--red: #dc3545;
+	--orange: #fd7e14;
+	--yellow: #ffc107;
+	--green: #28a745;
+	--teal: #20c997;
+	--cyan: #17a2b8;
+	--white: #fff;
+	--gray: #6c757d;
+	--gray-dark: #343a40;
+	--primary: rgb(54, 112, 129) !important;
+	--secondary: #6c757d;
+	--success: #28a745;
+	--info: #17a2b8;
+	--warning: #ffc107;
+	--danger: #dc3545;
+	--light: #f8f9fa;
+	--dark: #343a40;
+	--second: #033b4a;
+	--count: #01d6a3;
+}
 @import url('https://fonts.googleapis.com/css?family=Rubik:400,500,700');
 html {
 	height: 100%;

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MVC_Team_Project.Models;
+using MVC_Team_Project.Repositories.Implementations;
+using MVC_Team_Project.Repositories.Interfaces;
 using MVC_Team_Project.Seeders;
 using MVC_Team_Project.Services.Auth;
 
@@ -11,6 +13,8 @@ namespace MVC_Team_Project
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
 
             // Add services to the container
             builder.Services.AddDbContext<ClinicSystemContext>(

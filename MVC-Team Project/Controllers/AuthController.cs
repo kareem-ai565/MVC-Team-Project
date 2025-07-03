@@ -88,7 +88,15 @@ namespace MVC_Team_Project.Controllers
 
             var result = await _authService.LoginAsync(model);
             if (result.Succeeded)
+            {
+                var user = await _authService.GetUserByEmailAsync(model.Email);
+                var roles = await _authService.GetRolesAsync(user);
+
+                if (roles.Contains("Admin"))
+                    return RedirectToAction("Index", "specialty");
+
                 return RedirectToAction("Index", "Home");
+            }
 
             ModelState.AddModelError("", "Invalid login attempt.");
             return View(model);
