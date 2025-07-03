@@ -141,7 +141,7 @@ namespace MVC_Team_Project
                         UserName = adminEmail,
                         Email = adminEmail,
                         FullName = "Mahmoud Amer",
-                        PhoneNumber = "01023140265",
+                        PhoneNumber = "01023140265", 
                         CreatedAt = DateTime.UtcNow,
                         IsActive = true,
                         EmailVerified = true
