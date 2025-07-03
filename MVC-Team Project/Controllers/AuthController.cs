@@ -101,7 +101,7 @@ namespace MVC_Team_Project.Controllers
             ModelState.AddModelError("", "Invalid login attempt.");
             return View(model);
         }
-
+        //farahhhh new stuff
         // ======================= Logout =======================
         [HttpPost]
         [ValidateAntiForgeryToken]
