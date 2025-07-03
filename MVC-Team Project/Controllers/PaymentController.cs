@@ -1,24 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_Team_Project.Models;
+using MVC_Team_Project.Repositories.Implementations;
+using MVC_Team_Project.Repositories.Interfaces;
+using System.Threading.Tasks;
 
 namespace MVC_Team_Project.Controllers
 {
     public class PaymentController : Controller
     {
-        private readonly ClinicSystemContext context;
-        List<Payment> payments;
+        private readonly IpaymentRepository paymentRepository;
 
-        public PaymentController(ClinicSystemContext context)
+        public PaymentController(IpaymentRepository paymentRepository)
         {
-            this.context = context;
-             payments= context.Payments.ToList();
+            this.paymentRepository = paymentRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-           
 
-            return View("Index", payments);
+            IEnumerable<Payment> paymentList = await paymentRepository.GetAllAsync();
+
+
+
+            return View("Index", paymentList);
         }
 
         public IActionResult AddPayment()
@@ -31,20 +35,16 @@ namespace MVC_Team_Project.Controllers
 
         public IActionResult SubmitAddPayment(Payment payment)
         {
+            
             if (ModelState.IsValid) {
 
 
-                context.Payments.Add(payment);
-                context.SaveChanges();
-
+                paymentRepository.AddAsync(payment);
+                paymentRepository.SaveChangesAsync();
                 return RedirectToAction("Index");
-
-
 
             }
            
-
-            
 
             return View("addPayment" , payment);
         }
@@ -52,10 +52,10 @@ namespace MVC_Team_Project.Controllers
 
 
 
-        public IActionResult PaymentDetails(int id)
+        public async Task<IActionResult> PaymentDetails(int id)
         {
 
-         Payment payment= context.Payments.FirstOrDefault(p=>p.Id == id);
+         Payment payment= await paymentRepository.GetByIdAsync(id);
 
 
             return View("PaymentDetails", payment);
