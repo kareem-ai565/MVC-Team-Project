@@ -1,0 +1,43 @@
+﻿@model MVC_Team_Project.View_Models.MedicalRecordViewModel
+
+<form asp-action="@(ViewData["Action"])" method="post" class="container mt-5">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="DoctorId" />
+
+    <div class="form-group">
+        <label asp-for="PatientId">Patient</label>
+        <select asp-for="PatientId" class="form-control" asp-items="@(new SelectList(ViewBag.Patients, "Id", "Name"))"></select>
+        <span asp-validation-for="PatientId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RecordType"></label>
+        <input asp-for="RecordType" class="form-control" />
+        <span asp-validation-for="RecordType" class="text-danger"></span>
+    </div>
+
+    @* <div class="form-group">
+        <label>Doctor</label>
+        <input type="text" class="form-control" value="@ViewBag.DoctorName" disabled />
+    </div> *@
+
+    <div class="form-group">
+        <label asp-for="Diagnosis"></label>
+        <input asp-for="Diagnosis" class="form-control" />
+        <span asp-validation-for="Diagnosis" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Treatment"></label>
+        <textarea asp-for="Treatment" class="form-control"></textarea>
+        <span asp-validation-for="Treatment" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="RecordDate"></label>
+        <input asp-for="RecordDate" class="form-control" type="date" />
+        <span asp-validation-for="RecordDate" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary">Save</button>
+    <a asp-action="MyPatientsRecords" class="btn btn-secondary">Cancel</a>
+</form>

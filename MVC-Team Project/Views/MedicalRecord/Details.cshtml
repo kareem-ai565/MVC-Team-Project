@@ -1,0 +1,27 @@
+﻿@model MVC_Team_Project.View_Models.MedicalRecordViewModel
+@{
+    ViewData["Title"] = "Record Details";
+    Layout = "_DoctorDashbordLayout";
+}
+
+<div class="card container mt-5">
+    <div class="card-body">
+        <h4 class="card-title mb-4">
+            Medical Record for <strong>@Model.PatientName</strong>
+        </h4>
+
+        <p><strong>Diagnosis:</strong> @Model.Diagnosis</p>
+        <p><strong>Treatment:</strong> @Model.Treatment</p>
+        <p><strong>Prescription:</strong> @Model.Prescription</p>
+        <p><strong>Test Results:</strong> @Model.TestResults</p>
+        <p><strong>Notes:</strong> @Model.Notes</p>
+        <p><strong>Is Confidential:</strong> @(Model.IsConfidential ? "Yes" : "No")</p>
+        <p><strong>Record Date:</strong> @Model.RecordDate.ToString("yyyy-MM-dd")</p>
+        <p><strong>Doctor:</strong> @Model.DoctorName</p>
+
+        <div class="mt-4">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Edit</a>
+            <a asp-action="MyPatientsRecords" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+</div>
