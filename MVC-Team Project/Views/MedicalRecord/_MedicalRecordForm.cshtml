@@ -1,6 +1,6 @@
 ﻿@model MVC_Team_Project.View_Models.MedicalRecordViewModel
 
-<form asp-action="@(ViewData["Action"])" method="post" class="container mt-5">
+<form asp-controller="MedicalRecord" asp-action="@(ViewData["Action"])" method="post" class="container mt-5">
     <input type="hidden" asp-for="Id" />
     <input type="hidden" asp-for="DoctorId" />
 
@@ -15,10 +15,29 @@
         <span asp-validation-for="RecordType" class="text-danger"></span>
     </div>
 
-    @* <div class="form-group">
-        <label>Doctor</label>
-        <input type="text" class="form-control" value="@ViewBag.DoctorName" disabled />
-    </div> *@
+    <div class="form-group">
+    <label asp-for="Prescription"></label>
+    <textarea asp-for="Prescription" class="form-control"></textarea>
+    <span asp-validation-for="Prescription" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="TestResults"></label>
+    <textarea asp-for="TestResults" class="form-control"></textarea>
+    <span asp-validation-for="TestResults" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Notes"></label>
+    <textarea asp-for="Notes" class="form-control"></textarea>
+    <span asp-validation-for="Notes" class="text-danger"></span>
+</div>
+
+<div class="form-group form-check">
+    <input asp-for="IsConfidential" class="form-check-input" />
+    <label asp-for="IsConfidential" class="form-check-label"></label>
+</div>
+
 
     <div class="form-group">
         <label asp-for="Diagnosis"></label>

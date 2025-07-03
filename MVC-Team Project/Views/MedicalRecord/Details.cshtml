@@ -10,6 +10,7 @@
             Medical Record for <strong>@Model.PatientName</strong>
         </h4>
 
+        <p><strong>Record Type:</strong> @Model.RecordType</p>
         <p><strong>Diagnosis:</strong> @Model.Diagnosis</p>
         <p><strong>Treatment:</strong> @Model.Treatment</p>
         <p><strong>Prescription:</strong> @Model.Prescription</p>
@@ -18,6 +19,14 @@
         <p><strong>Is Confidential:</strong> @(Model.IsConfidential ? "Yes" : "No")</p>
         <p><strong>Record Date:</strong> @Model.RecordDate.ToString("yyyy-MM-dd")</p>
         <p><strong>Doctor:</strong> @Model.DoctorName</p>
+
+        @if (!string.IsNullOrEmpty(Model.AttachmentPath))
+        {
+            <p>
+                <strong>Attachment:</strong>
+                <a href="@Url.Content(Model.AttachmentPath)" target="_blank">View Attachment</a>
+            </p>
+        }
 
         <div class="mt-4">
             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Edit</a>
