@@ -12,74 +12,149 @@
 
 
 
+
+
+
+
 <style>
-
-
-    .card {
-        width: 30%;
+    .section-header {
+        background: linear-gradient(to right, #538493, #538493);
+        color: white;
+        border-radius: 1rem 1rem 0 0;
+        padding: 1.2rem 2rem;
+        font-size: 1.8rem;
+        font-weight: bold;
+        letter-spacing: 0.5px;
     }
 
+    .info-box {
+        background-color: #f9fafb;
+        padding: 1.25rem 1.5rem;
+        border-radius: 1rem;
+        margin-bottom: 1.2rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        transition: all 0.3s ease;
+    }
 
-    .card-text {
-        color: darkgray;
+        .info-box:hover {
+            transform: scale(1.01);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+    .info-label {
+        font-weight: 700;
+        color: #333;
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .info-value {
+        color: #444;
+        font-size: 1.05rem;
+        word-break: break-word;
+    }
+
+    .btn-back {
+        border-radius: 2rem;
+        padding: 0.5rem 1.5rem;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .card-container {
+        border: none;
+        border-radius: 1.2rem;
+        overflow: hidden;
     }
 </style>
 
+<div class="container my-5 w-50">
+    <div class="card card-container shadow-lg">
+        <div class="section-header">Payment Details</div>
 
+        <div class="card-body p-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="info-box">
+                        <div class="info-label">Doctor ID</div>
+                        <div class="info-value">@Model.DoctorId</div>
+                    </div>
 
+                    <div class="info-box">
+                        <div class="info-label">Patient ID</div>
+                        <div class="info-value">@Model.PatientId</div>
+                    </div>
 
+                    <div class="info-box">
+                        <div class="info-label">Appointment</div>
+                        <div class="info-value">@Model.Appointment</div>
+                    </div>
 
-<div class="card  m-auto w-75   mt-5  ">
-    <div class="card-body d-flex justify-content-center  row ">
-        @* <h5 class="card-title text-secondary  text-center  fs-3">Details of Course Number <span> @Model.Id</span></h5> <br /> *@
-        <div class="card-text col-6 mt-4">ID   <input class="form-check fs-3 form-control" readonly value="  @Model.DoctorId" /></div> <br />
-        <div class="card-text col-6 mt-4">Degree  <input class="form-check fs-3 form-control" readonly value="  @Model.PatientId" />  </div>  <br />
-        <div class="card-text col-6 mt-4">MinDegree  <input class="form-check fs-3 form-control" readonly value="  @Model.Appointment" /></div>  <br />
-        <div class="card-text col-6 mt-4">Hours   <input class="form-check fs-3 form-control" readonly value="  @Model.AppointmentId" />  </div>  <br />
-        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.Amount" />    </div>  <br />
-        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.PaymentMethod" />    </div>  <br />
-        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.PaymentStatus" />    </div>  <br />
-        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.TransactionId" />    </div>  <br />
-        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.PaymentDate" />    </div>  <br />
-        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.DueDate" />    </div>  <br />
-        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.PaidDate'" />    </div>  <br />
-        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.RefundAmount" />    </div>  <br />
-        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.RefundDate" />    </div>  <br />
-        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.Notes" />    </div>  <br />
-        <div class="card-text col-6 mt-4 "> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.CreatedAt'" />    </div>  <br />
-        <div class="d-flex justify-content-center mt-4 col-12">
-            <a asp-action="index" class="btn btn-outline-secondary p-2 fs-3   text-center">Back To All Courses</a>
+                    <div class="info-box">
+                        <div class="info-label">Amount</div>
+                        <div class="info-value">@Model.Amount</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Payment Method</div>
+                        <div class="info-value">@Model.PaymentMethod</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Payment Status</div>
+                        <div class="info-value">@Model.PaymentStatus</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="info-box">
+                        <div class="info-label">Transaction ID</div>
+                        <div class="info-value">@Model.TransactionId</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Payment Date</div>
+                        <div class="info-value">@Model.PaymentDate</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Due Date</div>
+                        <div class="info-value">@Model.DueDate</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Paid Date</div>
+                        <div class="info-value">@Model.PaidDate</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Refund Amount</div>
+                        <div class="info-value">@Model.RefundAmount</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Refund Date</div>
+                        <div class="info-value">@Model.RefundDate</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Notes</div>
+                        <div class="info-value">@Model.Notes</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Created At</div>
+                        <div class="info-value">@Model.CreatedAt</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-end">
+                <a asp-action="Index" class="btn btn-outline-primary btn-back">
+                    Back
+                </a>
+            </div>
         </div>
     </div>
 </div>
 
-
-
-
-
-
-<div class="card container mt-5">
-    <div class="card-body">
-        <p><strong>DoctorId:</strong>  @Model.DoctorId" </p>
-        <p>
-            <strong>PatientId :</strong>@Model.PatientId"
-        </p>
-
-        <p><strong>Appointment:</strong>  @Model.Appointment"</p>
-        <p><strong>Amount:</strong> @Model.Amount"</p>
-        <p><strong>PaymentMethod:</strong> @Model.PaymentMethod"</p>
-        <p><strong>PaymentStatus:</strong>  @Model.PaymentStatus"</p>
-        <p><strong>TransactionId:</strong> @Model.TransactionId"</p>
-        <p><strong>PaymentDate:</strong>@Model.PaymentDate"</p>
-        <p><strong>DueDate:</strong>@Model.DueDate"</p>
-        <p><strong>PaidDate:</strong> @Model.PaidDate"</p>
-        <p><strong>RefundAmount:</strong> @Model.RefundAmount"</p>
-        <p><strong>RefundDate:</strong> @Model.RefundDate"</p>
-        <p><strong>Notes:</strong> @Model.Notes"</p>
-        <p><strong>Created At:</strong>@Model.CreatedAt"</p>
-
-
-        @* <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Edit</a> *@
-        <a asp-action="Index" class="btn btn-secondary">Back</a>
-    </div>
-</div>
