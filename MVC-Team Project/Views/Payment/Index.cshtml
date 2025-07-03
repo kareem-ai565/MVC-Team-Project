@@ -1,0 +1,78 @@
+﻿@model List<Payment>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+@* <div class="  m-auto   w-85   mt-5">
+    <input id="SearchInput" type="search" name="name" value="" class="form-control  w-100  " placeholder="Seach about department through its Name" />
+</div> *@
+
+<h1 class="text-center text-secondary">All Payments</h1>
+
+
+<div class="d-flex justify-content-center  shadow-lg bg-gradient  container   m-auto   w-85   rounded-3 mt-5 ">
+
+
+
+    <table class="table table-striped  text-center   ">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">DoctorId</th>
+                <th scope="col">PatientId</th>
+                <th scope="col">Amount</th>
+                <th scope="col">PaymentMethod</th>
+                <th scope="col">PaymentStatus</th>
+                <th scope="col">PaymentDate</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            @foreach (var i in Model)
+            {
+
+                <tr>
+
+                    <td>@i?.Id</td>
+                    <td>@i?.DoctorId</td>
+                    <td> @i?.PatientId</td>
+                    <td>@i?.Amount</td>
+                    <td>@i?.PaymentMethod</td>
+                    <td>@i?.PaymentStatus</td>
+                    <td>@i?.PaymentDate</td>
+
+                    <td>
+                        <div class="d-flex justify-content-around  ">
+                            <a class="btn btn-outline-primary rounded-3" asp-action="EditCourse" asp-controller="Payment" asp-route-id=""><i class="fa-solid fa-pen"></i></a>
+                            <a class="btn btn-outline-danger  rounded-3" asp-action="DeleteCourse" asp-controller="Payment" asp-route-id="" onclick=""><i class="fa-solid fa-trash"></i></a>
+                            <a class="btn btn-outline-success rounded-3 " asp-action="PaymentDetails" asp-controller="Payment" asp-route-id="@i?.Id"><i class="fa-solid fa-info p-1"></i></a>
+                        </div>
+                    </td>
+
+                </tr>
+
+            }
+
+
+
+
+        </tbody>
+    </table>
+</div>
+
+
+
+<br />
+<div class="text-center mt-5">
+    <a class="btn btn-outline-dark btn-lg px-5 py-3 rounded-pill shadow-sm" asp-action="AddPayment" asp-controller="Payment">
+        <i class="fa-solid fa-plus me-2"></i> Add New Payment
+    </a>
+</div>
+
+
+
+

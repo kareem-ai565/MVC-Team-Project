@@ -1,0 +1,54 @@
+﻿
+@model Payment
+
+
+@{
+    ViewData["Title"] = "PaymentDetails";
+}
+
+
+
+
+
+<style>
+
+
+    .card {
+        width: 30%;
+    }
+
+
+    .card-text {
+        color: darkgray;
+    }
+</style>
+
+
+
+
+
+<div class="card  m-auto w-75   mt-5  ">
+    <div class="card-body d-flex justify-content-center  row ">
+        <h5 class="card-title text-secondary  text-center  fs-3">Details of Course Number <span> @Model.Id</span></h5> <br />
+        <div class="card-text col-6 mt-4">ID   <input class="form-check fs-3 form-control" readonly value="  @Model.DoctorId" /></div> <br />
+        <div class="card-text col-6 mt-4">Degree  <input class="form-check fs-3 form-control" readonly value="  @Model.PatientId" />  </div>  <br />
+        <div class="card-text col-6 mt-4">MinDegree  <input class="form-check fs-3 form-control" readonly value="  @Model.Appointment" /></div>  <br />
+        <div class="card-text col-6 mt-4">Hours   <input class="form-check fs-3 form-control" readonly value="  @Model.AppointmentId" />  </div>  <br />
+        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.Amount" />    </div>  <br />
+        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.PaymentMethod" />    </div>  <br />
+        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.PaymentStatus" />    </div>  <br />
+        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.TransactionId" />    </div>  <br />
+        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.PaymentDate" />    </div>  <br />
+        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.DueDate" />    </div>  <br />
+        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.PaidDate'" />    </div>  <br />
+        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.RefundAmount" />    </div>  <br />
+        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.RefundDate" />    </div>  <br />
+        <div class="card-text col-6 mt-4"> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.Notes" />    </div>  <br />
+        <div class="card-text col-6 mt-4 "> DepartmentName   <input class="form-check fs-3 form-control" readonly value="  @Model.CreatedAt'" />    </div>  <br />
+        <div class="d-flex justify-content-center mt-4">
+            <a asp-action="index" class="btn btn-outline-secondary p-2 fs-3   text-center">Back To All Courses</a>
+        </div>
+    </div>
+</div>
+
+
