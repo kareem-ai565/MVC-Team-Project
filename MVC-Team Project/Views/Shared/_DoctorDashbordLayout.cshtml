@@ -302,20 +302,8 @@
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
                         <li class="menu-title">Main</li>
-                        <li class="@(currentController == "Home" ? "active" : "")">
-                            <a asp-controller="Home" asp-action="index"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
-                        </li>
-                        <li class="@(currentController == "Doctors" ? "active" : "")">
-                            <a asp-controller="Doctors" asp-action="index"><i class="fa fa-user-md"></i> <span>Doctors</span></a>
-                        </li>
-                        <li class="@(currentController == "Patients" ? "active" : "")">
-                            <a asp-controller="Patients" asp-action="index"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
-                        </li>
-                        <li class="@(currentController == "Appointments" ? "active" : "")">
-                            <a asp-controller="Appointments" asp-action="index"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
-                        </li>
-                        <li class="@(currentController == "Specialty" ? "active" : "")">
-                            <a asp-controller="Specialty" asp-action="index"><i class="fa fa-hospital-o"></i> <span>Specialties</span></a>
+                        <li class="@(currentController == "MedicalRecord" ? "active" : "")">
+                            <a asp-controller="MedicalRecord" asp-action="MyPatientsRecords"><i class="fa fa-dashboard"></i> <span>Medical Records</span></a>
                         </li>
 
 

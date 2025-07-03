@@ -94,6 +94,8 @@ namespace MVC_Team_Project.Controllers
 
                 if (roles.Contains("Admin"))
                     return RedirectToAction("Index", "specialty");
+                if(roles.Contains("Doctor"))
+                    return RedirectToAction("MyPatientsRecords", "MedicalRecord");
 
                 return RedirectToAction("Index", "Home");
             }
