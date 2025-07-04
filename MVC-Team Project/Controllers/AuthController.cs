@@ -94,6 +94,8 @@ namespace MVC_Team_Project.Controllers
 
                 if (roles.Contains("Admin"))
                     return RedirectToAction("Index", "specialty");
+                if(roles.Contains("Doctor"))
+                    return RedirectToAction("MyPatientsRecords", "MedicalRecord");
 
                 return RedirectToAction("Index", "Home");
             }
@@ -101,7 +103,7 @@ namespace MVC_Team_Project.Controllers
             ModelState.AddModelError("", "Invalid login attempt.");
             return View(model);
         }
-
+        //farahhhh new stuff
         // ======================= Logout =======================
         [HttpPost]
         [ValidateAntiForgeryToken]
