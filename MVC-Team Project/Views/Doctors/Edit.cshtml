@@ -1,0 +1,68 @@
+﻿@model MVC_Team_Project.View_Models.DoctorFormVM
+
+@{
+    ViewData["Title"] = "Edit Doctor";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-dark">
+                    <h3 class="mb-0">
+                        <i class="fas fa-edit"></i> Edit Doctor Information
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <!-- Hidden field for Doctor ID -->
+                        <input type="hidden" asp-for="Doctor.Id" />
+
+                        <!-- Doctor Information Section -->
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="text-warning border-bottom pb-2 mb-3">
+                                    <i class="fas fa-stethoscope"></i> Doctor Information
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="form-check mt-3">
+                            <input asp-for="Doctor.IsVerified" class="form-check-input" type="checkbox" />
+                            <label asp-for="Doctor.IsVerified" class="form-check-label">Verified Doctor</label>
+                        </div>
+                        <span asp-validation-for="Doctor.IsVerified" class="text-danger"></span>
+
+
+                        <!-- Include the partial view for the doctor form -->
+                        <partial name="_DoctorForm" model="Model" />
+
+                        <!-- Action Buttons -->
+                        <div class="form-group mt-4">
+                            <div class="d-flex justify-content-between">
+                                <a asp-action="Index" class="btn btn-secondary">
+                                    <i class="fas fa-arrow-left"></i> Back to List
+                                </a>
+                                <div>
+                                    <a asp-action="Details" asp-route-id="@Model.Doctor.Id" class="btn btn-info me-2">
+                                        <i class="fas fa-eye"></i> View Details
+                                    </a>
+                                    <button type="submit" class="btn btn-warning">
+                                        <i class="fas fa-save"></i> Update Doctor
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

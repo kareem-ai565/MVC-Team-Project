@@ -1,1 +1,0 @@
-// IDoctorRepository.cs placeholder
