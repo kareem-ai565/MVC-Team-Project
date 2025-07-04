@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC_Team_Project.Migrations
 {
     [DbContext(typeof(ClinicSystemContext))]
-    [Migration("20250701130121_ph")]
-    partial class ph
+    [Migration("20250703132530_clinic")]
+    partial class clinic
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

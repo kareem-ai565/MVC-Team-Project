@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MVC_Team_Project.Models;
+using MVC_Team_Project.Repositories;
 using MVC_Team_Project.Repositories.Implementations;
 using MVC_Team_Project.Repositories.Interfaces;
 using MVC_Team_Project.Seeders;
@@ -15,6 +16,8 @@ namespace MVC_Team_Project
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
+
+            builder.Services.AddScoped<IDoctorsRepository, DoctorsRepository>();
             builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
             builder.Services.AddScoped<IpaymentRepository, paymentRepository>();
             builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
