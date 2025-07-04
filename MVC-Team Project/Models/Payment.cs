@@ -15,12 +15,16 @@ namespace MVC_Team_Project.Models;
 public partial class Payment
 {
     [Key]
+    
     public int Id { get; set; }
 
+    [Required(ErrorMessage = "required enter value please")]
     public int PatientId { get; set; }
 
+    [Required(ErrorMessage = "required enter value please")]
     public int DoctorId { get; set; }
 
+    [Required]
     public int? AppointmentId { get; set; }
 
     [Column(TypeName = "decimal(10, 2)")]
