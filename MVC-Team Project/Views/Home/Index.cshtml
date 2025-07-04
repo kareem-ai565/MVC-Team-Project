@@ -1,151 +1,179 @@
 ﻿@{
     ViewData["Title"] = "Home";
+    Layout = "_Layout";
 }
 
-<!-- Banner -->
-<section id="banner">
-    <div class="content">
-        <header>
-            <h2>Your clinic&nbsp;— at your fingertips</h2>
-            <p>
-                Book appointments, track medical history, and pay securely<br />
-                in one unified Medical Appointment System.
-            </p>
-        </header>
-        <span class="image"><img src="~/images/pic01.jpg" alt="Doctor with patient" /></span>
-    </div>
-    <a href="#one" class="goto-next scrolly">Next</a>
-</section>
-
-<!-- One -->
-<section id="one" class="spotlight style1 bottom">
-    <span class="image fit main"><img src="~/images/pic02.jpg" alt="Doctors list" /></span>
-    <div class="content">
-        <div class="container">
-            <div class="row">
-                <div class="col-4 col-12-medium">
-                    <header>
-                        <h2>Find the right doctor</h2>
-                        <p>Browse verified specialists, see consultation fees, and view ratings.</p>
-                    </header>
-                </div>
-                <div class="col-4 col-12-medium">
-                    <p>
-                        Use our <strong>Doctors</strong> page to filter by specialty, experience, and availability.
-                        Each profile is synced with real‑time schedules so you can book instantly.
-                    </p>
-                </div>
-                <div class="col-4 col-12-medium">
-                    <p>
-                        Every doctor is linked to secure <strong>Medical Records</strong>, ensuring your history
-                        is always up to date for better, faster care.
-                    </p>
-                </div>
+<!-- Carousel Section -->
+<div class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/./images/slides/coronavirus-banner-01.jpg" alt="coronavirus-banner-01.jpg" class="d-block w-100" />
+            <div class="carousel-caption" style="position: absolute; right: 15%; top: 12%; left: 11% !important; padding-top: 1.25rem; padding-bottom: 1.25rem; color: #fff; text-align: center; width: 45%; height: 61%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between;">
+                <p><img src="/./images/slides/slider-icon001.png" alt="slider-icon001.png">COVID-19 CORONA-VIRUS DISEASE 2019.</p>
+                <h3 style="font-size: 6rem; font-weight: bolder; text-transform: uppercase; text-align: left;">
+                    Take The <span style="color: var(--teal);">Worlds</span> Best <span style="color: var(--teal);">Virus</span> Treatments.
+                </h3>
+                <p style="font-size: 15px; text-align: left;">Need professional help? Our support staff will answer your questions. <br> Visit us Now or Make an Appointment!</p>
+                <button type="button" style="font-size: 1.5rem; width: 20rem; height: 5rem; padding: 2%; color: var(--white); border: 1px solid var(--white); background: none;">
+                    Make AN Appointment!
+                </button>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="/./images/slides/coronavirus-banner-02.jpg" alt="coronavirus-banner-02.jpg" class="d-block w-100" />
+            <div class="carousel-caption" style="position: absolute; right: 15%; top: 12%; left: 11% !important; padding-top: 1.25rem; padding-bottom: 1.25rem; color: #fff; text-align: center; width: 45%; height: 61%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between;">
+                <p><img src="/./images/slides/slider-icon001.png" alt="slider-icon001.png">WE GIVE YOU THE BEST!</p>
+                <h3 style="font-size: 6rem; font-weight: bolder; text-transform: uppercase; text-align: left;">
+                    Take The <span style="color: var(--teal);">Worlds</span> Best <span style="color: var(--teal);">Virus</span> Treatments.
+                </h3>
+                <p style="font-size: 15px; text-align: left;">Need professional help? Our support staff will answer your questions. <br> Visit us Now or Make an Appointment!</p>
+                <button type="button" style="font-size: 1.5rem; width: 20rem; height: 5rem; padding: 2%; color: var(--white); border: 1px solid var(--white); background: none;">
+                    Make AN Appointment!
+                </button>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="/./images/slides/slider-mainbg-001.jpg" alt="slider-mainbg-001.jpg" class="d-block w-100" />
+            <div class="carousel-caption" style="position: absolute; right: 15%; top: 12%; left: 11% !important; padding-top: 1.25rem; padding-bottom: 1.25rem; color: #fff; text-align: center; width: 45%; height: 61%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between;">
+                <p><img src="/./images/slides/slider-icon001.png" alt="slider-icon001.png">WE GIVE YOU THE BEST!</p>
+                <h3 style="font-size: 6rem; font-weight: bolder; text-transform: uppercase; text-align: left;">
+                    Take The <span style="color: var(--teal);">Worlds</span> Best <span style="color: var(--teal);">Virus</span> Treatments.
+                </h3>
+                <p style="font-size: 15px; text-align: left;">Need professional help? Our support staff will answer your questions. <br> Visit us Now or Make an Appointment!</p>
+                <button type="button" style="font-size: 1.5rem; width: 20rem; height: 5rem; padding: 2%; color: var(--white); border: 1px solid var(--white); background: none;">
+                    Make AN Appointment!
+                </button>
             </div>
         </div>
     </div>
-    <a href="#two" class="goto-next scrolly">Next</a>
-</section>
-
-<!-- Two -->
-<section id="two" class="spotlight style2 right">
-    <span class="image fit main"><img src="~/images/pic03.jpg" alt="Calendar booking" /></span>
-    <div class="content">
-        <header>
-            <h2>Seamless appointments</h2>
-            <p>Confirm, reschedule, or cancel—in one click.</p>
-        </header>
-        <p>
-            The <strong>Appointments</strong> page shows real‑time status (Scheduled, Confirmed, In‑Progress, Completed).
-            Smart reminders keep both patients and doctors in sync, reducing no‑shows.
-        </p>
-        <ul class="actions">
-            <li><a href="@Url.Action("Index", "Appointments")" class="button">View Appointments</a></li>
-        </ul>
+    <button class="carousel-control-prev" type="button" data-bs-target=".carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" style="background-position: 50% !important; background-size: 35% 35% !important; background-color: rgba(0, 0, 0, 0.5) !important; width: 6rem !important; border-radius: 50px !important; height: 6rem !important;" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target=".carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" style="background-position: 50% !important; background-size: 35% 35% !important; background-color: rgba(0, 0, 0, 0.5) !important; width: 6rem !important; border-radius: 50px !important; height: 6rem !important;" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+    <div class="carousel-indicators" style="bottom: 10% !important;">
+        <button type="button" data-bs-target=".carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target=".carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target=".carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
-    <a href="#three" class="goto-next scrolly">Next</a>
-</section>
+</div>
 
-<!-- Three -->
-<section id="three" class="spotlight style3 left">
-    <span class="image fit main bottom"><img src="~/images/pic04.jpg" alt="Payment gateway" /></span>
-    <div class="content">
-        <header>
-            <h2>Secure online payments</h2>
-            <p>Pay consultation fees or track insurance claims effortlessly.</p>
-        </header>
-        <p>
-            Our PCI‑compliant <strong>Payments</strong> module supports card, cash, and insurance settlements.
-            Each transaction is logged in real time for full transparency.
-        </p>
-        <ul class="actions">
-            <li><a href="@Url.Action("Index", "Payments")" class="button">Payment History</a></li>
-        </ul>
+<!-- Icons Section -->
+<section class="icons-section" style="background-color: rgba(0, 0, 0, 0); width: 100%; height: 25rem; position: relative; margin-top: -10rem; z-index: 10; display: flex; align-items: center; justify-content: center;">
+    <div class="icons-container" style="width: 75%; margin: auto; display: flex; align-items: center; justify-content: center;">
+        <div class="icons-box" data-aos="zoom-in-up" style="display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; color: var(--white); background-color: var(--light); border: 1px solid rgba(0, 0, 0, 0.045); padding: 3% 2% 0% 2%; width: 25%; overflow-y: hidden;">
+            <div class="basic-icon"><i class="fa-solid fa-hands-holding-child" style="color: var(--teal); font-size: 3.5rem;"></i></div>
+            <div class="title"><h5 style="font-size: 2rem; color: var(--second);">Oral Care</h5><p style="font-size: 1.2rem; color: var(--gray);">The Stronger Teeth</p></div>
+            <a href="/" class="link" style="display: flex; text-decoration: none; align-items: center; justify-content: center; height: 4rem; width: 4rem; border-radius: 50px; background-color: var(--white); color: var(--teal); transition: 1s ease; position: relative; left: -800%;"><i class="fa fa-angle-right"></i></a>
+        </div>
+        <div class="icons-box" data-aos="zoom-in-up" style="display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; color: var(--white); background-color: var(--light); border: 1px solid rgba(0, 0, 0, 0.045); padding: 3% 2% 0% 2%; width: 25%; overflow-y: hidden;">
+            <div class="basic-icon"><i class="fa-solid fa-hand-holding-heart" style="color: var(--teal); font-size: 3.5rem;"></i></div>
+            <div class="title"><h5 style="font-size: 2rem; color: var(--second);">Heal Body</h5><p style="font-size: 1.2rem; color: var(--gray);">The Small carebear</p></div>
+            <a href="/" class="link" style="display: flex; text-decoration: none; align-items: center; justify-content: center; height: 4rem; width: 4rem; border-radius: 50px; background-color: var(--white); color: var(--teal); transition: 1s ease; position: relative; left: -800%;"><i class="fa fa-angle-right"></i></a>
+        </div>
+        <div class="icons-box" data-aos="zoom-in-up" style="display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; color: var(--white); background-color: var(--light); border: 1px solid rgba(0, 0, 0, 0.045); padding: 3% 2% 0% 2%; width: 25%; overflow-y: hidden;">
+            <div class="basic-icon"><i class="fa-solid fa-truck-medical" style="color: var(--teal); font-size: 3.5rem;"></i></div>
+            <div class="title"><h5 style="font-size: 2rem; color: var(--second);">Ambulance</h5><p style="font-size: 1.2rem; color: var(--gray);">Shipping Via Air</p></div>
+            <a href="/" class="link" style="display: flex; text-decoration: none; align-items: center; justify-content: center; height: 4rem; width: 4rem; border-radius: 50px; background-color: var(--white); color: var(--teal); transition: 1s ease; position: relative; left: -800%;"><i class="fa fa-angle-right"></i></a>
+        </div>
+        <div class="icons-box" data-aos="zoom-in-up" style="display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; color: var(--white); background-color: var(--light); border: 1px solid rgba(0, 0, 0, 0.045); padding: 3% 2% 0% 2%; width: 25%; overflow-y: hidden;">
+            <div class="basic-icon"><i class="fa-solid fa-prescription-bottle-medical" style="color: var(--teal); font-size: 3.5rem;"></i></div>
+            <div class="title"><h5 style="font-size: 2rem; color: var(--second);">Drug Store</h5><p style="font-size: 1.2rem; color: var(--gray);">A retailer shop</p></div>
+            <a href="/" class="link" style="display: flex; text-decoration: none; align-items: center; justify-content: center; height: 4rem; width: 4rem; border-radius: 50px; background-color: var(--white); color: var(--teal); transition: 1s ease; position: relative; left: -800%;"><i class="fa fa-angle-right"></i></a>
+        </div>
+        <div class="icons-box" data-aos="zoom-in-up" style="display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; color: var(--white); background-color: var(--light); border: 1px solid rgba(0, 0, 0, 0.045); padding: 3% 2% 0% 2%; width: 25%; overflow-y: hidden;">
+            <div class="basic-icon"><i class="fa-solid fa-eye" style="color: var(--teal); font-size: 3.5rem;"></i></div>
+            <div class="title"><h5 style="font-size: 2rem; color: var(--second);">Eye Care</h5><p style="font-size: 1.2rem; color: var(--gray);">Sharping vision</p></div>
+            <a href="/" class="link" style="display: flex; text-decoration: none; align-items: center; justify-content: center; height: 4rem; width: 4rem; border-radius: 50px; background-color: var(--white); color: var(--teal); transition: 1s ease; position: relative; left: -800%;"><i class="fa fa-angle-right"></i></a>
+        </div>
     </div>
-    <a href="#four" class="goto-next scrolly">Next</a>
 </section>
 
-<!-- Four -->
-<section id="four" class="wrapper style1 special fade-up">
-    <div class="container">
-        <header class="major">
-            <h2>Why choose our system?</h2>
-            <p>All‑in‑one healthcare management, built for patients, doctors, and admins.</p>
-        </header>
-        <div class="box alt">
-            <div class="row gtr-uniform">
-                <section class="col-4 col-6-medium col-12-xsmall">
-                    <span class="icon solid alt major fa-calendar"></span>
-                    <h3>Real‑time scheduling</h3>
-                    <p>Instant availability updates reduce double‑booking.</p>
-                </section>
-                <section class="col-4 col-6-medium col-12-xsmall">
-                    <span class="icon solid alt major fa-user-md"></span>
-                    <h3>Verified doctors</h3>
-                    <p>Licensing and credentials checked and displayed.</p>
-                </section>
-                <section class="col-4 col-6-medium col-12-xsmall">
-                    <span class="icon solid alt major fa-file-medical"></span>
-                    <h3>Secure records</h3>
-                    <p>HIPAA‑ready storage with granular confidentiality flags.</p>
-                </section>
-                <section class="col-4 col-6-medium col-12-xsmall">
-                    <span class="icon solid alt major fa-credit-card"></span>
-                    <h3>Flexible payments</h3>
-                    <p>Card, cash, insurance, or online wallets—your choice.</p>
-                </section>
-                <section class="col-4 col-6-medium col-12-xsmall">
-                    <span class="icon solid alt major fa-bell"></span>
-                    <h3>Instant notifications</h3>
-                    <p>Email &amp; SMS alerts keep everyone informed.</p>
-                </section>
-                <section class="col-4 col-6-medium col-12-xsmall">
-                    <span class="icon solid alt major fa-shield-alt"></span>
-                    <h3>Audit &amp; compliance</h3>
-                    <p>Every action logged for full accountability.</p>
-                </section>
+<!-- Counter Section -->
+<div class="img-count" style="position: relative; background-color: var(--light);">
+    <img src="/./images/row-bgimage-6.jpg" alt="row-bgimage-6.jpg" class="img-fluid" data-aos="fade-right" />
+    <div class="countup" data-aos="fade-left" style="background-color: var(--count); display: flex; flex-direction: column; align-items: flex-start; color: var(--white); margin: auto; width: 45%; padding: 1%; position: absolute; right: 0; top: 6%;">
+        <p style="font-size: 13px; color: var(--light); text-transform: uppercase;">about medical</p>
+        <h3 style="font-size: 2.5rem; font-weight: bold; margin-top: 2%;">Powered By Over 1,503 Patients Trust Us With Their Sweet Love.</h3>
+        <div class="count-container" style="display: flex; flex-wrap: wrap; margin-top: 4%;">
+            <div class="count-box" style="display: flex; align-items: center; gap: 1rem; justify-content: left; flex: 1 1 20rem; border-bottom: 2px solid rgba(0, 0, 0, 0.1); border-right: 2px solid rgba(0, 0, 0, 0.1); padding: 2%;">
+                <div class="count-icon"><i class="fa-solid fa-trophy" style="font-size: 3rem; height: 5rem;"></i></div>
+                <div class="count-title"><h3>201</h3><p>Award Win</p></div>
+            </div>
+            <div class="count-box" style="display: flex; align-items: center; gap: 1rem; justify-content: left; flex: 1 1 20rem; border-bottom: 2px solid rgba(0, 0, 0, 0.1); border-right: 2px solid rgba(0, 0, 0, 0.1); padding: 2%;">
+                <div class="count-icon"><i class="fa-solid fa-user" style="font-size: 3rem; height: 5rem;"></i></div>
+                <div class="count-title"><h3>354</h3><p>Qualified Staff</p></div>
+            </div>
+            <div class="count-box" style="display: flex; align-items: center; gap: 1rem; justify-content: left; flex: 1 1 20rem; border-bottom: 2px solid rgba(0, 0, 0, 0.1); padding: 2%;">
+                <div class="count-icon"><i class="fa-solid fa-heart-pulse" style="font-size: 3rem; height: 5rem;"></i></div>
+                <div class="count-title"><h3>124</h3><p>Machines</p></div>
+            </div>
+            <div class="count-box" style="display: flex; align-items: center; gap: 1rem; justify-content: left; flex: 1 1 20rem; border-bottom: 0px; padding: 2%;">
+                <div class="count-icon"><i class="fa-solid fa-tv" style="font-size: 3rem; height: 5rem;"></i></div>
+                <div class="count-title"><h3>4012</h3><p>Hospital Rooms</p></div>
+            </div>
+            <div class="count-box" style="display: flex; align-items: center; gap: 1rem; justify-content: left; flex: 1 1 20rem; border-bottom: 0px; border-right: 2px solid rgba(0, 0, 0, 0.1); padding: 2%;">
+                <div class="count-icon"><i class="fa-solid fa-thumbs-up" style="font-size: 3rem; height: 5rem;"></i></div>
+                <div class="count-title"><h3>7015</h3><p>Happy Patients</p></div>
+            </div>
+            <div class="count-box" style="display: flex; align-items: center; gap: 1rem; justify-content: left; flex: 1 1 20rem; border-bottom: 0px; padding: 2%;">
+                <div class="count-icon"><i class="fa-solid fa-eraser" style="font-size: 3rem; height: 5rem;"></i></div>
+                <div class="count-title"><h3>254</h3><p>Suppliers</p></div>
             </div>
         </div>
-        <footer class="major">
-            <ul class="actions special">
-                <li><a href="@Url.Action("Register", "Auth")" class="button">Get Started</a></li>
-            </ul>
-        </footer>
     </div>
-</section>
+</div>
 
-<!-- Five -->
-<section id="five" class="wrapper style2 special fade">
-    <div class="container">
-        <header>
-            <h2>Stay in the loop</h2>
-            <p>Join our mailing list for product updates and health tips.</p>
-        </header>
-        <form method="post" action="#" class="cta">
-            <div class="row gtr-uniform gtr-50">
-                <div class="col-8 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Your Email Address" /></div>
-                <div class="col-4 col-12-xsmall"><input type="submit" value="Subscribe" class="fit primary" /></div>
+<!-- Slides Section -->
+ <section class="slider-section" data-aos="zoom-in">
+    <div class="slider-container">
+        <div class="slider-head">
+            <p>MEET OUR EXPERIENCED TEAM</p>
+            <h3>Our Dedicated Doctors Team</h3>
+            <p>We offer extensive medical procedures to outbound and inbound patients what it is and we are very proud of achievement of our staff, We are all work together to help our all patients for recovery</p>
+        </div>
+        @* <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="card" data-aos="zoom-in-up">
+                        <div><img src="/user1.jpg" alt="img card" /><div class="content"><a href="/user/1">+</a></div></div>
+                        <p>Cardiology</p>
+                        <h2>Dr. John Doe</h2>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" data-aos="zoom-in-up">
+                        <div><img src="/user2.jpg" alt="img card" /><div class="content"><a href="/user/2">+</a></div></div>
+                        <p>Orthopedics</p>
+                        <h2>Dr. Jane Smith</h2>
+                    </div>
+                </div>
             </div>
-        </form>
+            <div class="buttons">
+                <button class="fa-solid fa-chevron-left"></button>
+                <button class="fa-solid fa-chevron-right"></button>
+            </div>
+        </div>
+    *@
+    
     </div>
-</section>
+</section> 
+
+
+@* 
+@section Styles {
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/home.css" />
+} *@
+
+@* @section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+} *@

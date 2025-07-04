@@ -22,7 +22,7 @@ public partial class Patient
     public string Gender { get; set; }
 
     [Column(TypeName = "date")]
-    public DateTime DOB { get; set; }
+    public DateTime? DOB { get; set; }
 
     [StringLength(500)]
     public string Address { get; set; }
@@ -66,5 +66,5 @@ public partial class Patient
 
     [ForeignKey("UserId")]
     [InverseProperty("Patient")]
-    public virtual User User { get; set; }
+    public virtual ApplicationUser User { get; set; }
 }
