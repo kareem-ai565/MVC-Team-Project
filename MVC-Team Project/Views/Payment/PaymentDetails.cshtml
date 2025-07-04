@@ -1,0 +1,159 @@
+﻿@model Payment
+
+@{
+    ViewData["Title"] = "Payment Details";
+    Layout = "_DashbordLayout";
+}
+
+<style>
+    .section-header {
+        background: linear-gradient(to right, #538493, #538493);
+        color: white;
+        border-radius: 1rem 1rem 0 0;
+        padding: 1.2rem 2rem;
+        font-size: 1.8rem;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+    }
+
+    .info-box {
+        background-color: #f9fafb;
+        padding: 1.25rem 1.5rem;
+        border-radius: 1rem;
+        margin-bottom: 1.2rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        transition: all 0.3s ease;
+    }
+
+        .info-box:hover {
+            transform: scale(1.01);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+    .info-label {
+        font-weight: 700;
+        color: #333;
+        font-size: 0.95rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .info-value {
+        color: #444;
+        font-size: 1.05rem;
+        word-break: break-word;
+    }
+
+    .highlight {
+        color: #155724;
+        font-weight: 600;
+    }
+
+    .text-danger {
+        color: #c82333 !important;
+    }
+
+    .btn-back {
+        border-radius: 2rem;
+        padding: 0.5rem 1.5rem;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .card-container {
+        border: none;
+        border-radius: 1.2rem;
+        overflow: hidden;
+    }
+</style>
+
+<div class="container my-5 w-75">
+    <div class="card card-container shadow-lg">
+        <div class="section-header">Payment Details</div>
+
+        <div class="card-body p-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="info-box">
+                        <div class="info-label">Doctor ID</div>
+                        <div class="info-value">@Model.DoctorId</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Patient ID</div>
+                        <div class="info-value">@Model.PatientId</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Appointment</div>
+                        <div class="info-value">@Model.Appointment</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Amount</div>
+                        <div class="info-value highlight">$@Model.Amount</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Payment Method</div>
+                        <div class="info-value">@Model.PaymentMethod</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Payment Status</div>
+                        <div class="info-value @(Model.PaymentStatus == "Failed" ? "text-danger" : "highlight")">
+                            @Model.PaymentStatus
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="info-box">
+                        <div class="info-label">Transaction ID</div>
+                        <div class="info-value">@Model.TransactionId</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Payment Date</div>
+                        <div class="info-value">@Model.PaymentDate.ToString("yyyy-MM-dd")</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Due Date</div>
+                        <div class="info-value">@Model.DueDate?.ToString("yyyy-MM-dd")</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Paid Date</div>
+                        <div class="info-value">@Model.PaidDate?.ToString("yyyy-MM-dd")</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Refund Amount</div>
+                        <div class="info-value text-danger">$@Model.RefundAmount</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Refund Date</div>
+                        <div class="info-value">@Model.RefundDate?.ToString("yyyy-MM-dd")</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Notes</div>
+                        <div class="info-value">@Model.Notes</div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Created At</div>
+                        <div class="info-value">@Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-end mt-4">
+                <a asp-action="Index" class="btn btn-outline-primary btn-back">
+                    Back
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

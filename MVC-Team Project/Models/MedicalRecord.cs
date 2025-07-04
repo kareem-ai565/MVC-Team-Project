@@ -66,7 +66,7 @@ public partial class MedicalRecord
 
     [ForeignKey("DeletedBy")]
     [InverseProperty("MedicalRecords")]
-    public virtual User DeletedByNavigation { get; set; }
+    public virtual ApplicationUser DeletedByNavigation { get; set; }
 
     [ForeignKey("DoctorId")]
     [InverseProperty("MedicalRecords")]

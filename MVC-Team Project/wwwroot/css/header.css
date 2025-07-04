@@ -1,0 +1,454 @@
+﻿
+.notfound {
+    margin: auto;
+    margin-top: 5%;
+    width: 70%;
+    color: var(--teal);
+    text-align: center;
+}
+
+.header {
+    width: 100%;
+    background-color: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    height: 80px;
+    padding: 20px 0px 10px 0px;
+    align-items: center;
+    z-index: 1000;
+    margin: auto;
+    width: 75%;
+}
+
+    header .logo {
+        width: 15rem;
+    }
+
+        header .logo img {
+            width: 100%;
+            height: 100%;
+        }
+
+    header .navbar {
+        display: flex;
+        justify-content: right;
+        flex-wrap: nowrap;
+        width: 60rem;
+    }
+
+        header .navbar .pages .pages-container {
+            display: none;
+            width: 20rem;
+            /* height:12rem; */
+            background-color: var(--light);
+            height: max-content;
+            /* padding: 52% 0% 0% 0%; */
+            position: absolute;
+            top: 100%;
+            left: 0;
+            display: none;
+            flex-direction: column;
+            justify-content: left !important;
+            align-items: center;
+            box-shadow: inset 0px 0rem 5px rgba(0, 0, 0, 0.073);
+            /* gap: 1rem; */
+            /* border: 1px solid darkblue; */
+        }
+
+            header .navbar .pages .pages-container a {
+                border-bottom: 0.2px solid var(--gray);
+                color: var(--gray);
+                margin: 0;
+                padding: 6% 8%;
+                width: 20rem;
+                border-radius: 0;
+                text-align: left;
+                font-weight: normal;
+            }
+
+        header .navbar .pages i {
+            margin-left: 20%;
+            width: 1rem;
+        }
+
+        header .navbar .pages .pages-container a:hover {
+            color: var(--white);
+            background-color: var(--count);
+        }
+
+        header .navbar .pages .pages-container a.active {
+            color: var(--white);
+            background-color: var(--count);
+        }
+
+            header .navbar .pages .pages-container a.active:before {
+                width: 0%;
+            }
+
+        header .navbar .pages .pages-container a:before {
+            width: 0%;
+        }
+
+        header .navbar .pages:hover .pages-container {
+            display: flex;
+        }
+
+        header .navbar .pages:hover #pages-icon {
+            rotate: -90deg;
+        }
+
+        header .navbar a {
+            color: var(--second);
+            font-size: 1.8rem;
+            font-weight: bolder;
+            text-decoration: none;
+            position: relative;
+            margin: 0.5% 2% 0.5% 5%;
+            display: flex;
+            text-align: center;
+            /* justify-content: center; */
+            align-items: center;
+            border-radius: 5px;
+            /* width: max-content; */
+        }
+
+    header .icon {
+        color: var(--second);
+        font-size: 1.8rem;
+        font-weight: bolder;
+        text-decoration: none;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+        header .icon a {
+            margin: 1rem;
+            color: var(--second);
+            font-size: 1.8rem;
+            font-weight: bolder;
+            text-decoration: none;
+        }
+
+            header .icon a:hover {
+                color: var(--teal);
+            }
+
+    header .navbar a:hover {
+        color: var(--teal);
+    }
+
+    header .navbar a.active {
+        color: var(--teal);
+    }
+
+        header .navbar a.active:before {
+            width: 100%;
+        }
+
+    header .icon #search {
+        padding-right: 2rem;
+        border-right: 1px solid rgba(0, 0, 0, 0.179);
+    }
+
+    header .navbar a:before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background: var(--teal);
+        bottom: -2%;
+        transition: 0.8s ease;
+        border-radius: 50rem;
+    }
+
+    header .navbar a:hover:before {
+        width: 100%;
+    }
+
+#menu-bar {
+    color: var(--second);
+    border: 0.1rem solid var(--second);
+    border-radius: .5rem;
+    font-size: 3rem;
+    padding: .5rem 1.2rem;
+    cursor: pointer;
+    display: none;
+}
+
+    #menu-bar:hover {
+        color: var(--count);
+        border: .1rem solid var(--count);
+    }
+
+.topbar {
+    background-color: var(--second);
+    width: 100%;
+}
+
+.topbar-container {
+    width: 75%;
+    margin: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 15px;
+}
+
+    .topbar-container .left {
+        display: flex;
+        gap: 1rem;
+        color: #fff;
+    }
+
+        .topbar-container .left div > * {
+            margin: 1rem;
+        }
+
+        .topbar-container .left i {
+            color: var(--teal)
+        }
+
+    .topbar-container .right {
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .topbar-container .right a > * {
+            color: #fff;
+            text-decoration: none;
+            margin: 1rem;
+        }
+
+            .topbar-container .right a > *:hover {
+                color: var(--teal);
+            }
+
+        .topbar-container .right .appointment {
+            color: #fff;
+            text-decoration: none;
+            margin: 0rem;
+            background-color: var(--teal);
+            padding: 4%;
+            width: 19rem;
+        }
+
+            .topbar-container .right .appointment:hover {
+                color: var(--second);
+                background-color: var(--white);
+            }
+/* end topbar */
+/* start bottombar */
+.bottombar {
+    background-color: var(--light);
+    width: 100%;
+    height: 9rem;
+    position: relative;
+}
+
+    .bottombar .bottombar-container {
+        width: 75%;
+        margin: auto;
+        display: flex;
+        gap: 2rem;
+        justify-content: left;
+        align-items: center;
+        height: 9rem;
+    }
+
+        .bottombar .bottombar-container .header-box {
+            display: flex;
+            align-items: center;
+        }
+
+        .bottombar .bottombar-container .box-icon {
+            background-color: var(--white);
+            color: var(--teal);
+            box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.045);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 5rem;
+            width: 6.5rem;
+            margin: 2% 6% 2% 0%;
+            font-size: 18px;
+        }
+
+        .bottombar .bottombar-container .box-content p {
+            color: var(--gray);
+            font-size: 12px;
+        }
+
+        .bottombar .bottombar-container .box-content h3 {
+            width: 18rem;
+        }
+
+    .bottombar .box-contact {
+        background-color: var(--teal);
+        font-size: 15px;
+        color: var(--white);
+        width: 30rem;
+        padding: 1%;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+
+        .bottombar .box-contact > * {
+            margin: 1rem;
+        }
+/* end bottombar */
+/* media query */
+@media (max-width: 1200px) {
+    html {
+        font-size: 55%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .topbar-container {
+        width: 95%;
+        font-size: 12px;
+    }
+
+        .topbar-container .left {
+            gap: 0.4rem;
+        }
+
+            .topbar-container .left div > * {
+                margin: 0.5rem;
+            }
+
+        .topbar-container .right a > * {
+            margin: 0.5rem;
+        }
+
+        .topbar-container .right .appointment {
+            width: 18rem;
+        }
+}
+
+@media (max-width: 768px) {
+    header .navbar .pages .pages-container {
+        top: 50%;
+        left: 110%;
+    }
+
+    #menu-bar {
+        position: absolute;
+        right: 2rem;
+        display: initial;
+    }
+
+    header {
+        width: 80%;
+        padding: 15px 5px 10px 5px;
+        justify-content: left;
+    }
+
+        header #icon {
+            margin-left: 1rem;
+            padding-top: 1%;
+        }
+
+        header .navbar {
+            position: absolute;
+            flex-direction: column;
+            justify-content: left;
+            align-items: center;
+            text-align: left;
+            top: 100%;
+            left: 0;
+            right: 0;
+            backdrop-filter: blur(5px);
+            background-color: #fff;
+            border-top: 1px solid var(--count);
+            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            width: 80%;
+            margin: auto;
+            height: max-content;
+        }
+
+            header .navbar.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+
+            header .navbar a.active:before {
+                width: 0px;
+                color: #fff;
+            }
+
+            header .navbar a {
+                width: 10rem;
+                margin-left: 0px;
+                justify-content: left;
+                padding: 3%;
+            }
+
+    /* start bottombar */
+    .bottombar {
+        height: 10rem;
+    }
+
+        .bottombar .bottombar-container {
+            width: 80%;
+        }
+
+            .bottombar .bottombar-container .box-content h3 {
+                width: 15rem;
+                font-size: 15px;
+            }
+
+        .bottombar .box-contact {
+            font-size: 12px;
+            width: 22rem;
+            padding: 0.5%;
+        }
+}
+
+@media (max-width: 450px) {
+    .topbar-container {
+        display: none;
+    }
+    /* start bottombar */
+    .bottombar {
+        display: none
+    }
+
+    header .navbar .pages .pages-container {
+        top: 50%;
+        left: 100%;
+        width: min-content;
+    }
+
+        header .navbar .pages .pages-container a {
+            width: 12rem;
+            font-size: 1.5rem;
+        }
+}
+
+@media (max-width: 375px) {
+    header .navbar .pages .pages-container {
+        left: 88%;
+    }
+
+        header .navbar .pages .pages-container a {
+            width: 10rem;
+        }
+}
+
+@media (max-width: 320px) {
+}
