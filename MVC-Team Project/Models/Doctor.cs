@@ -68,5 +68,10 @@ public partial class Doctor
 
     [ForeignKey("UserId")]
     [InverseProperty("Doctor")]
+
+
+  
+
     public virtual ApplicationUser User { get; set; }
+
 }
