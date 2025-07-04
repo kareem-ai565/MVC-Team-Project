@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MVC_Team_Project.Models.Availability>
+@{
+    ViewData["Title"] = "Availability Slots";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Availability Slots</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped" id="availabilityTable">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Doctor</th>
+                        <th>Booked</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var slot in Model)
+                    {
+                        <tr>
+                            <td>@slot.AvailableDate.ToShortDateString()</td>
+                            <td>@slot.StartTime</td>
+                            <td>@slot.EndTime</td>
+                            <td>@slot.Doctor?.Id</td>
+                            <td>
+                                <span class="badge @(slot.IsBooked ? "bg-danger" : "bg-success")">
+                                    @(slot.IsBooked ? "Yes" : "No")
+                                </span>
+                            </td>
+                            <td>
+                                <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@slot.Id">View</a>
+                                <a class="btn btn-secondary btn-sm" asp-action="Edit" asp-route-id="@slot.Id">Edit</a>
+                                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@slot.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a class="btn btn-success mt-3 fw-bold" asp-action="Create">Add New Slot</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#availabilityTable').DataTable();
+        });
+    </script>
+}

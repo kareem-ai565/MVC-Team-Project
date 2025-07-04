@@ -1,0 +1,48 @@
+﻿@model MVC_Team_Project.Models.Availability
+
+@{
+    ViewData["Title"] = "Create Availability";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" method="post" class="mt-3">
+    <div class="mb-3">
+        <label asp-for="DoctorId" class="form-label"></label>
+        <input asp-for="DoctorId" class="form-control" />
+        <span asp-validation-for="DoctorId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AvailableDate" class="form-label"></label>
+        <input asp-for="AvailableDate" class="form-control" type="date" />
+        <span asp-validation-for="AvailableDate" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="StartTime" class="form-label"></label>
+        <input asp-for="StartTime" class="form-control" type="time" />
+        <span asp-validation-for="StartTime" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="EndTime" class="form-label"></label>
+        <input asp-for="EndTime" class="form-control" type="time" />
+        <span asp-validation-for="EndTime" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="SlotDuration" class="form-label"></label>
+        <input asp-for="SlotDuration" class="form-control" />
+        <span asp-validation-for="SlotDuration" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="MaxPatients" class="form-label"></label>
+        <input asp-for="MaxPatients" class="form-control" />
+        <span asp-validation-for="MaxPatients" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

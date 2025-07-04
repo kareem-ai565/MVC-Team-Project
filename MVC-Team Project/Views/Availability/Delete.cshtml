@@ -1,0 +1,31 @@
+﻿@model MVC_Team_Project.Models.Availability
+@{
+    ViewData["Title"] = "Delete Availability";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="card shadow-sm border-danger">
+        <div class="card-header bg-danger text-white">
+            <h3 class="mb-0">Confirm Delete</h3>
+        </div>
+        <div class="card-body">
+            <p class="lead">Are you sure you want to delete this availability slot?</p>
+
+            <ul class="list-unstyled">
+                <li><strong>Doctor:</strong> @Model.Doctor?.Id</li>
+                <li><strong>Date:</strong> @Model.AvailableDate.ToShortDateString()</li>
+                <li><strong>Time:</strong> @Model.StartTime - @Model.EndTime</li>
+                <li><strong>Slot Duration:</strong> @Model.SlotDuration minutes</li>
+                <li><strong>Max Patients:</strong> @Model.MaxPatients</li>
+                <li><strong>Booked:</strong> @(Model.IsBooked ? "Yes" : "No")</li>
+            </ul>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger fw-bold">Yes, Delete Slot</button>
+                <a asp-action="Index" class="btn btn-secondary fw-bold">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
