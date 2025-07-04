@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Doctor Calendar";
+    Layout = "_DoctorDashbordLayout";
+}
+
+<div class="container">
+    <h2>@ViewBag.DoctorName's Calendar</h2>
+    <div id="calendar"></div>
+    @* <button id="addAvailabilityBtn" class="btn btn-primary mt-3">Add Availability</button> *@
+
+    <!-- Modal for Adding Availability -->
+    <div class="modal fade" id="availabilityModal" tabindex="-1" aria-labelledby="availabilityModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="availabilityModalLabel">Add Availability</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="availabilityForm" asp-action="Create" asp-controller="Availability" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Date</label>
+                            <input type="date" class="form-control" name="AvailableDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Start Time</label>
+                            <input type="time" class="form-control" name="StartTime" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">End Time</label>
+                            <input type="time" class="form-control" name="EndTime" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Slot Duration (minutes)</label>
+                            <input type="number" class="form-control" name="SlotDuration" value="30" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Max Patients</label>
+                            <input type="number" class="form-control" name="MaxPatients" value="1" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- FullCalendar CSS -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css' rel='stylesheet' />
+    <!-- FullCalendar JS -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js'></script>
+    <!-- Popper.js for Bootstrap -->
+    <script src="~/js/popper.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: '/Appointment/GetDoctorBusyDates',
+                dateClick: function(info) {
+                    $('#availabilityModal').modal('show');
+                    $('#availabilityForm').attr('action', '/Availability/Create?date=' + info.dateStr);
+                }
+            });
+            calendar.render();
+
+            $('#addAvailabilityBtn').click(function() {
+                $('#availabilityModal').modal('show');
+                $('#availabilityForm')[0].reset();
+            });
+        });
+    </script>
+}
