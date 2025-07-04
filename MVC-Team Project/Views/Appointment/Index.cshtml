@@ -1,0 +1,84 @@
+﻿@model List<Appointment>
+
+
+@* @model   MVC_Team_Project.Models.Appointment *@
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Create Appointment</h1>
+    @* <form asp-action="Create" method="post">    
+    
+
+            <div class="form-group">
+                <label>Patient</label>
+                @Html.DropDownListFor(model=>model.PatientId,ViewBag.PatientList as SelectList,"Select Patient",new{@class="form-control"})
+            </div>
+
+            <div class="form-group">
+                <label>Doctor</label>
+                @Html.DropDownListFor(model => model.DoctorId, ViewBag.DoctorList as SelectList, "Select Doctor", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label>Date</label>
+               <input asp-for="AppointmentDate" type="date" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>Start Time</label>
+                <input asp-for="StartTime" type="time" class="form-control" />
+            </div>
+
+
+            <div class="form-group">
+                <label>End Time</label>
+                <input asp-for="EndTime" type="time" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>Status</label>
+                <input asp-for="Status"  class="form-control" />
+            </div>
+            <button type="submit"class="btn btn-primary mt-2"> Save</button>
+
+
+       </form> *@
+       <table class="table table-bordered table-hover">
+           <thead>
+               <tr>
+                   <th>ID</th>
+                   <th>Doctor Name</th>
+                   <th>patient Name</th>
+                   <th>Date</th>
+                   <th>Start</th>
+                   <th>End</th>
+
+               </tr>
+           </thead>
+           <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                <td>@item.Id</td>
+
+                <td>@item.Doctor?.User?.FullName </td>
+                <td>@item.StartTime</td>
+                <td>@item.EndTime</td>
+                <td>@item.Status</td>
+              </tr>
+           }
+       
+
+
+
+
+
+
+           </tbody>
+
+
+       </table>
+
+
+
