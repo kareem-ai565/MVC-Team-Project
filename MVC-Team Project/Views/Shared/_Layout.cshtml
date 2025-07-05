@@ -44,12 +44,11 @@
                 <a href="/" class="logo" title="Delmont"><img src="/images/logo.png" alt="" /></a>
                 <nav class="navbar">
                     <a href="/">Home</a>
-                    <a href="/research/all">Research</a>
-                    <a href="/services">Services</a>
-                    <a href="/blog">Blog</a>
+                    <a href="/research/all">Doctors</a>
+                    <a asp-controller="Specialty" asp-action="ShowAll">Specialties</a>
+
                 </nav>
                 <div class="icon">
-                    <a id="search" href="/search"><i class="fas fa-search"></i></a>
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <a asp-action="Login" asp-controller="Auth"><i class="fas fa-user"></i> Login</a>
