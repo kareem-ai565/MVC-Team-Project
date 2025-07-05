@@ -37,6 +37,18 @@
                         <!-- Include the partial view for the doctor form -->
                         <partial name="_DoctorForm" model="Model" />
 
+                        <!-- Image Preview -->
+                        @if (Model.Doctor.ProfileImagePath != null)
+                        {
+                            <div class="form-group text-center mb-4">
+                                <img src="@Model.Doctor.ProfileImagePath"
+                                     alt="Current Profile Image"
+                                     class="rounded-circle shadow"
+                                     style="width: 150px; height: 150px; object-fit: cover;" />
+                                <p class="text-muted mt-2">Current profile photo</p>
+                            </div>
+                        }
+
                         <!-- Action Buttons -->
                         <div class="form-group mt-4">
                             <div class="d-flex justify-content-between">
