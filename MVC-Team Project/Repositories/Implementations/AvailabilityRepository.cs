@@ -4,7 +4,11 @@ using MVC_Team_Project.Repositories.Interfaces;
 
 namespace MVC_Team_Project.Repositories.Implementations
 {
+<<<<<<< HEAD
     public class AvailabilityRepository: IAvailabilityRepository
+=======
+    public class AvailabilityRepository : IAvailabilityRepository
+>>>>>>> 792ebac25cff0b5c4e8142fb38a771d72712746f
     {
         private readonly ClinicSystemContext _context;
 
@@ -13,6 +17,7 @@ namespace MVC_Team_Project.Repositories.Implementations
             _context = context;
         }
 
+<<<<<<< HEAD
         public async Task<IEnumerable<Availability>> GetAllAsync() =>
             await _context.Availabilities.Include(a => a.Doctor).ToListAsync();
 
@@ -49,3 +54,49 @@ namespace MVC_Team_Project.Repositories.Implementations
     }
 }
 
+=======
+        public async Task<IEnumerable<Availability>> GetAllAsync()
+        {
+            return await _context.Availabilities
+                .Include(a => a.Doctor)
+                .OrderByDescending(a => a.AvailableDate)
+                .ToListAsync();
+        }
+
+        public async Task<Availability?> GetByIdAsync(int id)
+        {
+            return await _context.Availabilities
+                .Include(a => a.Doctor)
+                .FirstOrDefaultAsync(a => a.Id == id);
+        }
+
+        public async Task<IEnumerable<Availability>> GetByDoctorIdAsync(int doctorId)
+        {
+            return await _context.Availabilities
+                .Where(a => a.DoctorId == doctorId)
+                .OrderByDescending(a => a.AvailableDate)
+                .ToListAsync();
+        }
+
+        public async Task AddAsync(Availability availability)
+        {
+            await _context.Availabilities.AddAsync(availability);
+        }
+
+        public void Update(Availability availability)
+        {
+            _context.Availabilities.Update(availability);
+        }
+
+        public void Delete(Availability availability)
+        {
+            _context.Availabilities.Remove(availability);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+    }
+}
+>>>>>>> 792ebac25cff0b5c4e8142fb38a771d72712746f

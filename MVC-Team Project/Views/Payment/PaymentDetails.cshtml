@@ -1,0 +1,69 @@
+﻿
+@model Payment
+
+
+@{
+
+    ViewData["Title"] = "PaymentDetails";
+    Layout = "_DashbordLayout";
+}
+
+
+
+
+
+
+
+
+
+<style>
+    .plain-card {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 1.5rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        color: #000;
+        max-width: 800px;
+        margin: auto;
+    }
+
+        .plain-card p {
+            margin: 0.5rem 0;
+        }
+
+        .plain-card strong {
+            display: inline-block;
+            width: 160px;
+            font-weight: bold;
+        }
+
+    .btn-back {
+        margin-top: 1.5rem;
+    }
+</style>
+
+
+<div class="container mt-5 w-50">
+    <div class="plain-card">
+        <p><strong>DoctorId:</strong> @Model.DoctorId</p>
+        <p><strong>PatientId:</strong> @Model.PatientId</p>
+        <p><strong>Appointment:</strong> @Model.Appointment</p>
+        <p><strong>Amount:</strong> @Model.Amount</p>
+        <p><strong>PaymentMethod:</strong> @Model.PaymentMethod</p>
+        <p><strong>PaymentStatus:</strong> @Model.PaymentStatus</p>
+        <p><strong>TransactionId:</strong> @Model.TransactionId</p>
+        <p><strong>PaymentDate:</strong> @Model.PaymentDate</p>
+        <p><strong>DueDate:</strong> @Model.DueDate</p>
+        <p><strong>PaidDate:</strong> @Model.PaidDate</p>
+        <p><strong>RefundAmount:</strong> @Model.RefundAmount</p>
+        <p><strong>RefundDate:</strong> @Model.RefundDate</p>
+        <p><strong>Notes:</strong> @Model.Notes</p>
+        <p><strong>Created At:</strong> @Model.CreatedAt</p>
+
+        <div class="text-end">
+            <a asp-action="Index" class="btn btn-secondary btn-back fs-4 p-2">Back To All Payments</a>
+        </div>
+    </div>
+</div>
+

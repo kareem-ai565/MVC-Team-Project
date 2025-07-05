@@ -1,105 +1,166 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MVC_Team_Project.Models;
 using MVC_Team_Project.Repositories.Interfaces;
+using MVC_Team_Project.View_Models;
 
 namespace MVC_Team_Project.Controllers
 {
+    [Authorize(Roles = "Doctor")]
     public class AvailabilityController : Controller
     {
-        private readonly IAvailabilityRepository _availabilityRepo;
+        private readonly IAvailabilityRepository _repo;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ClinicSystemContext _context;
 
-        public AvailabilityController(IAvailabilityRepository availabilityRepo)
+        public AvailabilityController(IAvailabilityRepository repo, UserManager<ApplicationUser> userManager, ClinicSystemContext context)
         {
-            _availabilityRepo = availabilityRepo;
+            _repo = repo;
+            _userManager = userManager;
+            _context = context;
         }
 
-        // List all slots
         public async Task<IActionResult> Index()
         {
-            var availabilities = await _availabilityRepo.GetAllAsync();
-            return View(availabilities);
-        }
-
-        // Slot details
-        public async Task<IActionResult> Details(int id)
-        {
-            var availability = await _availabilityRepo.GetByIdAsync(id);
-            if (availability == null) return NotFound();
-            return View(availability);
-        }
-
-        // Show create form
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        //  Submit new slot
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Availability availability)
-        {
-            if (!ModelState.IsValid) return View(availability);
-
-            var isTaken = await _availabilityRepo.IsSlotTakenAsync(
-                availability.DoctorId,
-                availability.AvailableDate,
-                availability.StartTime);
-
-            if (isTaken)
+            var user = await _userManager.GetUserAsync(User);
+            var doctor = await _context.Doctors.FirstOrDefaultAsync(d => d.UserId == user.Id);
+            if (doctor == null)
             {
-                ModelState.AddModelError("", "This time slot is already taken.");
-                return View(availability);
+                TempData["ErrorMessage"] = "Doctor not found.";
+                return RedirectToAction("Index", "Home");
             }
 
-            availability.CreatedAt = DateTime.Now;
-            await _availabilityRepo.AddAsync(availability);
-            await _availabilityRepo.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var availabilities = await _repo.GetByDoctorIdAsync(doctor.Id);
+            var viewModel = availabilities.Select(a => new AvailabilityViewModel
+            {
+                Id = a.Id,
+                DoctorId = a.DoctorId,
+                AvailableDate = a.AvailableDate,
+                StartTime = a.StartTime,
+                EndTime = a.EndTime,
+                SlotDuration = a.SlotDuration,
+                MaxPatients = a.MaxPatients,
+                IsBooked = a.IsBooked
+            });
+
+            return View(viewModel);
         }
 
-        // Show edit form
-        public async Task<IActionResult> Edit(int id)
+        [HttpGet]
+        public IActionResult Create()
         {
-            var availability = await _availabilityRepo.GetByIdAsync(id);
-            if (availability == null) return NotFound();
-            return View(availability);
+            return View(new AvailabilityViewModel());
         }
 
-        // Submit edits
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Availability availability)
+        public async Task<IActionResult> Create(AvailabilityViewModel model)
         {
-            if (!ModelState.IsValid) return View(availability);
+            if (!ModelState.IsValid)
+                return View(model);
 
-            var existing = await _availabilityRepo.GetByIdAsync(availability.Id);
-            if (existing == null) return NotFound();
+            var user = await _userManager.GetUserAsync(User);
+            var doctor = await _context.Doctors.FirstOrDefaultAsync(d => d.UserId == user.Id);
+            if (doctor == null)
+            {
+                TempData["ErrorMessage"] = "Doctor not found.";
+                return RedirectToAction(nameof(Index));
+            }
 
-            availability.UpdatedAt = DateTime.Now;
-            _availabilityRepo.Update(availability);
-            await _availabilityRepo.SaveChangesAsync();
+            var availability = new Availability
+            {
+                DoctorId = doctor.Id,
+                AvailableDate = model.AvailableDate,
+                StartTime = model.StartTime,
+                EndTime = model.EndTime,
+                SlotDuration = model.SlotDuration,
+                MaxPatients = model.MaxPatients,
+                IsBooked = false,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            await _repo.AddAsync(availability);
+            await _repo.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Availability added.";
             return RedirectToAction(nameof(Index));
         }
 
-        //  Confirm delete
+        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            var availability = await _availabilityRepo.GetByIdAsync(id);
-            if (availability == null) return NotFound();
-            return View(availability);
+            var availability = await _repo.GetByIdAsync(id);
+            if (availability == null)
+            {
+                TempData["ErrorMessage"] = "Slot not found.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            _repo.Delete(availability);
+            await _repo.SaveChangesAsync();
+            TempData["SuccessMessage"] = "Availability deleted.";
+            return RedirectToAction(nameof(Index));
         }
 
-        //  Final delete
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
-            var availability = await _availabilityRepo.GetByIdAsync(id);
-            if (availability == null) return NotFound();
+            var availability = await _repo.GetByIdAsync(id);
+            if (availability == null)
+            {
+                TempData["ErrorMessage"] = "Slot not found.";
+                return RedirectToAction(nameof(Index));
+            }
 
-            _availabilityRepo.Delete(availability);
-            await _availabilityRepo.SaveChangesAsync();
+            var viewModel = new AvailabilityViewModel
+            {
+                Id = availability.Id,
+                DoctorId = availability.DoctorId,
+                AvailableDate = availability.AvailableDate,
+                StartTime = availability.StartTime,
+                EndTime = availability.EndTime,
+                SlotDuration = availability.SlotDuration,
+                MaxPatients = availability.MaxPatients
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(AvailabilityViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var availability = await _repo.GetByIdAsync(model.Id);
+            if (availability == null)
+            {
+                TempData["ErrorMessage"] = "Slot not found.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            var doctor = await _context.Doctors.FirstOrDefaultAsync(d => d.UserId == user.Id);
+            if (doctor == null || availability.DoctorId != doctor.Id)
+            {
+                TempData["ErrorMessage"] = "Unauthorized action.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            availability.AvailableDate = model.AvailableDate;
+            availability.StartTime = model.StartTime;
+            availability.EndTime = model.EndTime;
+            availability.SlotDuration = model.SlotDuration;
+            availability.MaxPatients = model.MaxPatients;
+            availability.UpdatedAt = DateTime.UtcNow;
+
+            _repo.Update(availability);
+            await _repo.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Availability updated.";
             return RedirectToAction(nameof(Index));
         }
     }

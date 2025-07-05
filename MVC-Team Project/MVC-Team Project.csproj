@@ -12,6 +12,7 @@
     <Folder Include="Models\" />
     <Folder Include="Services\Implementations\" />
     <Folder Include="Services\Interfaces\" />
+    <Folder Include="Views\Patient\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
@@ -36,6 +37,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.SqlServer.Server" Version="1.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+    <PackageReference Include="popper.js" Version="1.16.1" />
   </ItemGroup>
 
 </Project>

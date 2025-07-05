@@ -317,6 +317,9 @@
                         <li class="@(currentController == "Specialty" ? "active" : "")">
                             <a asp-controller="Specialty" asp-action="index"><i class="fa fa-hospital-o"></i> <span>Specialties</span></a>
                         </li>
+                        <li class="@(currentController == "Payment" ? "active" : "")">
+                            <a asp-controller="Payment" asp-action="index"><i class="fa fa-credit-card"></i> <span>Payment</span></a>
+                        </li>
 
 
                     </ul>
@@ -388,6 +391,10 @@
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
 
     @RenderSection("Scripts", required: false)
 
@@ -399,6 +406,11 @@
         });
     </script>
 
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
 
 
 </body>

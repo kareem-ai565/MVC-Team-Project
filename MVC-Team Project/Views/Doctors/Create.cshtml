@@ -1,0 +1,157 @@
+﻿@model MVC_Team_Project.View_Models.RegisterDoctorViewModel
+@{
+    ViewData["Title"] = "Register New Doctor";
+    Layout = "_DashbordLayout"; // Add this line
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0">
+                        <i class="fas fa-user-md"></i>New Doctor
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <!-- User Information Section -->
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="text-primary border-bottom pb-2 mb-3">
+                                    <i class="fas fa-user"></i> User Information
+                                </h5>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="FullName" class="form-label">Full Name</label>
+                                <input asp-for="FullName" class="form-control" placeholder="Enter full name" />
+                                <span asp-validation-for="FullName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Email" class="form-label">Email</label>
+                                <input asp-for="Email" class="form-control" type="email" placeholder="Enter email address" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="Enter phone number" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Password" class="form-label">Password</label>
+                                <input asp-for="Password" class="form-control" type="password" placeholder="Enter password" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
+                                <input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="Confirm password" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Professional Information Section -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h5 class="text-primary border-bottom pb-2 mb-3">
+                                    <i class="fas fa-stethoscope"></i> Professional Information
+                                </h5>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="SpecialtyId" class="form-label">Specialty</label>
+                                <select asp-for="SpecialtyId" class="form-control">
+                                    <option value="">-- Select Specialty --</option>
+                                    @foreach (var specialty in ViewBag.Specialties as List<MVC_Team_Project.Models.Specialty>)
+                                    {
+                                        <option value="@specialty.Id">@specialty.Name</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="SpecialtyId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="LicenseNumber" class="form-label">License Number</label>
+                                <input asp-for="LicenseNumber" class="form-control" placeholder="e.g. D123456" />
+                                <span asp-validation-for="LicenseNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ClinicAddress" class="form-label">Clinic Address</label>
+                            <input asp-for="ClinicAddress" class="form-control" placeholder="Enter clinic address" />
+                            <span asp-validation-for="ClinicAddress" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Bio" class="form-label">Bio</label>
+                            <textarea asp-for="Bio" class="form-control" rows="3" placeholder="Write a short bio..."></textarea>
+                            <span asp-validation-for="Bio" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="ConsultationFee" class="form-label">Consultation Fee (USD)</label>
+                                <input asp-for="ConsultationFee" class="form-control" type="number" step="0.01" placeholder="Fee in USD" />
+                                <span asp-validation-for="ConsultationFee" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="ExperienceYears" class="form-label">Experience Years</label>
+                                <input asp-for="ExperienceYears" class="form-control" type="number" placeholder="Years of experience" />
+                                <span asp-validation-for="ExperienceYears" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Education" class="form-label">Education</label>
+                            <textarea asp-for="Education" class="form-control" rows="3" placeholder="List your degrees, institutions..."></textarea>
+                            <span asp-validation-for="Education" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Certifications" class="form-label">Certifications</label>
+                            <textarea asp-for="Certifications" class="form-control" rows="3" placeholder="Enter your certifications..."></textarea>
+                            <span asp-validation-for="Certifications" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-check mt-3">
+                            <input asp-for="IsVerified" class="form-check-input" type="checkbox" />
+                            <label asp-for="IsVerified" class="form-check-label">Verified Doctor</label>
+                        </div>
+                        <span asp-validation-for="IsVerified" class="text-danger"></span>
+
+
+                        <!-- Action Buttons -->
+                        <div class="form-group mt-4">
+                            <div class="d-flex justify-content-between">
+                                <a asp-action="Index" class="btn btn-secondary">
+                                    <i class="fas fa-arrow-left"></i> Back to List
+                                </a>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-save"></i> Register Doctor
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
