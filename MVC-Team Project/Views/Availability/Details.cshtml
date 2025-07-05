@@ -1,0 +1,62 @@
+﻿@model MVC_Team_Project.Models.Availability
+@{
+    ViewData["Title"] = "Availability Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Availability Details</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 form-row">
+                    <label class="form-label">Doctor</label>
+                    <input class="form-control" value="@Model.Doctor?.Id" disabled />
+                </div>
+                <div class="col-md-6 form-row">
+                    <label class="form-label">Date</label>
+                    <input class="form-control" value="@Model.AvailableDate.ToShortDateString()" disabled />
+                </div>
+                <div class="col-md-6 form-row">
+                    <label class="form-label">Start Time</label>
+                    <input class="form-control" value="@Model.StartTime" disabled />
+                </div>
+                <div class="col-md-6 form-row">
+                    <label class="form-label">End Time</label>
+                    <input class="form-control" value="@Model.EndTime" disabled />
+                </div>
+                <div class="col-md-6 form-row">
+                    <label class="form-label">Slot Duration (mins)</label>
+                    <input class="form-control" value="@Model.SlotDuration" disabled />
+                </div>
+                <div class="col-md-6 form-row">
+                    <label class="form-label">Max Patients</label>
+                    <input class="form-control" value="@Model.MaxPatients" disabled />
+                </div>
+                <div class="col-md-6 form-row">
+                    <label class="form-label">Booked</label>
+                    <input class="form-control" value="@(Model.IsBooked ? "Yes" : "No")" disabled />
+                </div>
+                <div class="col-md-6 form-row">
+                    <label class="form-label">Created At</label>
+                    <input class="form-control" value="@Model.CreatedAt.ToString("g")" disabled />
+                </div>
+                @if (Model.UpdatedAt != null)
+                {
+                    <div class="col-md-6 form-row">
+                        <label class="form-label">Last Updated</label>
+                        <input class="form-control" value="@Model.UpdatedAt?.ToString("g")" disabled />
+                    </div>
+                }
+            </div>
+
+            <div class="mt-4">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit</a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+                <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>

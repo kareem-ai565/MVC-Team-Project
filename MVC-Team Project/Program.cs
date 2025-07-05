@@ -16,6 +16,7 @@ namespace MVC_Team_Project
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
+            builder.Services.AddScoped<IAvailabilityRepository, AvailabilityRepository>();
 
             builder.Services.AddScoped<IDoctorsRepository, DoctorsRepository>();
             builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();

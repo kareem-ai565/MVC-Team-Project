@@ -7,6 +7,17 @@
 <div class="card container mt-5">
     <div class="card-body">
         <h4 class="card-title">@Model.User?.FullName</h4>
+        <!--profile pic-->
+        @if (Model.ProfileImagePath != null)
+        {
+            <div class="text-center mb-4">
+                <img src="@Model.ProfileImagePath ?? '/images/default-doctor.jpg'"
+                     alt="Doctor Photo"
+                     class="rounded-circle shadow"
+                     style="width: 150px; height: 150px; object-fit: cover;" />
+                <p class="text-muted mt-2">Profile Image</p>
+            </div>
+        }
 
         <p><strong>Specialty:</strong> @Model.Specialty?.Name</p>
         <p><strong>Experience:</strong> @Model.ExperienceYears years</p>
