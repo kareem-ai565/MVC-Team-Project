@@ -4,6 +4,8 @@ namespace MVC_Team_Project.View_Models
 {
     public class RegisterDoctorViewModel
     {
+        public IFormFile? ProfilePicture { get; set; }
+
         [Required(ErrorMessage = "Full name is required")]
         public string FullName { get; set; }
 
@@ -51,8 +53,6 @@ namespace MVC_Team_Project.View_Models
 
         [Required(ErrorMessage = "Consultation fee is required")]
         public decimal? ConsultationFee { get; set; }
-
-        public IFormFile? ProfileImage { get; set; }
 
         public bool IsVerified { get; set; }
 
