@@ -17,6 +17,7 @@ namespace MVC_Team_Project
             builder.Services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
             builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
             builder.Services.AddScoped<IpaymentRepository, paymentRepository>();
+            builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 
             // Add services to the container
             builder.Services.AddDbContext<ClinicSystemContext>(
