@@ -313,9 +313,9 @@ header {
 /* end bottombar */
 /* media query */
 @media (max-width: 1200px) {
-    html {
+/*    html {
         font-size: 55%;
-    }
+    }*/
 }
 
 @media (max-width: 1024px) {

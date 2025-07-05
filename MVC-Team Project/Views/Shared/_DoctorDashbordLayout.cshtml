@@ -332,7 +332,7 @@
                 <div class="toast-header bg-success text-white">
                     <strong class="mr-auto">Success</strong>
                     <small class="text-light">just now</small>
-                    <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast">&times;</button>
+                    <button type="button" class="ml-2 mb-1 close btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
                     @TempData["SuccessMessage"]
@@ -346,7 +346,7 @@
                 <div class="toast-header bg-danger text-white">
                     <strong class="mr-auto">Error</strong>
                     <small class="text-light">just now</small>
-                    <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast">&times;</button>
+                    <button type="button" class="ml-2 mb-1 close btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
                     @TempData["ErrorMessage"]
@@ -360,7 +360,7 @@
                 <div class="toast-header bg-info text-white">
                     <strong class="mr-auto">Info</strong>
                     <small class="text-light">just now</small>
-                    <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast">&times;</button>
+                    <button type="button" class="ml-2 mb-1 close btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
                     @TempData["InfoMessage"]
@@ -369,6 +369,24 @@
         }
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var successToast = new bootstrap.Toast(document.getElementById('successToast'));
+            var errorToast = new bootstrap.Toast(document.getElementById('errorToast'));
+            var infoToast = new bootstrap.Toast(document.getElementById('infoToast'));
+
+            if (document.getElementById('successToast')) successToast.show();
+            if (document.getElementById('errorToast')) errorToast.show();
+            if (document.getElementById('infoToast')) infoToast.show();
+
+            document.querySelectorAll('[data-bs-dismiss="toast"]').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var toast = bootstrap.Toast.getInstance(this.closest('.toast'));
+                    if (toast) toast.hide();
+                });
+            });
+        });
+    </script>
     <div class="sidebar-overlay" data-reff=""></div>
     <script src="~/assets/js/jquery-3.2.1.min.js"></script>
     <script src="~/assets/js/popper.min.js"></script>
@@ -385,13 +403,6 @@
 
     @RenderSection("Scripts", required: false)
 
-    <script>
-        $(document).ready(function () {
-            $('#successToast').toast('show');
-            $('#errorToast').toast('show');
-            $('#infoToast').toast('show');
-        });
-    </script>
 
 
 

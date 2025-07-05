@@ -8,13 +8,29 @@
     body {
         background-color: #f8f9fa;
     }
+
+    .fc-toolbar-title {
+        color: #2c3e50;
+        font-weight: 700;
+        font-size: 1.5rem;
+    }
+
+    .fc-event-time {
+        color: var(--secondary) !important;
+        font-weight: bold;
+    }
+
+    .fc-event-title {
+        color: #212529 !important;
+        font-weight: 600;
+    }
+
     .fc-event {
-        cursor: default;
-	}
- </style>
+        cursor: pointer;
+    }
+</style>
 
 <div class="container py-3">
-
     <input type="hidden" id="RequestVerificationToken"
            value="@Xsrf.GetAndStoreTokens(Context).RequestToken" />
     <div id="calendar"></div>
@@ -46,8 +62,8 @@
                     <label>Status</label>
                     <select class="form-select" id="status">
                         <option value="Scheduled">Scheduled</option>
+                        <option value="Confirmed">Confirmed</option>
                         <option value="Completed">Completed</option>
-                        <option value="Cancelled">Cancelled</option>
                     </select>
                 </div>
             </div>
@@ -79,7 +95,6 @@
     </div>
 </div>
 
-<!-- ---------- Scripts ---------- -->
 @section Scripts {
     <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -90,118 +105,134 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        const pad=n=>n.toString().padStart(2,'0');
-        const hm =d=>`${pad(d.getHours())}:${pad(d.getMinutes())}`;
-        const ymd=d=>d.toISOString().slice(0,10);
+        const pad = n => n.toString().padStart(2, '0');
+        const hm = d => `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+        const ymd = d => d.toISOString().slice(0, 10);
 
         document.addEventListener('DOMContentLoaded', () => {
-          const token = document.getElementById('RequestVerificationToken').value;
+            const token = document.getElementById('RequestVerificationToken').value;
 
-          const modEdit = new bootstrap.Modal(document.getElementById('appointmentModal'));
-          const modDel  = new bootstrap.Modal(document.getElementById('deleteModal'));
+            const modEdit = new bootstrap.Modal(document.getElementById('appointmentModal'));
+            const modDel = new bootstrap.Modal(document.getElementById('deleteModal'));
 
-          const idInp      = document.getElementById('appointmentId');
-          const dateInp    = document.getElementById('appointmentDate');
-          const stInp      = document.getElementById('startTime');
-          const etInp      = document.getElementById('endTime');
-          const statusSel  = document.getElementById('status');
-          const delOpenBtn = document.getElementById('openDelete');
-          const delIdInp   = document.getElementById('deleteId');
+            const idInp = document.getElementById('appointmentId');
+            const dateInp = document.getElementById('appointmentDate');
+            const stInp = document.getElementById('startTime');
+            const etInp = document.getElementById('endTime');
+            const statusSel = document.getElementById('status');
+            const delOpenBtn = document.getElementById('openDelete');
+            const delIdInp = document.getElementById('deleteId');
 
-          let calendar;
+            let calendar;
 
-          function fetchEvents(info, success, failure){
-            fetch('/DoctorAppointment/CalendarData')
-              .then(r => r.json())
-              .then(data => {
-                if (calendar?.view?.type === 'dayGridMonth') {
-                  data = data.map(ev => ev.extendedProps?.IsAvailable
-                    ? { ...ev, display: 'auto', title: 'Available' }
-                    : ev);
+            function fetchEvents(info, success, failure) {
+                fetch('/DoctorAppointment/CalendarData')
+                    .then(r => r.json())
+                    .then(data => {
+                        if (calendar?.view?.type === 'dayGridMonth') {
+                            data = data.map(ev => ev.extendedProps?.IsAvailable
+                                ? { ...ev, display: 'auto', title: 'Available' }
+                                : ev);
+                        }
+                        success(data);
+                    })
+                    .catch(failure);
+            }
+
+            calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
+                height: 'auto',
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    start: 'prev,next today',
+                    center: 'title',
+                    end: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: fetchEvents,
+                editable: true,
+                eventResizableFromStart: true,
+                eventDrop: saveChange,
+                eventResize: saveChange,
+                eventClick(info) {
+                    const ev = info.event;
+                    if (ev.title === 'Available') return;
+
+                    const now = new Date();
+                    const isPast = ev.start < new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                    if (isPast) return;
+
+                    idInp.value = ev.id;
+                    dateInp.value = ymd(ev.start);
+                    stInp.value = hm(ev.start);
+                    etInp.value = hm(ev.end);
+                    statusSel.value = ev.extendedProps.status || 'Scheduled';
+
+                    delOpenBtn.onclick = () => {
+                        delIdInp.value = ev.id;
+                        modDel.show();
+                    };
+
+                    modEdit.show();
+                },
+                datesSet() { calendar.refetchEvents(); }
+            });
+
+            calendar.render();
+
+            document.getElementById('appointmentForm').addEventListener('submit', async e => {
+                e.preventDefault();
+                const body = {
+                    appointmentDate: dateInp.value,
+                    startTime: stInp.value + ':00',
+                    endTime: etInp.value + ':00',
+                    status: statusSel.value
+                };
+                const r = await fetch(`/DoctorAppointment/Update/${idInp.value}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': token
+                    },
+                    body: JSON.stringify(body)
+                });
+                if (r.ok) { calendar.refetchEvents(); modEdit.hide(); }
+                else { alert('Update failed'); }
+            });
+
+            document.getElementById('deleteForm').addEventListener('submit', async e => {
+                e.preventDefault();
+                const r = await fetch(`/DoctorAppointment/Cancel/${delIdInp.value}`, {
+                    method: 'DELETE',
+                    headers: { 'RequestVerificationToken': token }
+                });
+                if (r.ok) { calendar.refetchEvents(); modDel.hide(); modEdit.hide(); }
+                else { alert('Cancellation failed'); }
+            });
+
+            async function saveChange(info) {
+                const ev = info.event;
+                const now = new Date();
+                const isPast = ev.start < new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+                if (ev.title === 'Available' || ev.extendedProps.status === 'Completed' || isPast) {
+                    info.revert();
+                    return;
                 }
-                success(data);
-              })
-              .catch(failure);
-          }
 
-          calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
-            height:'auto',
-            initialView:'dayGridMonth',
-            headerToolbar:{ start:'prev,next today', center:'title', end:'dayGridMonth,timeGridWeek,timeGridDay' },
-            events: fetchEvents,
-            editable: true,
-            eventResizableFromStart: true,
-            eventDrop: saveChange,
-            eventResize: saveChange,
-            eventClick(info) {
-              const ev = info.event;
-              if (ev.title === 'Available') return;
-
-              idInp.value = ev.id;
-              dateInp.value = ymd(ev.start);
-              stInp.value = hm(ev.start);
-              etInp.value = hm(ev.end);
-              statusSel.value = ev.extendedProps.status || 'Scheduled';
-
-              delOpenBtn.onclick = () => { delIdInp.value = ev.id; modDel.show(); };
-              modEdit.show();
-            },
-            datesSet() { calendar.refetchEvents(); }
-          });
-
-          calendar.render();
-
-          document.getElementById('appointmentForm').addEventListener('submit', async e => {
-            e.preventDefault();
-            const body = {
-              id: idInp.value,
-              appointmentDate: dateInp.value,
-              startTime: stInp.value + ':00',
-              endTime: etInp.value + ':00',
-              status: statusSel.value
-            };
-            const r = await fetch(`/DoctorAppointment/Update/${idInp.value}`, {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json',
-                'RequestVerificationToken': token
-              },
-              body: JSON.stringify(body)
-            });
-            if (r.ok) { calendar.refetchEvents(); modEdit.hide(); }
-            else      { alert('Update failed'); }
-          });
-
-          document.getElementById('deleteForm').addEventListener('submit', async e => {
-            e.preventDefault();
-            const r = await fetch(`/DoctorAppointment/Cancel/${delIdInp.value}`, {
-              method: 'DELETE',
-              headers: { 'RequestVerificationToken': token }
-            });
-            if (r.ok) { calendar.refetchEvents(); modDel.hide(); modEdit.hide(); }
-            else      { alert('Cancellation failed'); }
-          });
-
-          async function saveChange(info) {
-            const ev = info.event;
-            if (ev.title === 'Available') { info.revert(); return; }
-
-            const body = {
-              id: ev.id,
-              startTime: hm(ev.start) + ':00',
-              endTime: hm(ev.end) + ':00',
-              status: ev.extendedProps.status
-            };
-            const r = await fetch(`/DoctorAppointment/Update/${ev.id}`, {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json',
-                'RequestVerificationToken': token
-              },
-              body: JSON.stringify(body)
-            });
-            if (!r.ok) { alert('Failed'); info.revert(); }
-          }
+                const body = {
+                    startTime: hm(ev.start) + ':00',
+                    endTime: hm(ev.end) + ':00',
+                    status: ev.extendedProps.status
+                };
+                const r = await fetch(`/DoctorAppointment/Update/${ev.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': token
+                    },
+                    body: JSON.stringify(body)
+                });
+                if (!r.ok) { alert('Failed'); info.revert(); }
+            }
         });
     </script>
 }
