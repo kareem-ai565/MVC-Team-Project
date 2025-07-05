@@ -115,6 +115,28 @@ namespace MVC_Team_Project.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        //==============================================================================================================///
+        // additions made by kareem to use in new views to show specialities for users
+
+        public async Task<IActionResult> ShowAll()
+        {
+            var specialties = await _specialtyRepo.GetActiveSpecialtiesAsync();
+            return View(specialties); 
+
+        }
+        public async Task<IActionResult> ShowAllDoctorsInSpecialty(int id)
+        {
+            var viewModel = await _specialtyRepo.GetSpecialtyWithDoctorsAsync(id);
+
+            if (viewModel == null)
+            {
+                TempData["ErrorMessage"] = "Specialty not found.";
+                return RedirectToAction(nameof(ShowAll)); // fallback to specialties view
+            }
+
+            return View(viewModel); // This will use Views/Specialty/ShowAllDoctorsInSpecialty.cshtml
+        }
+
 
 
 
