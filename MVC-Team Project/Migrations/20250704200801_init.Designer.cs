@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC_Team_Project.Migrations
 {
     [DbContext(typeof(ClinicSystemContext))]
-    [Migration("20250703132530_clinic")]
-    partial class clinic
+    [Migration("20250704200801_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -687,7 +687,7 @@ namespace MVC_Team_Project.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(10, 2)");
 
-                    b.Property<int?>("AppointmentId")
+                    b.Property<int>("AppointmentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -1068,6 +1068,8 @@ namespace MVC_Team_Project.Migrations
                     b.HasOne("MVC_Team_Project.Models.Appointment", "Appointment")
                         .WithMany("Payments")
                         .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
                         .HasConstraintName("FK_Payments_Appointments");
 
                     b.HasOne("MVC_Team_Project.Models.Doctor", "Doctor")

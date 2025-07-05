@@ -1,0 +1,133 @@
+﻿<!--p Details.cshtml -->
+@model MVC_Team_Project.Models.Patient
+@{
+    ViewData["Title"] = "Patient Details";
+    Layout = "_DashbordLayout";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fas fa-user"></i> Patient Details</h2>
+                <div>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </div>
+
+            <!-- User Information -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-user"></i> User Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Full Name:</strong> @Model.User?.FullName</p>
+                            <p><strong>Email:</strong> @Model.User?.Email</p>
+                            <p><strong>Phone:</strong> @Model.User?.PhoneNumber</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Account Created:</strong> @Model.User?.CreatedAt.ToString("MM/dd/yyyy")</p>
+                            <p>
+                                <strong>Account Status:</strong>
+                                @if (Model.User?.IsActive == true)
+                                {
+                                    <span class="badge bg-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Inactive</span>
+                                }
+                            </p>
+                            <p>
+                                <strong>Email Verified:</strong>
+                                @if (Model.User?.EmailVerified == true)
+                                {
+                                    <span class="badge bg-success">Yes</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning">No</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Patient Information -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-id-card"></i> Patient Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Gender:</strong> @Model.Gender</p>
+                            <p><strong>Date of Birth:</strong> @Model.DOB?.ToString("MM/dd/yyyy")</p>
+                            <p><strong>Blood Type:</strong> @Model.BloodType</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Emergency Contact:</strong> @Model.EmergencyContact</p>
+                            <p><strong>Emergency Phone:</strong> @Model.EmergencyPhone</p>
+                            <p><strong>Patient Since:</strong> @Model.CreatedAt.ToString("MM/dd/yyyy")</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p><strong>Address:</strong> @Model.Address</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medical Information -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-stethoscope"></i> Medical Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <strong>Allergies:</strong>
+                                <p class="mt-2">@(string.IsNullOrEmpty(Model.Allergies) ? "None reported" : Model.Allergies)</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Medical History:</strong>
+                                <p class="mt-2">@(string.IsNullOrEmpty(Model.MedicalHistory) ? "None reported" : Model.MedicalHistory)</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Current Medications:</strong>
+                                <p class="mt-2">@(string.IsNullOrEmpty(Model.CurrentMedications) ? "None reported" : Model.CurrentMedications)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insurance Information -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-shield-alt"></i> Insurance Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Insurance Provider:</strong> @(string.IsNullOrEmpty(Model.InsuranceProvider) ? "Not provided" : Model.InsuranceProvider)</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Policy Number:</strong> @(string.IsNullOrEmpty(Model.InsurancePolicyNumber) ? "Not provided" : Model.InsurancePolicyNumber)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

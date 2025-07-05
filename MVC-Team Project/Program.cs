@@ -20,6 +20,8 @@ namespace MVC_Team_Project
             builder.Services.AddScoped<IDoctorsRepository, DoctorsRepository>();
             builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
             builder.Services.AddScoped<IpaymentRepository, paymentRepository>();
+            builder.Services.AddScoped<IPatientRepository, PatientsRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             // Add services to the container
             builder.Services.AddDbContext<ClinicSystemContext>(
@@ -27,6 +29,7 @@ namespace MVC_Team_Project
                     builder.Configuration.GetConnectionString("DefaultConnection"),
                     sqlOptions => sqlOptions.EnableRetryOnFailure()));
 
+            // REMOVED the duplicate AddIdentity call - keep only this one with configuration
             builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
             {
                 // Password settings
@@ -150,7 +153,7 @@ namespace MVC_Team_Project
                         UserName = adminEmail,
                         Email = adminEmail,
                         FullName = "Mahmoud Amer",
-                        PhoneNumber = "01023140265", 
+                        PhoneNumber = "01023140265",
                         CreatedAt = DateTime.UtcNow,
                         IsActive = true,
                         EmailVerified = true
