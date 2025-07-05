@@ -8,11 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Patient\**" />
+    <Content Remove="Views\Patient\**" />
+    <EmbeddedResource Remove="Views\Patient\**" />
+    <None Remove="Views\Patient\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Models\" />
     <Folder Include="Services\Implementations\" />
     <Folder Include="Services\Interfaces\" />
-    <Folder Include="Views\Patient\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
