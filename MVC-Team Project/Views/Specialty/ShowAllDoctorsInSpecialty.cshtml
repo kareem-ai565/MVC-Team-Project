@@ -1,0 +1,158 @@
+﻿@model MVC_Team_Project.View_Models.SpecialtyForShowVM
+@{
+    ViewData["Title"] = $"Doctors in {Model.Name}";
+}
+
+<div class="container-fluid py-4" style="background-color: #f8f9fa;">
+    <div class="container">
+        <!-- Header Section -->
+        <div class="mb-4">
+            <h2 class="text-dark font-weight-bold mb-2">Doctors in @Model.Name</h2>
+            <p class="text-muted lead">@Model.Description</p>
+        </div>
+
+        @if (!Model.Doctors.Any())
+        {
+            <div class="alert alert-warning border-0 shadow-sm" style="border-radius: 10px;">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                No doctors found in this specialty.
+            </div>
+        }
+        else
+        {
+            <!-- Doctors Cards -->
+            <div class="row">
+                @foreach (var doctor in Model.Doctors)
+                {
+                    <div class="col-lg-6 col-xl-4 mb-4">
+                        <div class="card h-100 shadow-sm border-0 doctor-card" style="border-radius: 12px; transition: all 0.3s;">
+                            <div class="card-body p-4">
+                                <!-- Doctor Header -->
+                                <div class="d-flex align-items-start mb-3">
+                                    <div class="doctor-avatar me-3" style="width: 60px; height: 60px; background: linear-gradient(135deg, #28a745, #20c997); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <i class="fas fa-user-md text-white" style="font-size: 24px;"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title font-weight-bold text-dark mb-1">@doctor.FullName</h5>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <span class="badge badge-experience me-2" style="background-color: #e3f2fd; color: #1976d2; padding: 4px 8px; border-radius: 12px; font-size: 12px;">
+                                                @doctor.ExperienceYears yrs experience
+                                            </span>
+                                            @if (doctor.IsVerified)
+                                            {
+                                                <span class="badge badge-verified" style="background-color: #e8f5e8; color: #2e7d32; padding: 4px 8px; border-radius: 12px; font-size: 12px;">
+                                                    <i class="fas fa-check-circle me-1"></i>Verified
+                                                </span>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="doctor-info mb-3">
+                                    <p class="card-text text-muted mb-3" style="font-size: 14px; line-height: 1.5;">
+                                        @doctor.Bio
+                                    </p>
+                                    
+                                    <div class="clinic-info mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-map-marker-alt text-muted me-2" style="width: 16px;"></i>
+                                            <span class="text-muted" style="font-size: 14px;">@doctor.ClinicAddress</span>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-dollar-sign text-muted me-2" style="width: 16px;"></i>
+                                            <span class="text-dark font-weight-bold">@doctor.ConsultationFee.ToString("C")</span>
+                                            <span class="text-muted ms-1" style="font-size: 14px;">consultation fee</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-actions mt-auto">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button class="btn btn-success btn-sm w-100" style="border-radius: 6px; font-weight: 500;">
+                                                <i class="fas fa-calendar-plus me-1"></i>
+                                                Book Now
+                                            </button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button class="btn btn-outline-primary btn-sm w-100" style="border-radius: 6px; font-weight: 500;">
+                                                <i class="fas fa-info-circle me-1"></i>
+                                                View Profile
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="mt-4 p-3 bg-white rounded shadow-sm">
+                <div class="row text-center">
+                    <div class="col-md-6">
+                        <div class="stat-item">
+                            <h4 class="text-success font-weight-bold mb-0">@Model.Doctors.Count()</h4>
+                            <small class="text-muted">Total Doctors</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="stat-item">
+                            <h4 class="text-info font-weight-bold mb-0">@Model.Doctors.Average(d => d.ExperienceYears).ToString("F1")</h4>
+                            <small class="text-muted">Avg. Experience (Years)</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .doctor-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+    }
+    
+    .doctor-avatar {
+        background: linear-gradient(135deg, #28a745, #20c997) !important;
+    }
+    
+    .btn-success:hover {
+        background-color: #1e7e34;
+        border-color: #1c7430;
+        transform: translateY(-1px);
+    }
+    
+    .btn-outline-primary:hover {
+        transform: translateY(-1px);
+    }
+    
+    .stat-item {
+        padding: 10px;
+    }
+    
+    .badge-experience {
+        background-color: #e3f2fd !important;
+        color: #1976d2 !important;
+    }
+    
+    .badge-verified {
+        background-color: #e8f5e8 !important;
+        color: #2e7d32 !important;
+    }
+    
+    @@media (max-width: 768px) {
+        .doctor-card {
+            margin-bottom: 1rem;
+        }
+        
+        .card-actions .row {
+            gap: 10px;
+        }
+        
+        .card-actions .col-6 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+</style>

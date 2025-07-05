@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MVC_Team_Project.Models;
 using MVC_Team_Project.Repositories.Interfaces;
+using MVC_Team_Project.View_Models;
 
 namespace MVC_Team_Project.Repositories.Implementations
 {
@@ -79,6 +81,40 @@ namespace MVC_Team_Project.Repositories.Implementations
 
             return (data, totalCount);
         }
+
+
+        // SpecialtyRepository.cs
+
+        public async Task<SpecialtyForShowVM?> GetSpecialtyWithDoctorsAsync(int id)
+        {
+            var specialty = await _context.Specialties
+                .Include(s => s.Doctors)
+                    .ThenInclude(d => d.User) // ensure Doctor.User is included
+                .FirstOrDefaultAsync(s => s.Id == id);
+
+            if (specialty == null) return null;
+
+            return new SpecialtyForShowVM
+            {
+                Id = specialty.Id,
+                Name = specialty.Name,
+                Description = specialty.Description,
+                IsActive = specialty.IsActive,
+                CreatedAt = specialty.CreatedAt,
+                Doctors = specialty.Doctors.Select(d => new DoctorsVM
+                {
+                    Id = d.Id,
+                    FullName = d.User.FullName,
+                    SpecialtyName = specialty.Name,
+                    Bio = d.Bio,
+                    ClinicAddress = d.ClinicAddress,
+                    ConsultationFee = d.ConsultationFee,
+                    ExperienceYears = d.ExperienceYears,
+                    IsVerified = d.IsVerified
+                }).ToList()
+            };
+        }
+
 
     }
 }

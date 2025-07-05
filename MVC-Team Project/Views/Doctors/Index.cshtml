@@ -58,7 +58,13 @@
                         {
                             <tr class="text-center">
                                 <td>@doctor.Id</td>
-                                <td>@doctor.FullName</td>
+                                <td class="d-flex align-items-center gap-2 justify-content-center">
+                                    <img src="@doctor.ProfilePicture ?? " /images/default-doctor.jpg""
+                                         alt="@doctor.FullName"
+                                         class="rounded-circle shadow-sm"
+                                         style="width: 40px; height: 40px; object-fit: cover;" />
+                                    <span>@doctor.FullName</span>
+                                </td>
                                 <td>@doctor.SpecialtyName</td>
                                 <td>@doctor.ExperienceYears years</td>
                                 <td>$@doctor.ConsultationFee</td>

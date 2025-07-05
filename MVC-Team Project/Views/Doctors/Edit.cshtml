@@ -1,7 +1,7 @@
 ﻿@model MVC_Team_Project.View_Models.DoctorFormVM
 @{
     ViewData["Title"] = "Edit Doctor";
-    Layout = "_DashbordLayout"; // Add this line
+    Layout = "_DashbordLayout"; 
 }
 <div class="container">
     <div class="row justify-content-center">
@@ -13,7 +13,7 @@
                     </h3>
                 </div>
                 <div class="card-body">
-                    <form asp-action="Edit" method="post">
+                    <form asp-action="Edit" method="post" enctype="multipart/form-data">
                         <div asp-validation-summary="All" class="text-danger"></div>
 
                         <!-- Hidden field for Doctor ID -->
@@ -36,6 +36,16 @@
 
                         <!-- Include the partial view for the doctor form -->
                         <partial name="_DoctorForm" model="Model" />
+
+                        <!-- Image Preview -->
+                        <div class="form-group text-center mb-4">
+                            <img src="@(Model.Doctor.User.ProfilePicture ?? "/images/default-doctor.jpg")"
+                                 alt="Profile Image"
+                                 class="rounded-circle shadow"
+                                 style="width:150px;height:150px;object-fit:cover;" />
+                            <p class="text-muted mt-2">Current profile photo</p>
+                        </div>
+
 
                         <!-- Action Buttons -->
                         <div class="form-group mt-4">

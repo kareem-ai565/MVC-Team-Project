@@ -1,0 +1,62 @@
+﻿@model IEnumerable<MVC_Team_Project.Models.Specialty>
+@{
+    ViewData["Title"] = "Browse Specialties";
+}
+
+<div class="container-fluid py-4" style="background-color: #f8f9fa;">
+    <div class="container">
+        <h2 class="mb-4 text-dark font-weight-bold">All Specialties</h2>
+        <div class="row">
+            @foreach (var specialty in Model)
+            {
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm border-0" style="border-radius: 10px; transition: transform 0.2s;">
+                        <div class="card-body d-flex flex-column p-4">
+                            <div class="mb-3">
+                                <div class="specialty-icon mb-3" style="width: 50px; height: 50px; background: linear-gradient(135deg, #28a745, #20c997); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-stethoscope text-white"></i>
+                                </div>
+                            </div>
+                            <h5 class="card-title font-weight-bold text-dark mb-2">@specialty.Name</h5>
+                            <p class="card-text text-muted flex-grow-1 mb-3" style="font-size: 14px; line-height: 1.5;">
+                                @specialty.Description
+                            </p>
+                            <div class="mt-auto">
+                                <a asp-action="ShowAllDoctorsInSpecialty" asp-route-id="@specialty.Id" class="btn btn-outline-success btn-sm">
+                                    View Doctors
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
+    }
+
+    .btn-success:hover {
+        background-color: #1e7e34;
+        border-color: #1c7430;
+        transform: translateY(-1px);
+    }
+
+    .specialty-icon {
+        background: linear-gradient(135deg, #28a745, #20c997) !important;
+    }
+
+    @@media (max-width: 768px) {
+        .col-lg-4
+
+    {
+        margin-bottom: 1rem;
+    }
+
+    }
+</style>

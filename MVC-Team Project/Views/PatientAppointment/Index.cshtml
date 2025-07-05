@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "_Layout";
+}
+<div class="container"><div id="calendar"></div></div>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            const docId=@ViewBag.DoctorId;
+            const cal=new FullCalendar.Calendar(document.getElementById('calendar'),{
+                selectable:true,
+                events:`/PatientAppointment/AvailableSlots?doctorId=${docId}`,
+                select:info=>{/* if slot selectable open modal to book */}
+            });cal.render();
+        });
+    </script>
+}
