@@ -21,6 +21,7 @@ namespace MVC_Team_Project
             builder.Services.AddScoped<IDoctorsRepository, DoctorsRepository>();
             builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
             builder.Services.AddScoped<IpaymentRepository, paymentRepository>();
+            builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 
             builder.Services.AddScoped<IAvailabilityRepository, AvailabilityRepository>();
 
