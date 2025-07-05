@@ -6,54 +6,34 @@ namespace MVC_Team_Project.Repositories.Implementations
 {
     public class AvailabilityRepository : IAvailabilityRepository
     {
-        private readonly ClinicSystemContext _context;
-
-        public AvailabilityRepository(ClinicSystemContext context)
+        public Task AddAsync(Availability entity)
         {
-            _context = context;
+            throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Availability>> GetAllAsync()
+        public void Delete(Availability entity)
         {
-            return await _context.Availabilities
-                .Include(a => a.Doctor)
-                .OrderByDescending(a => a.AvailableDate)
-                .ToListAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<Availability?> GetByIdAsync(int id)
+        public Task<IEnumerable<Availability>> GetAllAsync()
         {
-            return await _context.Availabilities
-                .Include(a => a.Doctor)
-                .FirstOrDefaultAsync(a => a.Id == id);
+            throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Availability>> GetByDoctorIdAsync(int doctorId)
+        public Task<Availability?> GetByIdAsync(int id)
         {
-            return await _context.Availabilities
-                .Where(a => a.DoctorId == doctorId)
-                .OrderByDescending(a => a.AvailableDate)
-                .ToListAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task AddAsync(Availability availability)
+        public Task SaveChangesAsync()
         {
-            await _context.Availabilities.AddAsync(availability);
+            throw new NotImplementedException();
         }
 
-        public void Update(Availability availability)
+        public void Update(Availability entity)
         {
-            _context.Availabilities.Update(availability);
-        }
-
-        public void Delete(Availability availability)
-        {
-            _context.Availabilities.Remove(availability);
-        }
-
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
+            throw new NotImplementedException();
         }
     }
 }

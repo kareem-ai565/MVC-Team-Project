@@ -306,7 +306,13 @@
                             <a asp-controller="MedicalRecord" asp-action="MyPatientsRecords"><i class="fa fa-dashboard"></i> <span>Medical Records</span></a>
                         </li>
 
+                        <li class="@(currentController == "Availability" ? "active" : "")">
+                            <a asp-controller="Availability" asp-action="Index"><i class="fa fa-calendar"></i> <span>Availability </span></a>
+                        </li>
 
+                        <li class="@(currentController == "DoctorAppointment" ? "active" : "")">
+                            <a asp-controller="DoctorAppointment" asp-action="Index"><i class="fa fa-calendar"></i> <span>Appointments </span></a>
+                        </li>
                     </ul>
                 </div>
             </div>

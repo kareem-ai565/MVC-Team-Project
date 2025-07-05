@@ -1,1 +1,0 @@
-// AppointmentVM.cs placeholder

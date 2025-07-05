@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MVC_Team_Project.View_Models
 {
@@ -6,42 +7,47 @@ namespace MVC_Team_Project.View_Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Patient is required.")]
+        [Required]
+        public int DoctorId { get; set; }
+
+        [Required]
         public int PatientId { get; set; }
 
-        [Required(ErrorMessage = "Doctor is required.")]
-        public int DoctorId { get; set; }
+        [Required]
+        public int AvailabilityId { get; set; }
 
         [Required(ErrorMessage = "Appointment date is required.")]
         [DataType(DataType.Date)]
         public DateTime AppointmentDate { get; set; }
 
         [Required(ErrorMessage = "Start time is required.")]
+        [DataType(DataType.Time)]
         public TimeSpan StartTime { get; set; }
 
         [Required(ErrorMessage = "End time is required.")]
+        [DataType(DataType.Time)]
         public TimeSpan EndTime { get; set; }
 
-        [Required(ErrorMessage = "Status is required.")]
-        [StringLength(20)]
-        public string Status { get; set; }
+        [Required]
+        [MaxLength(20)]
+        public string Status { get; set; } = "Scheduled";
 
-        [StringLength(1000)]
+        [MaxLength(1000)]
         public string? PatientNotes { get; set; }
 
-        [StringLength(1000)]
+        [MaxLength(1000)]
         public string? Symptoms { get; set; }
 
-        [StringLength(2000)]
+        [MaxLength(2000)]
         public string? Diagnosis { get; set; }
 
-        [StringLength(2000)]
+        [MaxLength(2000)]
         public string? Prescription { get; set; }
 
-        [StringLength(2000)]
+        [MaxLength(2000)]
         public string? DoctorNotes { get; set; }
 
-        [StringLength(500)]
+        [MaxLength(500)]
         public string? CancellationReason { get; set; }
 
         public bool IsFollowUpRequired { get; set; }
@@ -50,6 +56,11 @@ namespace MVC_Team_Project.View_Models
         public DateTime? FollowUpDate { get; set; }
 
         public string? DoctorName { get; set; }
+
+        public string? DoctorSpecialty { get; set; }
+
         public string? PatientName { get; set; }
+
+        public string? PatientEmail { get; set; }
     }
 }
