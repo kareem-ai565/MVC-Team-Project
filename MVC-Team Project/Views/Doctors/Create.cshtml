@@ -1,16 +1,16 @@
 ﻿@model MVC_Team_Project.View_Models.RegisterDoctorViewModel
-
 @{
     ViewData["Title"] = "Register New Doctor";
+    Layout = "_DashbordLayout"; // Add this line
 }
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card shadow">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header bg-success text-white">
                     <h3 class="mb-0">
-                        <i class="fas fa-user-md"></i> Register New Doctor
+                        <i class="fas fa-user-md"></i>New Doctor
                     </h3>
                 </div>
                 <div class="card-body">
@@ -138,7 +138,7 @@
                                 <a asp-action="Index" class="btn btn-secondary">
                                     <i class="fas fa-arrow-left"></i> Back to List
                                 </a>
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-success">
                                     <i class="fas fa-save"></i> Register Doctor
                                 </button>
                             </div>

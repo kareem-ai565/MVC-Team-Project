@@ -7,5 +7,7 @@ namespace MVC_Team_Project.Repositories.Interfaces
         Task<ApplicationUser?> GetByEmailAsync(string email);
         Task<IEnumerable<ApplicationUser>> GetActiveUsersAsync();
         Task<(IEnumerable<ApplicationUser> Data, int TotalCount)> GetPagedAsync(string? search, int page, int pageSize);
+        Task<List<ApplicationUser>> GetUsersWithoutPatientAsync();
+
     }
 }
