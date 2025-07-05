@@ -87,23 +87,15 @@
                     </div>
                 }
             </div>
-
-
             <div class="mt-4 p-3 bg-white rounded shadow-sm">
                 <div class="row text-center">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="stat-item">
                             <h4 class="text-success font-weight-bold mb-0">@Model.Doctors.Count()</h4>
                             <small class="text-muted">Total Doctors</small>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="stat-item">
-                            <h4 class="text-primary font-weight-bold mb-0">@Model.Doctors.Count(d => d.IsVerified)</h4>
-                            <small class="text-muted">Verified Doctors</small>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="stat-item">
                             <h4 class="text-info font-weight-bold mb-0">@Model.Doctors.Average(d => d.ExperienceYears).ToString("F1")</h4>
                             <small class="text-muted">Avg. Experience (Years)</small>
