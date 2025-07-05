@@ -333,6 +333,7 @@ using MVC_Team_Project.Models;
 using MVC_Team_Project.Repositories.Interfaces;
 using MVC_Team_Project.View_Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC_Team_Project.Controllers
 {
@@ -458,6 +459,12 @@ namespace MVC_Team_Project.Controllers
                 IsVerified = model.IsVerified
             };
 
+            //new profile pic upload
+            if (model.ProfileImage != null)
+            {
+                doctor.ProfileImagePath = await SaveProfileImageAsync(model.ProfileImage);
+            }
+
             await _doctorsRepo.AddAsync(doctor);
             await _doctorsRepo.SaveChangesAsync();
 
@@ -493,6 +500,12 @@ namespace MVC_Team_Project.Controllers
 
             var doctor = await _doctorsRepo.GetByIdAsync(vm.Doctor.Id);
             if (doctor == null) return NotFound();
+
+            //new profile pic upload
+            if (vm.ProfileImage != null)
+            {
+                doctor.ProfileImagePath = await SaveProfileImageAsync(vm.ProfileImage);
+            }
 
             doctor.SpecialtyId = vm.Doctor.SpecialtyId;
             doctor.ClinicAddress = vm.Doctor.ClinicAddress;
@@ -557,6 +570,75 @@ namespace MVC_Team_Project.Controllers
             TempData["Success"] = "Doctor deleted successfully.";
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        [Authorize(Roles = "Doctor")]
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                TempData["Error"] = "User not found.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            var doctor = await _doctorsRepo.GetByUserIdWithDetailsAsync(user.Id);
+            if (doctor == null)
+            {
+                TempData["Error"] = "Doctor profile not found.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            var vm = new DoctorsVM
+            {
+                Id = doctor.Id,
+                FullName = user.FullName,
+                ProfileImagePath = doctor.ProfileImagePath ?? "/images/default-doctor.jpg",
+                SpecialtyName = doctor.Specialty?.Name,
+                ClinicAddress = doctor.ClinicAddress,
+                Bio = doctor.Bio,
+                ConsultationFee = doctor.ConsultationFee,
+                ExperienceYears = doctor.ExperienceYears,
+                IsVerified = doctor.IsVerified,
+                Availabilities = doctor.Availabilities?.Select(a => new DoctorAvailabilityVM
+                {
+                    AvailableDate = a.AvailableDate,
+                    StartTime = a.StartTime,
+                    EndTime = a.EndTime,
+                    SlotDuration = a.SlotDuration,
+                    MaxPatients = a.MaxPatients,
+                    IsBooked = a.IsBooked
+                }).ToList(),
+                Appointments = doctor.Appointments?.Select(ap => new DoctorAppointmentVM
+                {
+                    AppointmentDate = ap.AppointmentDate,
+                    PatientName = ap.Patient?.User?.FullName,
+                    Status = ap.Status
+                }).ToList()
+            };
+
+            return View(vm);
+        }
+        // ===================== Private Utilities =====================
+        private async Task<string> SaveProfileImageAsync(IFormFile imageFile)
+        {
+            if (imageFile == null) return null;
+
+            var fileName = Guid.NewGuid() + Path.GetExtension(imageFile.FileName);
+            var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/profiles");
+
+            // Ensure the directory exists
+            Directory.CreateDirectory(folderPath);
+
+            var filePath = Path.Combine(folderPath, fileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(stream);
+            }
+
+            return "/images/profiles/" + fileName;
+        }
+
+
 
 
     }
