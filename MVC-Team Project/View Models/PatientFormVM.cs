@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MVC_Team_Project.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace MVC_Team_Project.View_Models
 {
@@ -54,5 +55,7 @@ namespace MVC_Team_Project.View_Models
 
         [Display(Name = "Insurance Policy #")]
         public string? InsurancePolicyNumber { get; set; }
+
+
     }
 }

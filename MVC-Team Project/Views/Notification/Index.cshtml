@@ -1,0 +1,110 @@
+﻿@model List<Notification>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_DashbordLayout";
+}
+
+<style>
+    body {
+        background: #f4f7fa;
+        min-height: 100vh;
+        padding: 30px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .notif-glass {
+        background: #4A778A;
+        color: #fdfdfd;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .notif-glass:hover {
+            transform: scale(1.01);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+        }
+
+    .notif-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #ffffff;
+    }
+
+    .notif-message {
+        color: #e8f1f2;
+        margin-top: 8px;
+    }
+
+    .notif-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 12px;
+        font-size: 0.85rem;
+        color: #d9edf2;
+    }
+
+    .notif-icon {
+        font-size: 1.5rem;
+        margin-right: 10px;
+        color: #ffffff;
+    }
+
+    .priority-dot {
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .priority-high {
+        background-color: #ff6b6b; /* أحمر ناعم */
+    }
+
+    .priority-normal {
+        background-color: #ffdd57; /* أصفر هادي */
+    }
+
+    .priority-low {
+        background-color: #8ef5b7; /* أخضر باهت */
+    }
+</style>
+
+
+<div class="container">
+    <h2 class="mb-4" style="color:#4A778A">🔔 Your Notifications</h2>
+
+    @foreach (var n in Model)
+    {
+        var priorityClass = n.Priority switch
+        {
+            "High" => "priority-high",
+            "Normal" => "priority-normal",
+            "Low" => "priority-low",
+            _ => "priority-low"
+        };
+
+        <div class="notif-glass">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-bell-fill notif-icon"></i>
+                <div class="notif-title">@n.Title</div>
+            </div>
+
+            <div class="notif-message">@n.Message</div>
+            <div class="notif-message">Status: @(n.IsRead ? "Read ✅" : "Unread ❗")</div>
+
+            <div class="notif-meta">
+                <div>
+                    <span class="priority-dot @priorityClass"></span>
+                    <span class="ms-2">@n.NotificationType</span>
+                </div>
+                <div>@n.CreatedAt.ToString("MMM dd, yyyy - hh:mm tt")</div>
+            </div>
+        </div>
+    }
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
