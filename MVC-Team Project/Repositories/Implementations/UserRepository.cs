@@ -72,5 +72,12 @@ namespace MVC_Team_Project.Repositories
         {
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<ApplicationUser>> GetUsersWithoutPatientAsync()
+        {
+            return await _context.Users
+                .Where(u => u.Patient == null)
+                .ToListAsync();
+        }
     }
 }

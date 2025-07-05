@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MVC_Team_Project.Migrations
 {
     /// <inheritdoc />
-    public partial class clinic : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -445,7 +445,7 @@ namespace MVC_Team_Project.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PatientId = table.Column<int>(type: "int", nullable: false),
                     DoctorId = table.Column<int>(type: "int", nullable: false),
-                    AppointmentId = table.Column<int>(type: "int", nullable: true),
+                    AppointmentId = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     PaymentMethod = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     PaymentStatus = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, defaultValue: "Pending"),
@@ -466,7 +466,8 @@ namespace MVC_Team_Project.Migrations
                         name: "FK_Payments_Appointments",
                         column: x => x.AppointmentId,
                         principalTable: "Appointments",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Payments_Doctors",
                         column: x => x.DoctorId,

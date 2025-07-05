@@ -684,7 +684,7 @@ namespace MVC_Team_Project.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(10, 2)");
 
-                    b.Property<int?>("AppointmentId")
+                    b.Property<int>("AppointmentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -1065,6 +1065,8 @@ namespace MVC_Team_Project.Migrations
                     b.HasOne("MVC_Team_Project.Models.Appointment", "Appointment")
                         .WithMany("Payments")
                         .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
                         .HasConstraintName("FK_Payments_Appointments");
 
                     b.HasOne("MVC_Team_Project.Models.Doctor", "Doctor")
