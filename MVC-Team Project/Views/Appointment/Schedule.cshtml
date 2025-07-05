@@ -1,0 +1,84 @@
+﻿@model List<MVC_Team_Project.View_Models.AppointmentVM>
+
+@{
+    ViewData["Title"] = "Doctor Schedule";
+    var selectedDate = ViewBag.SelectedDate as DateTime?;
+    var doctorId = ViewBag.DoctorId as int?;
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-info text-white">
+            <h4>Doctor Schedule</h4>
+        </div>
+
+        <div class="card-body">
+            <form method="get" asp-action="Schedule" class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <label class="form-label">Select Doctor</label>
+                    @Html.DropDownList("doctorId", (SelectList)ViewBag.Doctors, "Choose Doctor", new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Select Date</label>
+                    <input type="date" name="date" value="@selectedDate?.ToString("yyyy-MM-dd")" class="form-control" />
+                </div>
+
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-info w-100">
+                        <i class="bi bi-search"></i> View
+                    </button>
+                </div>
+            </form>
+
+            @if (Model == null || Model.Count == 0)
+            {
+                <div class="alert alert-info">No appointments found for this doctor on the selected date.</div>
+            }
+            else
+            {
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Patient</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var appt in Model)
+                        {
+                            <tr>
+                                <td>@appt.PatientName</td>
+                                <td>@appt.StartTime.ToString(@"hh\:mm") - @appt.EndTime.ToString(@"hh\:mm")</td>
+                                <td>
+                                    <span class="badge bg-@GetStatusColor(appt.Status)">
+                                        @appt.Status
+                                    </span>
+                                </td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@appt.Id" class="btn btn-sm btn-info">View</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetStatusColor(string status)
+    {
+        return status switch
+        {
+            "Scheduled" => "primary",
+            "Completed" => "success",
+            "Cancelled" => "danger",
+            "No Show" => "secondary",
+            _ => "light"
+        };
+    }
+}

@@ -1,0 +1,78 @@
+﻿@model List<MVC_Team_Project.View_Models.AppointmentVM>
+
+@{
+    ViewData["Title"] = "Calendar View";
+    var selectedDate = ViewBag.SelectedDate as DateTime?;
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4>Appointments Calendar - @selectedDate?.ToString("yyyy-MM-dd")</h4>
+        </div>
+
+        <div class="card-body">
+            <form method="get" asp-action="Calendar" class="row g-3 mb-4">
+                <div class="col-auto">
+                    <input type="date" name="date" class="form-control" value="@selectedDate?.ToString("yyyy-MM-dd")" />
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search"></i> Filter
+                    </button>
+                </div>
+            </form>
+
+            @if (Model.Count == 0)
+            {
+                <div class="alert alert-info">No appointments found for the selected date.</div>
+            }
+            else
+            {
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Patient</th>
+                            <th>Doctor</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var appt in Model)
+                        {
+                            <tr>
+                                <td>@appt.PatientName</td>
+                                <td>@appt.DoctorName</td>
+                                <td>@appt.StartTime.ToString(@"hh\:mm") - @appt.EndTime.ToString(@"hh\:mm")</td>
+                                <td>
+                                    <span class="badge bg-@GetStatusColor(appt.Status)">
+                                        @appt.Status
+                                    </span>
+                                </td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@appt.Id" class="btn btn-sm btn-info">View</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetStatusColor(string status)
+    {
+        return status switch
+        {
+            "Scheduled" => "primary",
+            "Completed" => "success",
+            "Cancelled" => "danger",
+            "No Show" => "secondary",
+            _ => "light"
+        };
+    }
+}

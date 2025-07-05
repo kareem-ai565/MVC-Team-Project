@@ -1,0 +1,46 @@
+﻿@model MVC_Team_Project.View_Models.AppointmentVM
+
+@{
+    ViewData["Title"] = "Cancel Appointment";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-danger text-white">
+            <h4>Cancel Appointment</h4>
+        </div>
+
+        <div class="card-body">
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+            @if (TempData["Warning"] != null)
+            {
+                <div class="alert alert-warning">@TempData["Warning"]</div>
+            }
+
+            <div class="mb-4">
+                <p><strong>Patient:</strong> @Model.PatientName</p>
+                <p><strong>Doctor:</strong> @Model.DoctorName</p>
+                <p><strong>Date:</strong> @Model.AppointmentDate.ToString("yyyy-MM-dd")</p>
+                <p><strong>Time:</strong> @Model.StartTime.ToString(@"hh\:mm") - @Model.EndTime.ToString(@"hh\:mm")</p>
+                <p><strong>Status:</strong> @Model.Status</p>
+            </div>
+
+            <form asp-action="CancelConfirmed" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+
+                <div class="form-group mb-3">
+                    <label for="cancellationReason" class="form-label">Reason for Cancellation</label>
+                    <textarea name="cancellationReason" class="form-control" rows="4" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-x-circle"></i> Confirm Cancellation
+                </button>
+                <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Back</a>
+            </form>
+        </div>
+    </div>
+</div>

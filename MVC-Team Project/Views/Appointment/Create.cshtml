@@ -1,51 +1,133 @@
-﻿@model Appointment
+﻿@model MVC_Team_Project.View_Models.AppointmentCreateVM
+
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Appointment";
 }
 
-<h1>Create Appointment</h1>
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4>Create Appointment</h4>
+        </div>
 
+        <div class="card-body">
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData?["Error"].ToString()</div>
+            }
 
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+            <form asp-action="Create" method="post">
+                <div class="form-group mb-3">
+                    <label asp-for="PatientId" class="form-label"></label>
+                    @Html.DropDownListFor(model => model.PatientId, (SelectList)ViewBag.Patients, "Select Patient", new { @class = "form-control", id = "PatientId" })
+                </div>
 
-    <form asp-action="Create" method="post">    
-    
+                <div class="form-group mb-3">
+                    <label asp-for="DoctorId" class="form-label"></label>
+                    @Html.DropDownListFor(model => model.DoctorId, (SelectList)ViewBag.Doctors, "Select Doctor", new { @class = "form-control", id = "DoctorId" })
+                </div>
 
-            <div class="form-group">
-                <label>Doctor</label>
-                @Html.DropDownListFor(model => model.DoctorId, ViewBag.DoctorList as SelectList, "Select Doctor", new { @class = "form-select" })
-            </div>
+                <div class="form-group mb-3">
+                    <label asp-for="AppointmentDate" class="form-label"></label>
+                    <input asp-for="AppointmentDate" class="form-control" type="date" id="AppointmentDate" />
+                    <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                </div>
 
+                <!-- Available Slots -->
+                <div class="form-group mb-3">
+                    <label class="form-label">Available Slots</label>
+                    <select id="availableSlots" class="form-control">
+                        <option value="">-- Select a Slot --</option>
+                    </select>
+                </div>
 
+                <!-- Start Time -->
+                <div class="form-group mb-3">
+                    <label asp-for="StartTime" class="form-label"></label>
+                    <input asp-for="StartTime" class="form-control" type="time" id="StartTime" />
+                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label>Patient</label>
-                @Html.DropDownListFor(model=>model.PatientId,ViewBag.PatientList as SelectList,"Select Patient",new{@class="form-select"})
-            </div>
+                <!-- End Time -->
+                <div class="form-group mb-3">
+                    <label asp-for="EndTime" class="form-label"></label>
+                    <input asp-for="EndTime" class="form-control" type="time" id="EndTime" />
+                    <span asp-validation-for="EndTime" class="text-danger"></span>
+                </div>
 
-           
+                <!-- Symptoms -->
+                <div class="form-group mb-3">
+                    <label asp-for="Symptoms" class="form-label"></label>
+                    <textarea asp-for="Symptoms" class="form-control"></textarea>
+                </div>
 
-            <div class="form-group">
-                <label>Date</label>
-               <input asp-for="AppointmentDate" type="date" class="form-control" />
-            </div>
+                <!-- Patient Notes -->
+                <div class="form-group mb-3">
+                    <label asp-for="PatientNotes" class="form-label"></label>
+                    <textarea asp-for="PatientNotes" class="form-control"></textarea>
+                </div>
 
-            <div class="form-group">
-                <label>Start Time</label>
-                <input asp-for="StartTime" type="time" class="form-control" />
-            </div>
+                <!-- Fee -->
+                <div class="form-group mb-3">
+                    <label asp-for="ConsultationFee" class="form-label"></label>
+                    <input asp-for="ConsultationFee" class="form-control" />
+                    <span asp-validation-for="ConsultationFee" class="text-danger"></span>
+                </div>
 
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Save Appointment
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">Back</a>
+            </form>
+        </div>
+    </div>
+</div>
 
-            <div class="form-group">
-                <label>End Time</label>
-                <input asp-for="EndTime" type="time" class="form-control" />
-            </div>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
 
-            <div class="form-group">
-                <label>Status</label>
-                <input asp-for="Status"  class="form-control" />
-            </div>
-            <button type="submit"class="btn btn-primary mt-2"> Save</button>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            function loadSlots() {
+                var doctorId = $('#DoctorId').val();
+                var date = $('#AppointmentDate').val();
 
+                if (doctorId && date) {
+                    $.ajax({
+                        url: '/Appointment/GetAvailableSlots',
+                        data: { doctorId: doctorId, date: date },
+                        success: function (data) {
+                            var dropdown = $('#availableSlots');
+                            dropdown.empty();
+                            dropdown.append('<option value="">-- Select a Slot --</option>');
 
-       </form>
+                            if (Array.isArray(data)) {
+                                data.forEach(function (slot) {
+                                    var value = slot.startTime + '|' + slot.endTime;
+                                    var text = slot.startTime + ' - ' + slot.endTime;
+                                    dropdown.append('<option value="' + value + '">' + text + '</option>');
+                                });
+                            } else if (data.error) {
+                                alert(data.error);
+                            }
+                        }
+                    });
+                }
+            }
+
+            $('#DoctorId, #AppointmentDate').on('change', loadSlots);
+
+            $('#availableSlots').on('change', function () {
+                var selected = $(this).val();
+                if (selected) {
+                    var parts = selected.split('|');
+                    $('#StartTime').val(parts[0]);
+                    $('#EndTime').val(parts[1]);
+                }
+            });
+        });
+    </script>
+}

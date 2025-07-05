@@ -1,84 +1,84 @@
-﻿@model List<Appointment>
+﻿@model IEnumerable<MVC_Team_Project.View_Models.AppointmentVM>
 
-
-@* @model   MVC_Team_Project.Models.Appointment *@
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Appointments";
 }
 
-<h1>Create Appointment</h1>
-    @* <form asp-action="Create" method="post">    
-    
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Appointments</h4>
+            <a href="@Url.Action("Create")" class="btn btn-success">+ New Appointment</a>
+        </div>
 
-            <div class="form-group">
-                <label>Patient</label>
-                @Html.DropDownListFor(model=>model.PatientId,ViewBag.PatientList as SelectList,"Select Patient",new{@class="form-control"})
-            </div>
-
-            <div class="form-group">
-                <label>Doctor</label>
-                @Html.DropDownListFor(model => model.DoctorId, ViewBag.DoctorList as SelectList, "Select Doctor", new { @class = "form-control" })
-            </div>
-
-            <div class="form-group">
-                <label>Date</label>
-               <input asp-for="AppointmentDate" type="date" class="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label>Start Time</label>
-                <input asp-for="StartTime" type="time" class="form-control" />
-            </div>
-
-
-            <div class="form-group">
-                <label>End Time</label>
-                <input asp-for="EndTime" type="time" class="form-control" />
-            </div>
-
-            <div class="form-group">
-                <label>Status</label>
-                <input asp-for="Status"  class="form-control" />
-            </div>
-            <button type="submit"class="btn btn-primary mt-2"> Save</button>
-
-
-       </form> *@
-       <table class="table table-bordered table-hover">
-           <thead>
-               <tr>
-                   <th>ID</th>
-                   <th>Doctor Name</th>
-                   <th>patient Name</th>
-                   <th>Date</th>
-                   <th>Start</th>
-                   <th>End</th>
-
-               </tr>
-           </thead>
-           <tbody>
-            @foreach (var item in Model)
+        <div class="card-body">
+            <!-- رسائل -->
+            @if (TempData["Success"] != null)
             {
-                <tr>
-                <td>@item.Id</td>
+                <div class="alert alert-success">@TempData["Success"]</div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
 
-                <td>@item.Doctor?.User?.FullName </td>
-                <td>@item.StartTime</td>
-                <td>@item.EndTime</td>
-                <td>@item.Status</td>
-              </tr>
-           }
-       
+            <!-- 🔍 فلتر -->
+            <form method="get" class="row mb-4">
+                <div class="col-md-3 mb-2">
+                    <input type="text" name="search" value="@ViewBag.Search" class="form-control" placeholder="Search..." />
+                </div>
+                <div class="col-md-2 mb-2">
+                    @Html.DropDownList("status", (SelectList)ViewBag.StatusOptions, "Status", new { @class = "form-control" })
+                </div>
+                <div class="col-md-2 mb-2">
+                    <input type="date" name="date" value="@((ViewBag.Date != null ? ((DateTime)ViewBag.Date).ToString("yyyy-MM-dd") : ""))" class="form-control" />
+                </div>
+                <div class="col-md-2 mb-2">
+                    <button type="submit" class="btn btn-outline-primary w-100">Filter</button>
+                </div>
+            </form>
 
-
-
-
-
-
-           </tbody>
-
-
-       </table>
-
-
-
+            <!-- جدول -->
+            <table class="table table-bordered table-hover table-striped text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Patient</th>
+                        <th>Doctor</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Fee</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var appointment in Model)
+                        {
+                            <tr>
+                                <td>@appointment.PatientName</td>
+                                <td>@appointment.DoctorName</td>
+                                <td>@appointment.AppointmentDate.ToString("yyyy-MM-dd")</td>
+                                <td>@appointment.StartTime.ToString(@"hh\:mm") - @appointment.EndTime.ToString(@"hh\:mm")</td>
+                                <td>@appointment.Status</td>
+                                <td>@appointment.ConsultationFee.ToString("C")</td>
+                                <td>
+                                    <a href="@Url.Action("Details", new { id = appointment.Id })" class="btn btn-sm btn-info">Details</a>
+                                    <a href="@Url.Action("Edit", new { id = appointment.Id })" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="@Url.Action("Cancel", new { id = appointment.Id })" class="btn btn-sm btn-danger">Cancel</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-muted">No appointments found.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

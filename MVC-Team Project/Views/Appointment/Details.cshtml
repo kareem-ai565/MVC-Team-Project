@@ -1,0 +1,56 @@
+﻿@model MVC_Team_Project.View_Models.AppointmentVM
+
+@{
+    ViewData["Title"] = "Appointment Details";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-info text-white">
+            <h4>Appointment Details</h4>
+        </div>
+
+        <div class="card-body">
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+
+            <dl class="row">
+                <dt class="col-sm-3">Patient</dt>
+                <dd class="col-sm-9">@Model.PatientName</dd>
+
+                <dt class="col-sm-3">Doctor</dt>
+                <dd class="col-sm-9">@Model.DoctorName</dd>
+
+                <dt class="col-sm-3">Appointment Date</dt>
+                <dd class="col-sm-9">@Model.AppointmentDate.ToString("yyyy-MM-dd")</dd>
+
+                <dt class="col-sm-3">Time</dt>
+                <dd class="col-sm-9">@Model.StartTime.ToString(@"hh\:mm") - @Model.EndTime.ToString(@"hh\:mm")</dd>
+
+                <dt class="col-sm-3">Status</dt>
+                <dd class="col-sm-9">@Model.Status</dd>
+
+                <dt class="col-sm-3">Symptoms</dt>
+                <dd class="col-sm-9">@Model.Symptoms</dd>
+
+                <dt class="col-sm-3">Patient Notes</dt>
+                <dd class="col-sm-9">@Model.PatientNotes</dd>
+
+                <dt class="col-sm-3">Consultation Fee</dt>
+                <dd class="col-sm-9">@Model.ConsultationFee.ToString("C")</dd>
+            </dl>
+
+            <div class="mt-4">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+                    <i class="bi bi-pencil-square"></i> Edit
+                </a>
+                <a asp-action="Cancel" asp-route-id="@Model.Id" class="btn btn-danger">
+                    <i class="bi bi-x-circle"></i> Cancel
+                </a>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+﻿@model MVC_Team_Project.View_Models.AppointmentEditVM
+
+@{
+    ViewData["Title"] = "Edit Appointment";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-warning text-dark">
+            <h4>Edit Appointment</h4>
+        </div>
+        <div class="card-body">
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="PatientId" class="form-label"></label>
+                    @Html.DropDownListFor(m => m.PatientId, (SelectList)ViewBag.Patients, "Select Patient", new { @class = "form-control" })
+                    <span asp-validation-for="PatientId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DoctorId" class="form-label"></label>
+                    @Html.DropDownListFor(m => m.DoctorId, (SelectList)ViewBag.Doctors, "Select Doctor", new { @class = "form-control" })
+                    <span asp-validation-for="DoctorId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="AppointmentDate" class="form-label"></label>
+                    <input asp-for="AppointmentDate" type="date" class="form-control" />
+                    <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="StartTime" class="form-label"></label>
+                    <input asp-for="StartTime" type="time" class="form-control" />
+                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="EndTime" class="form-label"></label>
+                    <input asp-for="EndTime" type="time" class="form-control" />
+                    <span asp-validation-for="EndTime" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Status" class="form-label"></label>
+                    @Html.DropDownListFor(m => m.Status, (SelectList)ViewBag.StatusOptions, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Symptoms" class="form-label"></label>
+                    <textarea asp-for="Symptoms" class="form-control"></textarea>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="PatientNotes" class="form-label"></label>
+                    <textarea asp-for="PatientNotes" class="form-control"></textarea>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="ConsultationFee" class="form-label"></label>
+                    <input asp-for="ConsultationFee" class="form-control" />
+                    <span asp-validation-for="ConsultationFee" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-warning">
+                    <i class="bi bi-pencil-square"></i> Update
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

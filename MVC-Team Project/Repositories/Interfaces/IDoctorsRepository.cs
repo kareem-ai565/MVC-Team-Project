@@ -9,6 +9,9 @@ namespace MVC_Team_Project.Repositories.Interfaces
         Task<List<ApplicationUser>> GetAvailableUsersAsync();
         Task<List<Specialty>> GetActiveSpecialtiesAsync();
 
+        Task<List<Doctor>> GetAllDoctorsAsync();
+        Task<Doctor> GetDoctorByIdAsync(int id);
+
 
 
     }

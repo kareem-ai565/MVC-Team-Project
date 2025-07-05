@@ -91,4 +91,7 @@ public partial class Appointment
 
     [InverseProperty("Appointment")]
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
+
+ 
+
 }

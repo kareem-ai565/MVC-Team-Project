@@ -43,4 +43,10 @@ public partial class Availability
     [ForeignKey("DoctorId")]
     [InverseProperty("Availabilities")]
     public virtual Doctor Doctor { get; set; }
+    [NotMapped]
+    public bool IsActive { get; set; }
+    [NotMapped]
+    public DayOfWeek DayOfWeek { get; set; }
+
+    
 }

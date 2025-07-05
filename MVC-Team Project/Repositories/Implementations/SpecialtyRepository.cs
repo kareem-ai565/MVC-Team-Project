@@ -78,7 +78,14 @@ namespace MVC_Team_Project.Repositories.Implementations
                 .ToListAsync();
 
             return (data, totalCount);
-        }
 
+
+        }
+              public async Task<List<Specialty>> GetAllSpecialtiesAsync()
+        {
+            return await _context.Specialties.ToListAsync();
+        }
     }
+
+    
 }

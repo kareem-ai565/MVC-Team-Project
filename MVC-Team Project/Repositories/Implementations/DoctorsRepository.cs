@@ -92,5 +92,16 @@ namespace MVC_Team_Project.Repositories
         {
             await _context.SaveChangesAsync();
         }
+
+
+        public async Task<List<Doctor>> GetAllDoctorsAsync()
+        {
+            return await _context.Doctors.Include(d => d.User).ToListAsync();
+        }
+
+        public async Task<Doctor> GetDoctorByIdAsync(int id)
+        {
+            return await _context.Doctors.Include(d => d.User).FirstOrDefaultAsync(d => d.Id == id);
+        }
     }
 }
