@@ -27,5 +27,22 @@ namespace MVC_Team_Project.Controllers
 
 
         }
+
+
+
+        [HttpPost]
+        public IActionResult EditStatus(int id)
+        {
+            Notification notification=notificationRepository.EditNotification(id);
+
+
+            notification.IsRead= true;
+
+            notificationRepository.save();
+
+
+            return RedirectToAction("Index");
+
+        }
     }
 }

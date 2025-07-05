@@ -97,13 +97,19 @@
             <div class="notif-message">@n.Message</div>
             <div class="notif-message">Status: @(n.IsRead ? "Read ✅" : "Unread ❗")</div>
 
-            <div class="notif-meta">
+            <div class="notif-meta mb-3">
                 <div>
                     <span class="priority-dot @priorityClass"></span>
                     <span class="ms-2">@n.NotificationType</span>
                 </div>
                 <div>@n.CreatedAt.ToString("MMM dd, yyyy - hh:mm tt")</div>
             </div>
+
+
+            <form asp-action="EditStatus" asp-route-Id="@n.Id">
+                <button type="submit" class="btn btn-outline-secondary p-2" >Done</button>
+
+            </form>
         </div>
     }
 </div>
