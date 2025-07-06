@@ -90,6 +90,65 @@ public class DoctorAppointmentController : Controller
         return Json(apptEvents.Cast<object>().Concat(availabilityEvents.Cast<object>()));
     }
 
+    //[HttpPut]
+    //public async Task<IActionResult> Update(int id, [FromBody] AppointmentViewModel vm)
+    //{
+    //    var appt = await _ctx.Appointments.FindAsync(id);
+    //    if (appt is null) return NotFound();
+
+    //    if (appt.Status == "Cancelled" || appt.Status == "Completed")
+    //        return BadRequest("Cannot update this appointment.");
+
+    //    if (appt.Status == "Confirmed")
+    //    {
+    //        Patient patient= await _ctx.Patients.FirstOrDefaultAsync(p=>p.Id == vm.PatientId);
+    //        if (patient == null)
+    //        {
+    //            TempData["ErrorMessage"] = "patient not found.";
+    //            return BadRequest();
+    //        }
+
+
+
+    //        Notification notificate = new Notification()
+    //            {
+    //                Title = "Appointment",
+    //                Message = "Appointment has confirmed ",
+    //                NotificationType = "Appointment",
+    //                Priority = "high",
+    //                IsRead = false,
+    //                UserId = patient.UserId
+    //            };
+
+
+    //        await _ctx.Notifications.AddAsync(notificate);
+
+    //        await _ctx.SaveChangesAsync();
+
+    //            //notification.Add(notificate);
+    //            //notification.save();
+
+    //        }
+
+
+    //    var today = DateTime.Today;
+    //    var apptDate = appt.AppointmentDate.Date;
+    //    if (apptDate < today)
+    //        return BadRequest("Cannot modify past appointments.");
+
+    //    appt.StartTime = vm.StartTime;
+    //    appt.EndTime = vm.EndTime;
+
+    //    if (!string.IsNullOrEmpty(vm.Status))
+    //        appt.Status = vm.Status;
+
+    //    appt.UpdatedAt = DateTime.UtcNow;
+
+    //    await _ctx.SaveChangesAsync();
+    //    return Ok();
+    //}
+
+
     [HttpPut]
     public async Task<IActionResult> Update(int id, [FromBody] AppointmentViewModel vm)
     {
@@ -99,42 +158,12 @@ public class DoctorAppointmentController : Controller
         if (appt.Status == "Cancelled" || appt.Status == "Completed")
             return BadRequest("Cannot update this appointment.");
 
-        if (appt.Status == "Confirmed")
-        {
-            Patient patient= await _ctx.Patients.FirstOrDefaultAsync(p=>p.Id == vm.PatientId);
-            if (patient == null)
-            {
-                TempData["ErrorMessage"] = "patient not found.";
-                return BadRequest();
-            }
-           
-
-
-            Notification notificate = new Notification()
-                {
-                    Title = "Appointment",
-                    Message = "Appointment has confirmed ",
-                    NotificationType = "Appointment",
-                    Priority = "high",
-                    IsRead = false,
-                    UserId = patient.UserId
-                };
-
-
-            await _ctx.Notifications.AddAsync(notificate);
-
-            await _ctx.SaveChangesAsync();
-
-                //notification.Add(notificate);
-                //notification.save();
-
-            }
-        
-
         var today = DateTime.Today;
         var apptDate = appt.AppointmentDate.Date;
         if (apptDate < today)
             return BadRequest("Cannot modify past appointments.");
+
+        var oldStatus = appt.Status;
 
         appt.StartTime = vm.StartTime;
         appt.EndTime = vm.EndTime;
@@ -145,6 +174,27 @@ public class DoctorAppointmentController : Controller
         appt.UpdatedAt = DateTime.UtcNow;
 
         await _ctx.SaveChangesAsync();
+
+        if (oldStatus != "Confirmed" && appt.Status == "Confirmed")
+        {
+            var patient = await _ctx.Patients.FirstOrDefaultAsync(p => p.Id == appt.PatientId);
+            if (patient != null)
+            {
+                var notificate = new Notification()
+                {
+                    Title = "Appointment Confirmed",
+                    Message = "Your appointment has been confirmed by the doctor.",
+                    NotificationType = "Appointment",
+                    Priority = "High",
+                    IsRead = false,
+                    UserId = patient.UserId
+                };
+
+                await _ctx.Notifications.AddAsync(notificate);
+                await _ctx.SaveChangesAsync();
+            }
+        }
+
         return Ok();
     }
 

@@ -45,6 +45,15 @@ namespace MVC_Team_Project.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult UnreadCount()
+        {
+            int id = int.Parse(User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            int unreadCount = notificationRepository.GetAllNotifications(id).Count(n => !n.IsRead);
+
+            return Json(new { count = unreadCount });
+        }
+
 
         //[HttpPost]
 
