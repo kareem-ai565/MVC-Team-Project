@@ -1927,3 +1927,436 @@ background-color: var(--teal);
 color: var(--white);
 border: 1px solid var(--teal);
 }
+
+
+
+
+.about .about-container {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    margin-top: 4%;
+    gap: 1%;
+}
+
+    .about .about-container .about-content {
+        padding: 1%;
+    }
+
+        .about .about-container .about-content > * {
+            padding: 0.5%;
+        }
+
+        .about .about-container .about-content p {
+            color: var(--gray);
+            font-size: 1.5rem;
+        }
+
+        .about .about-container .about-content h2 {
+            color: var(--second);
+            font-size: 4rem;
+            font-weight: bold;
+        }
+
+.accordion {
+    --bs-accordion-active-bg: #01d6a3;
+    --bs-accordion-btn-focus-border-color: #01d6a3;
+    --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem #01d6a3;
+    --bs-accordion-btn-icon: url(https://cdn-icons-png.flaticon.com/128/12598/12598794.png);
+    --bs-accordion-btn-active-icon: url(https://cdn-icons-png.flaticon.com/128/992/992683.png);
+}
+
+.about .about-container .about-content .accordion-button {
+    color: var(--second);
+    font-size: 1.9rem;
+}
+
+.about .about-container .about-content .accordion-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: var(--gray);
+    padding-left: 0%;
+    height: 20rem;
+}
+
+.about .about-container .about-content .accordion:last-child {
+    border-bottom: 1px solid #ede
+}
+
+.about .about-container .about-content .accordion-body img {
+    width: 25rem;
+    height: 10rem;
+    padding: 1%;
+    padding-left: 0%;
+}
+
+.about-countup {
+    width: 100%;
+    margin: auto;
+    background-color: var(--count);
+}
+
+.about-count-container {
+    width: 80%;
+    margin: auto;
+    margin-top: 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    color: var(--white);
+    padding: 0;
+}
+
+    .about-count-container i {
+        font-size: 3.4rem;
+        margin: 4%;
+    }
+
+    .about-count-container h3 {
+        margin: 4%;
+        margin-top: 15%;
+        font-size: 3.4rem;
+    }
+
+    .about-count-container p {
+        font-size: 2rem;
+        color: #f8f9faba;
+    }
+
+    .about-count-container .about-count-box {
+        border-right: 1px solid var(--light);
+        height: 22rem;
+        width: 25%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .about-count-container .about-count-box:last-child {
+            border-right: 0px;
+        }
+
+.aboutreview {
+    width: 100%;
+    position: relative;
+    margin-bottom: 12%;
+}
+
+    .aboutreview .left-review {
+        margin-top: 4%;
+        background-color: var(--count);
+        width: 45%;
+        padding: 3% 10% 3% 12%;
+    }
+
+        .aboutreview .left-review p {
+            color: rgba(255, 255, 255, 0.76);
+            font-size: 1.8rem;
+            padding: 1%;
+        }
+
+        .aboutreview .left-review h3 {
+            color: var(--white);
+            font-size: 2.5rem;
+            padding: 1%;
+            font-weight: bolder;
+        }
+
+        .aboutreview .left-review a {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 1%;
+            text-decoration: none;
+        }
+
+        .aboutreview .left-review i {
+            color: var(--light);
+            font-size: 1.5rem;
+            padding: 1%;
+        }
+
+    .aboutreview .right-review {
+        background-color: var(--second);
+        display: flex;
+        justify-content: center;
+        gap: 1%;
+        align-items: center;
+        width: 63%;
+        position: absolute;
+        right: 0;
+        top: 15%;
+        padding: 5%;
+    }
+
+        .aboutreview .right-review .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 4%;
+        }
+
+        .aboutreview .right-review .review-avatar {
+            text-align: center;
+        }
+
+            .aboutreview .right-review .review-avatar img {
+                border-radius: 50px;
+            }
+
+            .aboutreview .right-review .review-avatar h3 {
+                color: var(--count);
+                font-size: 2rem;
+                font-weight: bolder;
+                width: 15rem;
+            }
+
+            .aboutreview .right-review .review-avatar p {
+                color: var(--white);
+                font-size: 1.2rem;
+            }
+
+        .aboutreview .right-review .review-caption {
+            background-color: rgba(255,255,255,.05);
+            padding: 5%;
+        }
+
+            .aboutreview .right-review .review-caption:before {
+                position: absolute;
+                content: "";
+                left: 20.6%;
+                top: 13%;
+                width: 0;
+                height: 0;
+                border: 2rem solid transparent;
+                border-right-color: rgba(255,255,255,.05);
+                transform: translateX(-50%);
+            }
+
+            .aboutreview .right-review .review-caption p {
+                color: rgba(255,255,255,.75);
+                font-size: 2rem;
+            }
+
+            .aboutreview .right-review .review-caption .fa-quote-right {
+                float: right;
+            }
+
+            .aboutreview .right-review .review-caption i {
+                color: var(--yellow);
+                padding: 0.4%;
+                font-size: 1.2rem;
+            }
+
+.ReviewButtons {
+    display: flex;
+    width: min-content;
+    position: absolute;
+    right: 8%;
+    bottom: 5%;
+}
+
+    .ReviewButtons button {
+        width: 5rem;
+        height: 3.6rem;
+        margin-left: 10%;
+        background: none;
+        color: var(--white);
+        font-size: 1.3rem;
+        /* border: 0px solid var(--second); */
+    }
+/* .ReviewButtons button:hover{
+    background-color: var(--teal);
+    color: var(--white);
+    border: 1px solid var(--teal);
+} */
+.ReviewIcons-container {
+    width: 80%;
+    margin: auto;
+}
+
+    .ReviewIcons-container .ReviewIcons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+        .ReviewIcons-container .ReviewIcons img {
+            box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.036);
+            padding: 2% 4%;
+            width: 20rem;
+            height: 12rem;
+        }
+/* media query */
+@media (max-width: 1440px) {
+}
+
+@media (max-width: 1200px) {
+    html {
+        font-size: 55%;
+    }
+}
+
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 768px) {
+    .about .about-container {
+        flex-wrap: wrap;
+        width: 90%;
+    }
+
+        .about .about-container .about-content {
+            margin-left: 2%;
+        }
+
+    .about-count-container {
+        width: 100%;
+    }
+
+    .aboutreview .left-review {
+        margin-top: 4%;
+        background-color: var(--count);
+        width: 100%;
+        padding: 3% 10% 3% 12%;
+    }
+
+    .aboutreview .right-review {
+        width: 100%;
+        position: relative;
+    }
+
+    .ReviewButtons {
+        right: 5%;
+        bottom: 1%;
+    }
+
+    .ReviewIcons-container {
+        width: 100%;
+    }
+
+        .ReviewIcons-container .ReviewIcons {
+            justify-content: center;
+            gap: 2rem;
+        }
+
+            .ReviewIcons-container .ReviewIcons img {
+                padding: 1%;
+                margin: 1%;
+            }
+
+    .aboutreview .right-review .review-caption:before {
+        position: absolute;
+        content: "";
+        left: 20.54%;
+        top: 13%;
+        width: 0;
+        height: 0;
+        border: 2rem solid transparent;
+        border-right-color: rgba(255,255,255,.05);
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 450px) {
+    .about .about-container .about-content .accordion-body {
+        font-size: 1.2rem;
+        height: max-content;
+    }
+
+    .about-count-container i {
+        font-size: 3rem;
+        margin-top: 15%;
+    }
+
+    .about-count-container h3 {
+        font-size: 3rem;
+    }
+
+    .about-count-container p {
+        font-size: 1rem;
+    }
+
+    .about-count-container .about-count-box {
+        height: max-content;
+        width: 25%;
+    }
+
+    .aboutreview .right-review {
+        flex-wrap: wrap;
+    }
+
+        .aboutreview .right-review .swiper-slide {
+            gap: 10%;
+            flex-wrap: wrap;
+            padding-bottom: 8%;
+        }
+
+        .aboutreview .right-review .review-caption:before {
+            position: absolute;
+            content: "";
+            left: 50%;
+            top: 28%;
+            width: 0;
+            height: 0;
+            border: 2rem solid transparent;
+            border-bottom-color: rgba(255,255,255,.05);
+        }
+
+        .aboutreview .right-review .review-caption {
+            margin-top: 5%;
+            margin-left: 1%;
+            height: 30.9rem;
+        }
+
+    .ReviewIcons-container {
+        display: none;
+    }
+}
+
+@media (max-width: 395px) {
+    .aboutreview .right-review .review-caption {
+        height: 33.5rem;
+    }
+
+        .aboutreview .right-review .review-caption:before {
+            position: absolute;
+            content: "";
+            left: 50%;
+            top: 26.7%;
+            width: 0;
+            height: 0;
+            border: 2rem solid transparent;
+            border-bottom-color: rgba(255,255,255,.05);
+        }
+
+    .ab-img img {
+        width: 40rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .aboutreview .right-review .review-caption {
+        height: 38.9rem;
+    }
+
+        .aboutreview .right-review .review-caption:before {
+            position: absolute;
+            content: "";
+            left: 50%;
+            top: 24.1%;
+            width: 0;
+            height: 0;
+            border: 2rem solid transparent;
+            border-bottom-color: rgba(255,255,255,.05);
+        }
+
+    .ab-img img {
+        width: 33rem;
+    }
+}
+

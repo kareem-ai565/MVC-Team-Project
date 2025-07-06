@@ -22,6 +22,10 @@ namespace MVC_Team_Project.Controllers
             return View("Index", doctors);
         }
 
+        public IActionResult About()
+        {
+            return View("About");
+        }
         public IActionResult Privacy()
         {
             return View();
