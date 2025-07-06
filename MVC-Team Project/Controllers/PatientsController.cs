@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using MVC_Team_Project.Models;
 using MVC_Team_Project.Repositories.Interfaces;
 using MVC_Team_Project.View_Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC_Team_Project.Controllers
 {
@@ -263,6 +264,53 @@ public async Task<IActionResult> Edit(int id)
 
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        [Authorize(Roles = "Patient")]
+        public async Task<IActionResult> Profile()
+        {
+            // Step 1: Get logged-in user
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                TempData["Error"] = "User not found.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Step 2: Use existing method by passing user.Id
+            var patient = await _patientRepo.GetPatientWithUserAsync(user.Id);
+            if (patient == null)
+            {
+                TempData["Error"] = "Patient profile not found.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Step 3: Map to PatientVM
+            var vm = new PatientVM
+            {
+                Id = patient.Id,
+                FullName = user.FullName,
+                ProfilePicture = user.ProfilePicture ?? "/images/default-patient.jpg",
+                Gender = patient.Gender,
+                DOB = patient.DOB,
+                Address = patient.Address,
+                BloodType = patient.BloodType,
+                Allergies = patient.Allergies,
+                MedicalHistory = patient.MedicalHistory,
+                CurrentMedications = patient.CurrentMedications,
+                InsuranceProvider = patient.InsuranceProvider,
+                InsurancePolicyNumber = patient.InsurancePolicyNumber,
+                Appointments = patient.Appointments?.Select(ap => new PatientAppointmentVM
+                {
+                    AppointmentDate = ap.AppointmentDate,
+                    DoctorName = ap.Doctor?.User?.FullName,
+                    Status = ap.Status
+                }).ToList()
+            };
+
+            return View("Profile", vm);
+        }
+
+
 
 
     }

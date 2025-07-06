@@ -1,0 +1,46 @@
+﻿@@model MVC_Team_Project.View_Models.PatientVM
+
+<div class="text-center mb-4">
+    <img src="@Model.ProfilePicture" class="rounded-circle shadow"
+         style="width:150px; height:150px; object-fit:cover;" />
+    <h3 class="mt-3">@Model.FullName</h3>
+    <p class="text-muted">@Model.Gender - @Model.DOB?.ToShortDateString()</p>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <p><strong>Address:</strong> @Model.Address</p>
+        <p><strong>Blood Type:</strong> @Model.BloodType</p>
+        <p><strong>Allergies:</strong> @Model.Allergies</p>
+        <p><strong>Medical History:</strong> @Model.MedicalHistory</p>
+        <p><strong>Current Medications:</strong> @Model.CurrentMedications</p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>Insurance Provider:</strong> @Model.InsuranceProvider</p>
+        <p><strong>Policy Number:</strong> @Model.InsurancePolicyNumber</p>
+    </div>
+</div>
+
+@if (Model.Appointments?.Any() == true)
+{
+    <h4 class="mt-5">Upcoming Appointments</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Doctor</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appt in Model.Appointments)
+            {
+                <tr>
+                    <td>@appt.AppointmentDate.ToShortDateString()</td>
+                    <td>@appt.DoctorName</td>
+                    <td>@appt.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using MVC_Team_Project.Models;
 using MVC_Team_Project.Repositories.Interfaces;
 using MVC_Team_Project.View_Models;
+using System.Security.Claims;
 
 namespace MVC_Team_Project.Controllers
 {
@@ -137,9 +138,11 @@ namespace MVC_Team_Project.Controllers
 
         // ===================== Edit Doctor (GET) =====================
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        [Authorize(Roles = "Doctor")]
+        public async Task<IActionResult> Edit()
         {
-            var doctor = await _doctorsRepo.GetByIdWithDetailsAsync(id);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var doctor = await _doctorsRepo.GetByUserIdWithDetailsAsync(int.Parse(userId));
             if (doctor == null) return NotFound();
 
             var vm = new DoctorFormVM
@@ -151,6 +154,7 @@ namespace MVC_Team_Project.Controllers
 
             return View(vm);
         }
+
 
         // ===================== Edit Doctor (POST) =====================
         [HttpPost]
@@ -186,7 +190,7 @@ namespace MVC_Team_Project.Controllers
             _doctorsRepo.Update(doctor);
             await _doctorsRepo.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Profile", "Doctors");
         }
 
         // ===================== Delete Doctor =====================

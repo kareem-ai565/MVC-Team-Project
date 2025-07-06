@@ -45,6 +45,7 @@
                     <thead>
                         <tr class="text-center">
                             <th>#</th>
+                            <th>Photo</th>
                             <th>Full Name</th>
                             <th>Email</th>
                             <th>Gender</th>
@@ -57,6 +58,12 @@
                         {
                             <tr class="text-center">
                                 <td>@patient.Id</td>
+                                <td>
+                                    <img src="@patient.User?.ProfilePicture ?? " /images/default-patient.jpg""
+                                         alt="Profile"
+                                         class="rounded-circle"
+                                         style="width:40px; height:40px; object-fit:cover;" />
+                                </td>
                                 <td>@patient.User?.FullName</td>
                                 <td>@patient.User?.Email</td>
                                 <td>@patient.Gender</td>

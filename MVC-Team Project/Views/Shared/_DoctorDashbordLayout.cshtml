@@ -275,16 +275,27 @@
                         <span>Doctor</span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="profile.html">My Profile</a>
-                        <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
-                        <a class="dropdown-item" href="settings.html">Settings</a>
-                        <form id="logoutForm" asp-controller="Auth" asp-action="Logout" method="post" class="d-none"></form>
+                        @if (User.IsInRole("Doctor"))
+                        {
+                            <a class="dropdown-item" asp-controller="Doctors" asp-action="Profile">
+                                <i class="fa fa-user-md"></i> My Profile
+                            </a>
+                            <a class="dropdown-item" asp-controller="Doctors" asp-action="Edit">
+                                <i class="fa fa-edit"></i> Edit Profile
+                            </a>
 
+                        }
+
+                        <a class="dropdown-item" asp-controller="Settings" asp-action="Index">
+                            <i class="fa fa-cog"></i> Settings
+                        </a>
+                        <form id="logoutForm" asp-controller="Auth" asp-action="Logout" method="post" class="d-none"></form>
                         <a href="javascript:void(0);" class="dropdown-item text-danger" onclick="document.getElementById('logoutForm').submit();">
                             <i class="fa fa-sign-out m-r-5"></i> Logout
                         </a>
-                        
                     </div>
+
+
                 </li>
             </ul>
             <div class="dropdown mobile-user-menu float-right">
