@@ -6,11 +6,159 @@
 }
 <style>
 
+
+    .book-clean-section {
+        padding: 80px 0;
+        background: linear-gradient(to right, #033B48, #eef5f7);
+        position: relative;
+    }
+
+    .content-box {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .main-title {
+        font-size: 2.8rem;
+        font-weight: 800;
+        color: #2f4f59;
+    }
+
+        .main-title span {
+            color: #538493;
+        }
+
+    .description {
+        font-size: 1.15rem;
+        color: white;
+        line-height: 1.8;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .btn-book {
+        background-color: #538493;
+        color: white;
+        padding: 14px 36px;
+        font-size: 1.1rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s ease;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+        .btn-book:hover {
+            background-color: #3d697a;
+            transform: scale(1.05);
+        }
+
+    media (max-width: 768px) {
+        .main-title
+
+    {
+        font-size: 2rem;
+    }
+
+    .btn-book {
+        font-size: 1rem;
+        padding: 12px 28px;
+    }
+
+    }
+
+
+
+
+
+
+    .why-choose-us {
+        background: linear-gradient(to bottom right, #f4f8fa, #ffffff);
+    }
+
+    .section-heading {
+        font-size: 2.7rem;
+        font-weight: 800;
+        color: #033B48;
+        position: relative;
+        letter-spacing: 0.5px;
+    }
+
+        .section-heading::after {
+            content: "";
+            width: 80px;
+            height: 4px;
+            background-color: #538493;
+            display: block;
+            margin: 10px auto 0;
+            border-radius: 4px;
+        }
+
+    .feature-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 35px 25px;
+        text-align: center;
+        border: none;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        transition: 0.3s ease-in-out;
+    }
+
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(83, 132, 147, 0.2);
+        }
+
+    .icon-box {
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 30px;
+        border-radius: 50%;
+        color: white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .bg1, .bg2, .bg3 {
+        background-color: #033B48;
+    }
+
+
+    .feature-card h5 {
+        font-weight: bold;
+        font-size: 1.3rem;
+        color: #2f4f59;
+        margin-bottom: 10px;
+    }
+
+    .feature-card p {
+        font-size: 0.95rem;
+        color: #6c757d;
+        line-height: 1.6;
+    }
+
+    media (max-width: 576px) {
+        .section-heading
+
+    {
+        font-size: 2rem;
+    }
+
+    .feature-card {
+        padding: 25px 18px;
+    }
+
+    }
+
+
     .doctors-heading {
         text-align: center;
         font-size: 2.5rem;
         font-weight: 800;
-        background: linear-gradient(90deg, #538493, #7aa9bc);
+        background: linear-gradient(90deg, #033B48, #7aa9bc);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 40px;
@@ -21,11 +169,13 @@
             content: '';
             width: 80px;
             height: 4px;
-            background-color: #538493;
+            background-color: #033B48;
             display: block;
             margin: 10px auto 0;
             border-radius: 2px;
         }
+
+
 
     /* Swiper */
     .swiper {
@@ -88,16 +238,16 @@
     .doctor-name {
         font-size: 1.2rem;
         font-weight: bold;
-        color: #2e4a57;
+        color: #033B48;
     }
 
     .specialty {
-        color: #538493;
+        color: #033B48;
         font-style: italic;
     }
 
     .flip-card-back {
-        background-color: #538493;
+        background-color: #033B48;
         color: white;
         transform: rotateY(180deg);
         border-radius: 15px;
@@ -262,7 +412,7 @@
 
 
 
-
+@* List Of Doctors *@
 
 
 <h2 class="doctors-heading ">🌟 Meet Our Expert Doctors</h2>
@@ -296,11 +446,89 @@
 </div>
 
 
-@* 
-<div class="d-flex justify-content-end me-5 ">
-    <a asp-controller="Doctors" asp-action="Index"  class="btn btn-outline-dark p-4 fs-4">View More</a>
 
-</div> *@
+<div class="d-flex justify-content-end me-5 ">
+    <a asp-controller="" asp-action="" class="btn btn-outline-dark p-4 fs-4">Book Now</a>
+
+</div>
+
+
+
+
+
+
+@* why-choose Our Website *@
+
+
+<section class="why-choose-us py-5 ">
+    <div class="container">
+        <h2 class="section-heading text-center mb-5">🌟 Why Choose Our Clinic?</h2>
+
+        <div class="row g-4 justify-content-center">
+            <!-- Card 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card ">
+                    <div class="icon-box bg1">
+                        <i class="bi bi-person-heart"></i>
+                    </div>
+                    <h5 class="fs-2">Expert Doctors</h5>
+                    <p class="fs-3">Certified and compassionate doctors with years of experience to provide the best care possible.</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="icon-box bg2">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                    <h5 class="fs-2">Quick Appointments</h5>
+                    <p class="fs-3">Easy online booking with fast response times. Say goodbye to long queues and delays.</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="icon-box bg3">
+                        <i class="bi bi-file-earmark-medical"></i>
+                    </div>
+                    <h5 class="fs-2">Smart Diagnostics</h5>
+                    <p class="fs-3">Using AI-powered tools and modern labs to ensure precise and early diagnosis for every patient.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+@* Book An Appointment *@
+
+
+<section class="book-clean-section mt-5">
+    <div class="container text-center text-md-start">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="content-box ">
+                    <h2 class="main-title fs-3">Your Health <span>Comes First</span></h2>
+                    <p class="description mt-5 mb-5  fs-3">
+                        Book your appointment in seconds. Our doctors are ready to provide expert, compassionate care tailored to your needs.
+                    </p>
+                    <a href="/Appointment/Book" class="btn-book mt-4 fs-3">
+                        🗓️ Book an Appointment
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 
 
