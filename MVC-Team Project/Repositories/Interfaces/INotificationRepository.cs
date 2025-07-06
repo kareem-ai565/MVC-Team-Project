@@ -11,6 +11,9 @@ namespace MVC_Team_Project.Repositories.Interfaces
         void save();
 
 
+        void Add(Notification notification);
+
+
 
     }
 }

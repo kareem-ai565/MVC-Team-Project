@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVC_Team_Project.Models;
+using MVC_Team_Project.Repositories.Implementations;
+using MVC_Team_Project.Repositories.Interfaces;
 using MVC_Team_Project.View_Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace MVC_Team_Project.Controllers
 {
@@ -16,11 +19,13 @@ namespace MVC_Team_Project.Controllers
     {
         private readonly ClinicSystemContext _ctx;
         private readonly UserManager<ApplicationUser> _user;
+        private readonly INotificationRepository notification;
 
-        public PatientAppointmentController(ClinicSystemContext ctx, UserManager<ApplicationUser> user)
+        public PatientAppointmentController(ClinicSystemContext ctx, UserManager<ApplicationUser> user , INotificationRepository notification)
         {
             _ctx = ctx;
             _user = user;
+            this.notification = notification;
         }
 
         public IActionResult Index(int doctorId)
@@ -209,6 +214,31 @@ namespace MVC_Team_Project.Controllers
 
             _ctx.Appointments.Add(appt);
             await _ctx.SaveChangesAsync();
+
+
+            var doctor = await _ctx.Doctors.FirstOrDefaultAsync(d => d.Id == vm.DoctorId);
+            if (doctor == null)
+            {
+                TempData["ErrorMessage"] = "Doctor not found.";
+                return BadRequest();
+            }
+
+
+
+            Notification notificate = new Notification()
+            {
+                Title = "Appointment",
+                Message = "I book Appointment with u",
+                NotificationType = "Appointment",
+                Priority = "Low",
+                IsRead = false,
+                UserId = doctor.UserId
+            };
+            notification.Add(notificate);
+            notification.save();
+
+
+
 
             TempData["SuccessMessage"] = "The booking has been sent and is awaiting confirmation.";
             return Ok();

@@ -1,10 +1,12 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MVC_Team_Project.Models;
+using MVC_Team_Project.Repositories.Interfaces;
 using MVC_Team_Project.View_Models;
+using System.Linq;
+using System.Numerics;
 
 namespace MVC_Team_Project.Controllers;
 
@@ -13,11 +15,13 @@ public class DoctorAppointmentController : Controller
 {
     private readonly ClinicSystemContext _ctx;
     private readonly UserManager<ApplicationUser> _user;
+    private readonly INotificationRepository notification;
 
-    public DoctorAppointmentController(ClinicSystemContext c, UserManager<ApplicationUser> u)
+    public DoctorAppointmentController(ClinicSystemContext c, UserManager<ApplicationUser> u , INotificationRepository notification)
     {
         _ctx = c;
         _user = u;
+        this.notification = notification;
     }
 
     public async Task<IActionResult> Index()
@@ -94,6 +98,33 @@ public class DoctorAppointmentController : Controller
 
         if (appt.Status == "Cancelled" || appt.Status == "Completed")
             return BadRequest("Cannot update this appointment.");
+
+        if (appt.Status == "Confirmed")
+        {
+            Patient patient= await _ctx.Patients.FirstOrDefaultAsync(p=>p.Id == vm.PatientId);
+            if (patient == null)
+            {
+                TempData["ErrorMessage"] = "patient not found.";
+                return BadRequest();
+            }
+
+
+            Notification notificate = new Notification()
+                {
+                    Title = "Appointment",
+                    Message = "Appointment has confirmed ",
+                    NotificationType = "Appointment",
+                    Priority = "high",
+                    IsRead = false,
+                    UserId = patient.UserId
+                };
+
+
+                notification.Add(notificate);
+                notification.save();
+
+            }
+        
 
         var today = DateTime.Today;
         var apptDate = appt.AppointmentDate.Date;
