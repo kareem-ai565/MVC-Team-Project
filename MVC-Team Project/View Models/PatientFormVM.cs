@@ -54,5 +54,12 @@ namespace MVC_Team_Project.View_Models
 
         [Display(Name = "Insurance Policy #")]
         public string? InsurancePolicyNumber { get; set; }
+
+        [Display(Name = "Profile Picture URL")]
+        public string? ProfilePicture { get; set; }
+
+        [Display(Name = "Upload Profile Picture")]
+        public IFormFile? ProfileImageFile { get; set; }
+
     }
 }

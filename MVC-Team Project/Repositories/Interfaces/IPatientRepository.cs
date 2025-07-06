@@ -9,9 +9,11 @@ using MVC_Team_Project.Models;
             Task<Patient?> GetPatientWithUserAsync(int id);
             Task<IEnumerable<Patient>> GetPagedPatientsAsync(int page, int pageSize);
             Task<int> GetTotalCountAsync();
+            Task<Patient?> GetByUserIdAsync(int userId);
 
-        }
+
     }
+}
 
 
 

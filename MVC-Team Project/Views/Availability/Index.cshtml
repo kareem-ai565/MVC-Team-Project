@@ -1,0 +1,40 @@
+﻿@model IEnumerable<MVC_Team_Project.View_Models.AvailabilityViewModel>
+
+@{
+    ViewData["Title"] = "Availability List";
+	Layout = "_DoctorDashbordLayout";
+}
+
+<h2>Availability Slots</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Slot Duration</th>
+            <th>Max Patients</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.AvailableDate.ToString("yyyy-MM-dd")</td>
+                <td>@(item.StartTime != TimeSpan.Zero ? item.StartTime.ToString("hh\\:mm") : "N/A")</td>
+                <td>@(item.EndTime != TimeSpan.Zero ? item.EndTime.ToString("hh\\:mm") : "N/A")</td>
+                <td>@item.SlotDuration minutes</td>
+                <td>@item.MaxPatients</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                    <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="Create" class="btn btn-primary">Add New Slot</a>
