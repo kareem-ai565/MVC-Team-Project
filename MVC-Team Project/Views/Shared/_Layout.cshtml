@@ -9,10 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+
     @* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" /> *@
     <!-- Bootstrap Bundle JS (includes Popper.js) -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/header.css" />
     <link rel="stylesheet" href="~/css/home.css" />
 </head>
@@ -44,12 +47,11 @@
                 <a href="/" class="logo" title="Delmont"><img src="/images/logo.png" alt="" /></a>
                 <nav class="navbar">
                     <a href="/">Home</a>
-                    <a href="/research/all">Research</a>
-                    <a href="/services">Services</a>
-                    <a href="/blog">Blog</a>
+                    <a href="/research/all">Doctors</a>
+                    <a asp-controller="Specialty" asp-action="ShowAll">Specialties</a>
+
                 </nav>
                 <div class="icon">
-                    <a id="search" href="/search"><i class="fas fa-search"></i></a>
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <a asp-action="Login" asp-controller="Auth"><i class="fas fa-user"></i> Login</a>
@@ -181,6 +183,71 @@
         </section>
     </div>
 
+    <!-- Toast Container -->
+    <div aria-live="polite" aria-atomic="true"
+         style="position: fixed; top: 20px; right: 20px; z-index: 9999; min-width: 300px;">
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="toast" id="successToast" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-success text-white">
+                    <strong class="mr-auto bigger2">Success</strong>
+                    <small class="text-light bigger2">just now</small>
+                    <button type="button" class="ml-2 mb-1 close btn-close btn-close-white bigger2" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bigger2">
+                    @TempData["SuccessMessage"]
+                </div>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="toast" id="errorToast" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-danger text-white">
+                    <strong class="mr-auto bigger2">Error</strong>
+                    <small class="text-light bigger2">just now</small>
+                    <button type="button" class="ml-2 mb-1 close btn-close btn-close-white bigger2" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bigger2">
+                    @TempData["ErrorMessage"]
+                </div>
+            </div>
+        }
+
+        @if (TempData["InfoMessage"] != null)
+        {
+            <div class="toast" id="infoToast" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-info text-white">
+                    <strong class="mr-auto bigger2">Info</strong>
+                    <small class="text-light bigger2">just now</small>
+                    <button type="button" class="ml-2 mb-1 close btn-close btn-close-white bigger2" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bigger2">
+                    @TempData["InfoMessage"]
+                </div>
+            </div>
+        }
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var successToast = new bootstrap.Toast(document.getElementById('successToast'));
+            var errorToast = new bootstrap.Toast(document.getElementById('errorToast'));
+            var infoToast = new bootstrap.Toast(document.getElementById('infoToast'));
+
+            if (document.getElementById('successToast')) successToast.show();
+            if (document.getElementById('errorToast')) errorToast.show();
+            if (document.getElementById('infoToast')) infoToast.show();
+
+            document.querySelectorAll('[data-bs-dismiss="toast"]').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var toast = bootstrap.Toast.getInstance(this.closest('.toast'));
+                    if (toast) toast.hide();
+                });
+            });
+        });
+    </script>
     <!-- Scripts -->
     <script src="~/js/jquery.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

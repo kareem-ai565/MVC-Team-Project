@@ -1,0 +1,50 @@
+﻿@model MVC_Team_Project.View_Models.PatientVM
+
+@{
+    ViewData["Title"] = "Appointments";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">Appointments for @Model.FullName</h4>
+                </div>
+                <div class="card-body">
+                    @if (Model.Appointments == null || !Model.Appointments.Any())
+                    {
+                        <p class="text-muted">No appointments found.</p>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Doctor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var appointment in Model.Appointments)
+                                {
+                                    <tr>
+                                        <td>@appointment.AppointmentDate.ToString("yyyy-MM-dd HH:mm")</td>
+                                        <td>@appointment.Status</td>
+                                        <td>@appointment.DoctorName</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+                <div class="card-footer text-end">
+                    <a href="@Url.Action("Profile", "Patients")" class="btn btn-secondary">
+                        Back to Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

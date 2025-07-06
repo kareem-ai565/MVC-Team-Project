@@ -17,7 +17,8 @@ namespace MVC_Team_Project.Repositories.Implementations
 
         public List<Notification> GetAllNotifications(int id)
         {
-            return clinicSystemContext.Notifications.Where(i=>i.UserId==id).ToList();
+            return  clinicSystemContext.Notifications.Where(n => n.UserId == id).ToList();
+
         }
 
 

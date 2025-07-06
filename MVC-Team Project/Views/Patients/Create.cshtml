@@ -1,0 +1,76 @@
+﻿<!--p Create.cshtml -->
+@model MVC_Team_Project.View_Models.PatientFormVM
+@{
+    ViewData["Title"] = "Create Patient";
+    Layout = "_DashbordLayout";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="fas fa-user-plus"></i> Create Patient</h2>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to List
+                </a>
+            </div>
+
+            <form asp-action="Create" method="post">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>User Selection</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label asp-for="UserId" class="form-label">Link to Existing User</label>
+                            <select asp-for="UserId" class="form-select" asp-items="ViewBag.Users" id="userSelect">
+                                <option value="">-- Create New User --</option>
+                            </select>
+                            <span asp-validation-for="UserId" class="text-danger"></span>
+                            <small class="form-text text-muted">Select an existing user or leave empty to create a new one</small>
+                        </div>
+                    </div>
+                </div>
+
+                @Html.Partial("_PatientFormFields", Model)
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Create Patient
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userSelect = document.getElementById('userSelect');
+            const passwordField = document.getElementById('passwordField');
+            const userInfoInputs = document.querySelectorAll('#userInfoSection input');
+
+            function toggleFields() {
+                if (userSelect.value === '' || userSelect.value === '0') {
+                    // Creating new user - show password field and enable user info inputs
+                    passwordField.style.display = 'block';
+                    userInfoInputs.forEach(input => input.readOnly = false);
+                } else {
+                    // Using existing user - hide password field and disable user info inputs
+                    passwordField.style.display = 'none';
+                    userInfoInputs.forEach(input => input.readOnly = true);
+                }
+            }
+
+            userSelect.addEventListener('change', toggleFields);
+            toggleFields(); // Initialize on page load
+        });
+    </script>
+}

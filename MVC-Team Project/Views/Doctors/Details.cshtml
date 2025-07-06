@@ -1,0 +1,56 @@
+﻿@model MVC_Team_Project.Models.Doctor
+@{
+    Layout = "_DashbordLayout";
+    ViewData["Title"] = "Doctor Details";
+}
+
+
+<div class="card container mt-5">
+    <div class="card-body">
+        <h4 class="card-title">@Model.User?.FullName</h4>
+        <!--profile pic-->
+        @if (!string.IsNullOrEmpty(Model.User?.ProfilePicture))
+        {
+            <div class="text-center mb-4">
+                <img src="@Model.User.ProfilePicture"
+                     alt="Doctor Photo"
+                     class="rounded-circle shadow"
+                     style="width: 150px; height: 150px; object-fit: cover;" />
+                <p class="text-muted mt-2">Profile Image</p>
+            </div>
+        }
+        else
+        {
+            <div class="text-center mb-4">
+                <img src="/images/default-doctor.jpg"
+                     alt="Default Photo"
+                     class="rounded-circle shadow"
+                     style="width: 150px; height: 150px; object-fit: cover;" />
+                <p class="text-muted mt-2">No profile photo uploaded</p>
+            </div>
+        }
+
+
+        <p><strong>Specialty:</strong> @Model.Specialty?.Name</p>
+        <p><strong>Experience:</strong> @Model.ExperienceYears years</p>
+        <p><strong>Consultation Fee:</strong> $@Model.ConsultationFee</p>
+        <p><strong>Clinic Address:</strong> @Model.ClinicAddress</p>
+        <p><strong>Bio:</strong> @Model.Bio</p>
+
+        <p>
+            <strong>Verified:</strong>
+            <span class="badge @(Model.IsVerified ? "badge-success" : "badge-danger")">
+                @(Model.IsVerified ? "Yes" : "No")
+            </span>
+        </p>
+
+        <p><strong>Created At:</strong> @Model.CreatedAt.ToShortDateString()</p>
+        @if (Model.UpdatedAt != null)
+        {
+            <p><strong>Updated At:</strong> @Model.UpdatedAt?.ToShortDateString()</p>
+        }
+
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </div>
+</div>

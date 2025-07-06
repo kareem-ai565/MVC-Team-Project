@@ -1,0 +1,75 @@
+﻿@model MVC_Team_Project.View_Models.PatientVM
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "_PatientDashbordLayout";
+}
+
+<div class="content container-fluid">
+    <!-- Profile Card -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+                <img src="@(@Model.ProfilePicture ?? "/images/default-patient.jpg")"
+                     alt="Profile Picture"
+                     class="rounded-circle"
+                     width="80" height="80"
+                     style="object-fit: cover;" />
+
+
+                <h4 class="mb-0">@Model.FullName</h4>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Gender:</strong> @Model.Gender</p>
+                    <p><strong>Date of Birth:</strong> @Model.DOB?.ToShortDateString()</p>
+                    <p><strong>Address:</strong> @Model.Address</p>
+                    <p><strong>Blood Type:</strong> @Model.BloodType</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Insurance Provider:</strong> @Model.InsuranceProvider</p>
+                    <p><strong>Policy Number:</strong> @Model.InsurancePolicyNumber</p>
+                    <p><strong>Allergies:</strong> @Model.Allergies</p>
+                    <p><strong>Medical History:</strong> @Model.MedicalHistory</p>
+                </div>
+            </div>
+
+
+    <!-- Appointment Section -->
+    @if (Model.Appointments?.Any() == true)
+    {
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Upcoming Appointments</h5>
+            </div>
+            <div class="card-body p-0">
+                <table class="table mb-0 text-center">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Date</th>
+                            <th>Doctor</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var appt in Model.Appointments)
+                        {
+                            <tr>
+                                <td>@appt.AppointmentDate.ToShortDateString()</td>
+                                <td>@appt.DoctorName</td>
+                                <td>@appt.Status</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info mt-3">
+            You have no upcoming appointments.
+        </div>
+    }
+</div>
+

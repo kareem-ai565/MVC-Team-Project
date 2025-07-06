@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MVC_Team_Project.Models;
+using MVC_Team_Project.Repositories;
 using MVC_Team_Project.Repositories.Implementations;
 using MVC_Team_Project.Repositories.Interfaces;
 using MVC_Team_Project.Seeders;
@@ -15,9 +16,17 @@ namespace MVC_Team_Project
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
+            builder.Services.AddScoped<IAvailabilityRepository, AvailabilityRepository>();
+
+            builder.Services.AddScoped<IDoctorsRepository, DoctorsRepository>();
             builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
             builder.Services.AddScoped<IpaymentRepository, paymentRepository>();
             builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+
+            builder.Services.AddScoped<IAvailabilityRepository, AvailabilityRepository>();
+
+            builder.Services.AddScoped<IPatientRepository, PatientsRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             // Add services to the container
             builder.Services.AddDbContext<ClinicSystemContext>(
@@ -148,7 +157,7 @@ namespace MVC_Team_Project
                         UserName = adminEmail,
                         Email = adminEmail,
                         FullName = "Mahmoud Amer",
-                        PhoneNumber = "01023140265", 
+                        PhoneNumber = "01023140265",
                         CreatedAt = DateTime.UtcNow,
                         IsActive = true,
                         EmailVerified = true
