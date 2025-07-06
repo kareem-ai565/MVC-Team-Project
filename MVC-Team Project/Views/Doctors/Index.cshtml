@@ -45,7 +45,9 @@
                     <thead>
                         <tr class="text-center">
                             <th>#</th>
+                            <th>Photo</th>
                             <th>Full Name</th>
+                            
                             <th>Specialty</th>
                             <th>Experience</th>
                             <th>Fee</th>
@@ -63,8 +65,10 @@
                                          alt="@doctor.FullName"
                                          class="rounded-circle shadow-sm"
                                          style="width: 40px; height: 40px; object-fit: cover;" />
-                                    <span>@doctor.FullName</span>
+                                    @* <span>@doctor.FullName</span> *@
                                 </td>
+                                <td>@doctor.FullName</td>
+             
                                 <td>@doctor.SpecialtyName</td>
                                 <td>@doctor.ExperienceYears years</td>
                                 <td>$@doctor.ConsultationFee</td>
@@ -86,7 +90,7 @@
                                                 <i class="fa fa-eye m-r-5"></i> View
                                             </a>
                                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteModal" data-id="@doctor.Id" data-name="@doctor.FullName">
-                                                <i class="fa fa-trash-o m-r-5"></i> Delete
+                                               <i class="fa fa-trash"></i> Delete
                                             </a>
                                         </div>
                                     </div>

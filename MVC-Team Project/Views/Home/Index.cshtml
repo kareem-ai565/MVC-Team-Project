@@ -282,6 +282,35 @@
             background-color: #e0e0e0;
         }
 </style>
+<!-- BottomBar -->
+<div class="bottombar">
+    <div class="bottombar-container">
+        <div class="header-box">
+            <div class="box-icon"><i class="fas fa-hospital"></i></div>
+            <div class="box-content">
+                <h3>Number 1 Hospital</h3>
+                <p>In United States</p>
+            </div>
+        </div>
+        <div class="header-box">
+            <div class="box-icon"><i class="fas fa-user-md"></i></div>
+            <div class="box-content">
+                <h3>Personal Cabinet</h3>
+                <p>Qualified Staff</p>
+            </div>
+        </div>
+        <div class="header-box">
+            <div class="box-icon"><i class="fas fa-thumbs-up"></i></div>
+            <div class="box-content">
+                <h3>Get Result Online</h3>
+                <p>Satisfied Patients</p>
+            </div>
+        </div>
+    </div>
+    <div class="box-contact">
+        <span class="icon"><i class="fas fa-phone"></i></span>Toll Free : 1 123 456 78910
+    </div>
+</div>
 
 
 <!-- Carousel Section -->
@@ -415,42 +444,55 @@
 @* List Of Doctors *@
 
 
-<h2 class="doctors-heading ">🌟 Meet Our Expert Doctors</h2>
+@* <h2 class="doctors-heading ">🌟 Meet Our Expert Doctors</h2> *@
+<!-- Slides Section -->
+<section class="slider-section" data-aos="zoom-in" id="#doctors">
+    <div class="slider-container">
+        <div class="slider-head">
+            <p>MEET OUR EXPERIENCED TEAM</p>
+            <h3>Our Dedicated Doctors Team</h3>
+            <p>We offer extensive medical procedures to outbound and inbound patients what it is and we are very proud of achievement of our staff, We are all work together to help our all patients for recovery</p>
+        </div>
 
-<div class="swiper mySwiper ">
-    <div class="swiper-wrapper  d-flex  justify-content-around">
-        @foreach (var i in Model)
-        {
-            <div class="swiper-slide">
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <!-- Front -->
-                        <div class="flip-card-front">
-                            <img src="https://localhost:7283/images/default-doctor.jpg" alt="Doctor" class="doc-img" />
-                            <h5 class="doctor-name">Dr. @i.Id</h5>
-                            <p class="specialty">Specialist</p>
-                        </div>
+        <div class="swiper mySwiper ">
+            <div class="swiper-wrapper  d-flex  justify-content-around">
+                @foreach (var i in Model)
+                {
+                    <div class="swiper-slide">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <!-- Front -->
+                                <div class="flip-card-front">
+                                    <img src="https://localhost:7283/images/default-doctor.jpg" alt="Doctor" class="doc-img" />
+                                    <h5 class="doctor-name">Dr. @i.Id</h5>
+                                    <p class="specialty">Specialist</p>
+                                </div>
 
-                        <!-- Back -->
-                        <div class="flip-card-back">
-                            <p><strong>Bio:</strong> @i.Id</p>
-                            <p><strong>Address:</strong> @i.ClinicAddress</p>
-                            <p><strong>License:</strong> @i.LicenseNumber</p>
-                            @* <a class="view-btn" asp-controller="Doctors" asp-action="Details" asp-route-Id="@i.Id">View Profile</a> *@
+                                <!-- Back -->
+                                <div class="flip-card-back">
+                                    <p><strong>Bio:</strong> @i.Id</p>
+                                    <p><strong>Address:</strong> @i.ClinicAddress</p>
+                                    <p><strong>License:</strong> @i.LicenseNumber</p>
+                                    @* <a class="view-btn" asp-controller="Doctors" asp-action="Details" asp-route-Id="@i.Id">View Profile</a> *@
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
-        }
+        </div>
+
+
+
     </div>
-</div>
+</section>
 
 
-
+@* 
 <div class="d-flex justify-content-end me-5 ">
     <a asp-controller="" asp-action="" class="btn btn-outline-dark p-4 fs-4">Book Now</a>
 
-</div>
+</div> *@
 
 
 
@@ -510,7 +552,11 @@
 
 @* Book An Appointment *@
 
-
+<style>
+    .book-clean-section{
+        background: var(--second) !important;
+    }
+</style>
 <section class="book-clean-section mt-5">
     <div class="container text-center text-md-start">
         <div class="row justify-content-center">
@@ -520,7 +566,7 @@
                     <p class="description mt-5 mb-5  fs-3">
                         Book your appointment in seconds. Our doctors are ready to provide expert, compassionate care tailored to your needs.
                     </p>
-                    <a href="/Appointment/Book" class="btn-book mt-4 fs-3">
+                    <a href="/" class="btn-book mt-4 fs-3">
                         🗓️ Book an Appointment
                     </a>
                 </div>
@@ -535,40 +581,6 @@
 
 
 
-<!-- Slides Section -->
- <section class="slider-section" data-aos="zoom-in">
-    <div class="slider-container">
-        <div class="slider-head">
-            <p>MEET OUR EXPERIENCED TEAM</p>
-            <h3>Our Dedicated Doctors Team</h3>
-            <p>We offer extensive medical procedures to outbound and inbound patients what it is and we are very proud of achievement of our staff, We are all work together to help our all patients for recovery</p>
-        </div>
-        @* <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="card" data-aos="zoom-in-up">
-                        <div><img src="/user1.jpg" alt="img card" /><div class="content"><a href="/user/1">+</a></div></div>
-                        <p>Cardiology</p>
-                        <h2>Dr. John Doe</h2>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card" data-aos="zoom-in-up">
-                        <div><img src="/user2.jpg" alt="img card" /><div class="content"><a href="/user/2">+</a></div></div>
-                        <p>Orthopedics</p>
-                        <h2>Dr. Jane Smith</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="buttons">
-                <button class="fa-solid fa-chevron-left"></button>
-                <button class="fa-solid fa-chevron-right"></button>
-            </div>
-        </div>
-    *@
-    
-    </div>
-</section> 
 
 
 

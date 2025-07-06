@@ -1,21 +1,163 @@
 ﻿@model MVC_Team_Project.View_Models.PatientFormVM
 @{
     ViewData["Title"] = "Edit Profile";
-    Layout = "_PatientDashbordLayout";
+    Layout = "_Layout";
 }
+<style>
 
-<div class="container-fluid">
+    /* Primary Styles */
+    .btn-primary,
+    .bg-primary,
+    .text-primary,
+    .border-primary {
+        background-color: var(--second) !important;
+        border-color: var(--second) !important;
+        color: #fff !important;
+    }
+
+        .btn-primary:hover,
+        .btn-primary:focus,
+        .btn-primary:active,
+        .bg-primary:hover,
+        .text-primary:hover,
+        .border-primary:hover {
+            background-color: var(--second) !important;
+            border-color: var(--second) !important;
+            color: #fff !important;
+        }
+
+        .btn-primary:visited {
+            background-color: var(--second) !important;
+        }
+
+        .btn-primary:disabled {
+            background-color: #ccc !important;
+            border-color: #ccc !important;
+            color: #888 !important;
+        }
+
+    .btn-outline-primary {
+        color: var(--second) !important;
+        border-color: var(--second) !important;
+    }
+
+        .btn-outline-primary:hover,
+        .btn-outline-primary:focus,
+        .btn-outline-primary:active {
+            background-color: var(--second) !important;
+            color: #fff !important;
+        }
+
+    /* Secondary Styles */
+    .btn-secondary,
+    .bg-secondary,
+    .text-secondary,
+    .border-secondary {
+        background-color: var(--second) !important;
+        border-color: var(--second) !important;
+        color: #fff !important;
+    }
+
+        .btn-secondary:hover,
+        .btn-secondary:focus,
+        .btn-secondary:active {
+            background-color: var(--second) !important;
+            border-color: var(--second) !important;
+            color: #fff !important;
+        }
+
+    .btn-outline-secondary {
+        color: var(--second) !important;
+        border-color: var(--second) !important;
+    }
+
+        .btn-outline-secondary:hover,
+        .btn-outline-secondary:focus,
+        .btn-outline-secondary:active {
+            background-color: var(--second) !important;
+            color: #fff !important;
+            border-color: var(--second) !important;
+        }
+
+    /* Accent/Interacting Color */
+    .btn-accent {
+        background-color: var(--second) !important;
+        border-color: var(--second) !important;
+        color: #fff !important;
+    }
+
+        .btn-accent:hover,
+        .btn-accent:focus,
+        .btn-accent:active {
+            background-color: var(--second) !important;
+            border-color: var(--second) !important;
+            color: #fff !important;
+        }
+
+    /* Links + Nav */
+    a:hover,
+    .active span,
+    .active a,
+    .active i {
+        color: var(--second) !important;
+    }
+
+    .sidebar-menu > ul > li > a:hover {
+        color: var(--second) !important;
+    }
+
+    /* Pagination */
+    .page-item.active .page-link {
+        background-color: var(--second) !important;
+        color: #fff !important;
+        border-color: var(--second) !important;
+    }
+
+    .pagination > li > a,
+    .pagination > li > span {
+        color: var(--second) !important;
+    }
+
+    /* Replace default hardcoded Bootstrap blue/gray */
+    [style*="color: #007bff"],
+    [style*="color:#007bff"],
+    [style*="color: rgb(0, 123, 255)"] {
+        color: var(--second) !important;
+    }
+
+    [style*="background-color: #007bff"],
+    [style*="background-color:#007bff"],
+    [style*="background-color: rgb(0, 123, 255)"] {
+        background-color: var(--second) !important;
+    }
+
+    [style*="background-color: #6c757d"],
+    [style*="background-color:#6c757d"],
+    [style*="background-color: rgb(108, 117, 125)"] {
+        background-color: var(--second) !important;
+    }
+
+    [style*="color: #6c757d"],
+    [style*="color:#6c757d"],
+    [style*="color: rgb(108, 117, 125)"] {
+        color: var(--second) !important;
+    }
+</style>
+
+<div class="container-fluid py-4" style="background-color: #f8f9fa;">
+
+<div class="container px-5">
     <div class="row">
         <div class="col-12">
             <div class="card shadow-sm border-0">
-                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"><i class="fas fa-user-edit me-2"></i> Edit Profile</h5>
-                    <a asp-action="Profile" class="btn btn-light btn-sm">
+                <div class="card-header bg-primary p-3 text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 bigger2"><i class="fas fa-user-edit me-2"></i> Edit Profile</h5>
+                    <a asp-action="Profile" class="btn btn-light btn-sm bigger2">
                         <i class="fas fa-arrow-left"></i> Back to Profile
                     </a>
                 </div>
 
-                <div class="card-body">
+                <div class="card-body px-5">
                     <form asp-action="ProfileEdit" method="post" enctype="multipart/form-data">
 
                         @Html.AntiForgeryToken()
@@ -38,12 +180,12 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label asp-for="FirstName" class="form-label"></label>
-                                <input asp-for="FirstName" class="form-control" />
+                                    <input asp-for="FirstName" class="form-control bigger2" />
                                 <span asp-validation-for="FirstName" class="text-danger"></span>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label asp-for="LastName" class="form-label"></label>
-                                <input asp-for="LastName" class="form-control" />
+                                    <input asp-for="LastName" class="form-control bigger2" />
                                 <span asp-validation-for="LastName" class="text-danger"></span>
                             </div>
                         </div>
@@ -51,12 +193,12 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label asp-for="Email" class="form-label"></label>
-                                <input asp-for="Email" class="form-control" />
+                                    <input asp-for="Email" class="form-control bigger2" />
                                 <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label asp-for="Phone" class="form-label"></label>
-                                <input asp-for="Phone" class="form-control" />
+                                    <input asp-for="Phone" class="form-control bigger2" />
                                 <span asp-validation-for="Phone" class="text-danger"></span>
                             </div>
                         </div>
@@ -64,7 +206,7 @@
                         <!-- Profile Picture URL -->
                         <div class="mb-3">
                             <label asp-for="ProfileImageFile" class="form-label"></label>
-                            <input asp-for="ProfileImageFile" type="file" class="form-control" />
+                                <input asp-for="ProfileImageFile" type="file" class="form-control bigger2" />
                             <span asp-validation-for="ProfileImageFile" class="text-danger"></span>
                         </div>
 
@@ -73,7 +215,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label asp-for="Gender" class="form-label"></label>
-                                <select asp-for="Gender" class="form-control">
+                                    <select asp-for="Gender" class="form-control  bigger2">
                                     <option value="">-- Select Gender --</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
@@ -82,14 +224,14 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label asp-for="DOB" class="form-label"></label>
-                                <input asp-for="DOB" type="date" class="form-control" />
+                                    <input asp-for="DOB" type="date" class="form-control bigger2" />
                                 <span asp-validation-for="DOB" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label asp-for="Address" class="form-label"></label>
-                            <input asp-for="Address" class="form-control" />
+                                <input asp-for="Address" class="form-control bigger2" />
                             <span asp-validation-for="Address" class="text-danger"></span>
                         </div>
 
@@ -97,11 +239,11 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label asp-for="EmergencyContact" class="form-label"></label>
-                                <input asp-for="EmergencyContact" class="form-control" />
+                                    <input asp-for="EmergencyContact" class="form-control bigger2" />
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label asp-for="EmergencyPhone" class="form-label"></label>
-                                <input asp-for="EmergencyPhone" class="form-control" />
+                                    <input asp-for="EmergencyPhone" class="form-control bigger2" />
                             </div>
                         </div>
 
@@ -109,7 +251,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label asp-for="BloodType" class="form-label">Blood Type</label>
-                                <select asp-for="BloodType" class="form-select">
+                                    <select asp-for="BloodType" class="form-select bigger2">
                                     <option value="">-- Select Blood Type --</option>
                                     <option value="A+">A+</option>
                                     <option value="A-">A-</option>
@@ -125,36 +267,36 @@
 
                             <div class="col-md-6 mb-3">
                                 <label asp-for="InsuranceProvider" class="form-label"></label>
-                                <input asp-for="InsuranceProvider" class="form-control" />
+                                    <input asp-for="InsuranceProvider" class="form-control  bigger2" />
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label asp-for="InsurancePolicyNumber" class="form-label"></label>
-                                <input asp-for="InsurancePolicyNumber" class="form-control" />
+                                    <input asp-for="InsurancePolicyNumber" class="form-control bigger2" />
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label asp-for="Allergies" class="form-label"></label>
-                            <textarea asp-for="Allergies" rows="2" class="form-control"></textarea>
+                                <textarea asp-for="Allergies" rows="2" class="form-control bigger2"></textarea>
                         </div>
                         <div class="mb-3">
                             <label asp-for="MedicalHistory" class="form-label"></label>
-                            <textarea asp-for="MedicalHistory" rows="2" class="form-control"></textarea>
+                                <textarea asp-for="MedicalHistory" rows="2" class="form-control bigger2"></textarea>
                         </div>
                         <div class="mb-3">
                             <label asp-for="CurrentMedications" class="form-label"></label>
-                            <textarea asp-for="CurrentMedications" rows="2" class="form-control"></textarea>
+                                <textarea asp-for="CurrentMedications" rows="2" class="form-control bigger2"></textarea>
                         </div>
 
                         <!-- Actions -->
                         <div class="d-flex justify-content-end gap-2 mt-4">
-                            <button type="submit" class="btn btn-success">
+                                <button type="submit" class="btn btn-success bigger2">
                                 <i class="fas fa-save me-1"></i> Save Changes
                             </button>
-                            <a asp-action="Profile" class="btn btn-secondary">
+                                <a asp-action="Profile" class="btn btn-secondary bigger2">
                                 <i class="fas fa-times me-1"></i> Cancel
                             </a>
                         </div>
@@ -164,7 +306,7 @@
         </div>
     </div>
 </div>
-
+</div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
