@@ -209,7 +209,7 @@ namespace MVC_Team_Project.Controllers
 
             _ctx.Appointments.Add(appt);
             await _ctx.SaveChangesAsync();
-
+            
             TempData["SuccessMessage"] = "The booking has been sent and is awaiting confirmation.";
             return Ok();
         }
