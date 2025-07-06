@@ -275,9 +275,9 @@
                         <span>Admin</span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="profile.html">My Profile</a>
-                        <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
-                        <a class="dropdown-item" href="settings.html">Settings</a>
+                        <a class="dropdown-item" asp-controller="Admin" asp-action="Profile">My Profile</a>
+                        @* <a class="dropdown-item" href="edit-profile.html">Edit Profile</a> *@
+                        @* <a class="dropdown-item" href="settings.html">Settings</a> *@
                         <form id="logoutForm" asp-controller="Auth" asp-action="Logout" method="post" class="d-none"></form>
 
                         <a href="javascript:void(0);" class="dropdown-item text-danger" onclick="document.getElementById('logoutForm').submit();">

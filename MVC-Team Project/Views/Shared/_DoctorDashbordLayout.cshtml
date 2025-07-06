@@ -280,15 +280,15 @@
                             <a class="dropdown-item" asp-controller="Doctors" asp-action="Profile">
                                 <i class="fa fa-user-md"></i> My Profile
                             </a>
-                            <a class="dropdown-item" asp-controller="Doctors" asp-action="Edit">
+                            <a class="dropdown-item" asp-controller="Doctors" asp-action="ProfileEdit">
                                 <i class="fa fa-edit"></i> Edit Profile
                             </a>
 
                         }
 
-                        <a class="dropdown-item" asp-controller="Settings" asp-action="Index">
-                            <i class="fa fa-cog"></i> Settings
-                        </a>
+                        @* <a class="dropdown-item" asp-controller="Settings" asp-action="Index"> *@
+                        @*     <i class="fa fa-cog"></i> Settings *@
+                        @* </a> *@
                         <form id="logoutForm" asp-controller="Auth" asp-action="Logout" method="post" class="d-none"></form>
                         <a href="javascript:void(0);" class="dropdown-item text-danger" onclick="document.getElementById('logoutForm').submit();">
                             <i class="fa fa-sign-out m-r-5"></i> Logout

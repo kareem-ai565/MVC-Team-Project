@@ -3,6 +3,8 @@
     public class PatientVM
     {
         public int Id { get; set; }
+        public string UserId { get; set; }
+
         public string FullName { get; set; }
         public string ProfilePicture { get; set; }
         public string Gender { get; set; }

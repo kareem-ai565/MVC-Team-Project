@@ -128,26 +128,30 @@ namespace MVC_Team_Project.Controllers
         }
 
         // (Optional) Index and other methods would go here
-    
 
 
-// =============== Edit (GET)
 
-public async Task<IActionResult> Edit(int id)
+        // =============== ProfieEdit (GET)
+        [HttpGet]
+        [Authorize(Roles = "Patient")]
+        public async Task<IActionResult> ProfileEdit()
         {
-            var patient = await _patientRepo.GetPatientWithUserAsync(id);
-            if (patient == null) return NotFound();
+            var user = await _userManager.GetUserAsync(User);
+            var patient = await _patientRepo.GetByUserIdAsync(user.Id);
 
-            var nameParts = patient.User.FullName?.Split(' ', 2) ?? new[] { "", "" };
+            if (patient == null)
+                return RedirectToAction("Profile"); // fallback if patient doesn't exist
 
             var vm = new PatientFormVM
             {
                 Id = patient.Id,
-                UserId = patient.UserId,
-                FirstName = nameParts.ElementAtOrDefault(0),
-                LastName = nameParts.ElementAtOrDefault(1),
-                Email = patient.User.Email,
-                Phone = patient.User.PhoneNumber,
+                UserId = user.Id,
+                FirstName = user.FullName?.Split(' ').FirstOrDefault(),
+                LastName = user.FullName?.Split(' ').Skip(1).FirstOrDefault(),
+                Email = user.Email,
+                Phone = user.PhoneNumber,
+                ProfilePicture = user.ProfilePicture,
+
                 Gender = patient.Gender,
                 DOB = patient.DOB,
                 Address = patient.Address,
@@ -161,42 +165,47 @@ public async Task<IActionResult> Edit(int id)
                 InsurancePolicyNumber = patient.InsurancePolicyNumber
             };
 
-            var users = await _userRepo.GetUsersWithoutPatientAsync();
-            users.Add(patient.User);
-
-            ViewBag.Users = new SelectList(users.DistinctBy(u => u.Id), "Id", "FullName", patient.UserId);
-
-            return View(vm);
+            return View("ProfileEdit", vm);
         }
 
-        // =============== Edit (POST)
+
+
         [HttpPost]
-        public async Task<IActionResult> Edit(PatientFormVM vm)
+        [Authorize(Roles = "Patient")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ProfileEdit(PatientFormVM vm)
         {
-            var users = await _userRepo.GetUsersWithoutPatientAsync();
-            ViewBag.Users = new SelectList(users, "Id", "FullName");
-
             if (!ModelState.IsValid)
-                return View(vm);
+                return View("ProfileEdit", vm);
 
-            var patient = await _patientRepo.GetPatientWithUserAsync(vm.Id!.Value);
-            if (patient == null) return NotFound();
+            var user = await _userManager.GetUserAsync(User);
+            var patient = await _patientRepo.GetByUserIdAsync(user.Id);
 
-            patient.User.FullName = $"{vm.FirstName} {vm.LastName}".Trim();
-            patient.User.Email = vm.Email;
-            patient.User.UserName = vm.Email;
-            patient.User.PhoneNumber = vm.Phone;
-            patient.User.UpdatedAt = DateTime.Now;
-
-            var updateResult = await _userManager.UpdateAsync(patient.User);
-            if (!updateResult.Succeeded)
+            if (user == null || patient == null)
             {
-                foreach (var error in updateResult.Errors)
-                    ModelState.AddModelError(string.Empty, error.Description);
-
-                return View(vm);
+                TempData["ErrorMessage"] = "Unable to update profile.";
+                return RedirectToAction("Profile");
             }
 
+            // Handle profile image upload
+            if (vm.ProfileImageFile != null && vm.ProfileImageFile.Length > 0)
+            {
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+                var uniqueFileName = $"{user.Id}_{Path.GetFileName(vm.ProfileImageFile.FileName)}";
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using var fileStream = new FileStream(filePath, FileMode.Create);
+                await vm.ProfileImageFile.CopyToAsync(fileStream);
+
+                user.ProfilePicture = $"/images/{uniqueFileName}";
+            }
+
+            // Update user (AspNetUser) fields
+            user.FullName = $"{vm.FirstName} {vm.LastName}".Trim();
+            user.Email = vm.Email;
+            user.PhoneNumber = vm.Phone;
+
+            // Update patient entity fields
             patient.Gender = vm.Gender;
             patient.DOB = vm.DOB;
             patient.Address = vm.Address;
@@ -208,13 +217,105 @@ public async Task<IActionResult> Edit(int id)
             patient.CurrentMedications = vm.CurrentMedications;
             patient.InsuranceProvider = vm.InsuranceProvider;
             patient.InsurancePolicyNumber = vm.InsurancePolicyNumber;
-            patient.UpdatedAt = DateTime.Now;
 
+            // Persist updates
+            await _userManager.UpdateAsync(user);
             _patientRepo.Update(patient);
             await _patientRepo.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            TempData["SuccessMessage"] = "Profile updated successfully.";
+            return RedirectToAction("Profile");
         }
+
+        //=============== Edit (Admin)
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var patient = await _patientRepo.GetPatientWithUserAsync(id);
+            var user = await _userManager.FindByIdAsync(patient.UserId.ToString());
+
+            if (patient == null || user == null) return NotFound();
+
+            var vm = new PatientFormVM
+            {
+                Id = patient.Id,
+                UserId = user.Id,
+                FirstName = user.FullName?.Split(' ').FirstOrDefault(),
+                LastName = user.FullName?.Split(' ').Skip(1).FirstOrDefault(),
+                Email = user.Email,
+                Phone = user.PhoneNumber,
+                ProfilePicture = user.ProfilePicture,
+
+                Gender = patient.Gender,
+                DOB = patient.DOB,
+                Address = patient.Address,
+                EmergencyContact = patient.EmergencyContact,
+                EmergencyPhone = patient.EmergencyPhone,
+                BloodType = patient.BloodType,
+                Allergies = patient.Allergies,
+                MedicalHistory = patient.MedicalHistory,
+                CurrentMedications = patient.CurrentMedications,
+                InsuranceProvider = patient.InsuranceProvider,
+                InsurancePolicyNumber = patient.InsurancePolicyNumber
+            };
+
+            return View(vm); // this should load Views/Patients/Edit.cshtml
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(PatientFormVM vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+
+            var patient = await _patientRepo.GetByIdAsync(vm.Id.Value);
+            var user = await _userManager.FindByIdAsync(vm.UserId.ToString());
+
+            if (patient == null || user == null) return NotFound();
+
+            // Handle profile image upload
+            if (vm.ProfileImageFile != null && vm.ProfileImageFile.Length > 0)
+            {
+                var filename = $"{user.Id}_{Path.GetFileName(vm.ProfileImageFile.FileName)}";
+                var filepath = Path.Combine("wwwroot/images", filename);
+
+                using var stream = new FileStream(filepath, FileMode.Create);
+                await vm.ProfileImageFile.CopyToAsync(stream);
+
+                user.ProfilePicture = $"/images/{filename}";
+            }
+
+            // Update user fields
+            user.FullName = $"{vm.FirstName} {vm.LastName}".Trim();
+            user.Email = vm.Email;
+            user.PhoneNumber = vm.Phone;
+
+            // Update patient fields
+            patient.Gender = vm.Gender;
+            patient.DOB = vm.DOB;
+            patient.Address = vm.Address;
+            patient.EmergencyContact = vm.EmergencyContact;
+            patient.EmergencyPhone = vm.EmergencyPhone;
+            patient.BloodType = vm.BloodType;
+            patient.Allergies = vm.Allergies;
+            patient.MedicalHistory = vm.MedicalHistory;
+            patient.CurrentMedications = vm.CurrentMedications;
+            patient.InsuranceProvider = vm.InsuranceProvider;
+            patient.InsurancePolicyNumber = vm.InsurancePolicyNumber;
+
+            await _userManager.UpdateAsync(user);
+            _patientRepo.Update(patient);
+            await _patientRepo.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Patient updated successfully.";
+            return RedirectToAction("Index");
+        }
+
 
         // =============== Delete 
         // =============== Delete (GET)
@@ -277,7 +378,7 @@ public async Task<IActionResult> Edit(int id)
             }
 
             // Step 2: Use existing method by passing user.Id
-            var patient = await _patientRepo.GetPatientWithUserAsync(user.Id);
+            var patient = await _patientRepo.GetByUserIdAsync(user.Id);
             if (patient == null)
             {
                 TempData["Error"] = "Patient profile not found.";
