@@ -275,16 +275,27 @@
                         <span>Doctor</span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="profile.html">My Profile</a>
-                        <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
-                        <a class="dropdown-item" href="settings.html">Settings</a>
-                        <form id="logoutForm" asp-controller="Auth" asp-action="Logout" method="post" class="d-none"></form>
+                        @if (User.IsInRole("Doctor"))
+                        {
+                            <a class="dropdown-item" asp-controller="Doctors" asp-action="Profile">
+                                <i class="fa fa-user-md"></i> My Profile
+                            </a>
+                            <a class="dropdown-item" asp-controller="Doctors" asp-action="ProfileEdit">
+                                <i class="fa fa-edit"></i> Edit Profile
+                            </a>
 
+                        }
+
+                        @* <a class="dropdown-item" asp-controller="Settings" asp-action="Index"> *@
+                        @*     <i class="fa fa-cog"></i> Settings *@
+                        @* </a> *@
+                        <form id="logoutForm" asp-controller="Auth" asp-action="Logout" method="post" class="d-none"></form>
                         <a href="javascript:void(0);" class="dropdown-item text-danger" onclick="document.getElementById('logoutForm').submit();">
                             <i class="fa fa-sign-out m-r-5"></i> Logout
                         </a>
-                        
                     </div>
+
+
                 </li>
             </ul>
             <div class="dropdown mobile-user-menu float-right">
@@ -332,7 +343,7 @@
                 <div class="toast-header bg-success text-white">
                     <strong class="mr-auto">Success</strong>
                     <small class="text-light">just now</small>
-                    <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast">&times;</button>
+                    <button type="button" class="ml-2 mb-1 close btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
                     @TempData["SuccessMessage"]
@@ -346,7 +357,7 @@
                 <div class="toast-header bg-danger text-white">
                     <strong class="mr-auto">Error</strong>
                     <small class="text-light">just now</small>
-                    <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast">&times;</button>
+                    <button type="button" class="ml-2 mb-1 close btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
                     @TempData["ErrorMessage"]
@@ -360,7 +371,7 @@
                 <div class="toast-header bg-info text-white">
                     <strong class="mr-auto">Info</strong>
                     <small class="text-light">just now</small>
-                    <button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast">&times;</button>
+                    <button type="button" class="ml-2 mb-1 close btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
                     @TempData["InfoMessage"]
@@ -369,6 +380,24 @@
         }
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var successToast = new bootstrap.Toast(document.getElementById('successToast'));
+            var errorToast = new bootstrap.Toast(document.getElementById('errorToast'));
+            var infoToast = new bootstrap.Toast(document.getElementById('infoToast'));
+
+            if (document.getElementById('successToast')) successToast.show();
+            if (document.getElementById('errorToast')) errorToast.show();
+            if (document.getElementById('infoToast')) infoToast.show();
+
+            document.querySelectorAll('[data-bs-dismiss="toast"]').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var toast = bootstrap.Toast.getInstance(this.closest('.toast'));
+                    if (toast) toast.hide();
+                });
+            });
+        });
+    </script>
     <div class="sidebar-overlay" data-reff=""></div>
     <script src="~/assets/js/jquery-3.2.1.min.js"></script>
     <script src="~/assets/js/popper.min.js"></script>
@@ -385,13 +414,6 @@
 
     @RenderSection("Scripts", required: false)
 
-    <script>
-        $(document).ready(function () {
-            $('#successToast').toast('show');
-            $('#errorToast').toast('show');
-            $('#infoToast').toast('show');
-        });
-    </script>
 
 
 

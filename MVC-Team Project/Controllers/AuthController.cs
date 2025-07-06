@@ -93,17 +93,20 @@ namespace MVC_Team_Project.Controllers
                 var roles = await _authService.GetRolesAsync(user);
 
                 if (roles.Contains("Admin"))
-                    return RedirectToAction("Index", "specialty");
-                if(roles.Contains("Doctor"))
+                    return RedirectToAction("Index", "Specialty");
+                if (roles.Contains("Doctor"))
                     return RedirectToAction("MyPatientsRecords", "MedicalRecord");
+                if (roles.Contains("Patient"))
+                    return RedirectToAction("Profile", "Patients");
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home"); // fallback
+
             }
 
             ModelState.AddModelError("", "Invalid login attempt.");
             return View(model);
         }
-        //farahhhh new stuff
+        
         // ======================= Logout =======================
         [HttpPost]
         [ValidateAntiForgeryToken]

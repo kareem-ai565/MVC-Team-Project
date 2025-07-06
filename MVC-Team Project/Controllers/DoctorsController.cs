@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using MVC_Team_Project.Models;
 using MVC_Team_Project.Repositories.Interfaces;
 using MVC_Team_Project.View_Models;
+using System.Security.Claims;
 
 namespace MVC_Team_Project.Controllers
 {
@@ -135,11 +136,13 @@ namespace MVC_Team_Project.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ===================== Edit Doctor (GET) =====================
+        // ===================== profile Edit Doctor (GET) =====================
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        [Authorize(Roles = "Doctor")]
+        public async Task<IActionResult> ProfileEdit()
         {
-            var doctor = await _doctorsRepo.GetByIdWithDetailsAsync(id);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var doctor = await _doctorsRepo.GetByUserIdWithDetailsAsync(int.Parse(userId));
             if (doctor == null) return NotFound();
 
             var vm = new DoctorFormVM
@@ -149,18 +152,19 @@ namespace MVC_Team_Project.Controllers
                 Specialties = await _doctorsRepo.GetActiveSpecialtiesAsync()
             };
 
-            return View(vm);
+            return View("ProfileEdit", vm);
         }
 
-        // ===================== Edit Doctor (POST) =====================
+
+        // ===================== profile Edit Doctor (POST) =====================
         [HttpPost]
-        public async Task<IActionResult> Edit(DoctorFormVM vm)
+        public async Task<IActionResult> ProfileEdit(DoctorFormVM vm)
         {
             if (!ModelState.IsValid)
             {
                 vm.Users = await _doctorsRepo.GetAvailableUsersAsync();
                 vm.Specialties = await _doctorsRepo.GetActiveSpecialtiesAsync();
-                return View(vm);
+                 return View("ProfileEdit", vm);
             }
 
             var doctor = await _doctorsRepo.GetByIdWithDetailsAsync(vm.Doctor.Id);
@@ -186,7 +190,66 @@ namespace MVC_Team_Project.Controllers
             _doctorsRepo.Update(doctor);
             await _doctorsRepo.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Profile", "Doctors");
+        }
+        //===================== edit Doctor (GET) =====================
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var doctor = await _doctorsRepo.GetByIdWithDetailsAsync(id);
+            if (doctor == null) return NotFound();
+
+            var vm = new DoctorFormVM
+            {
+                Doctor = doctor,
+                Users = new List<ApplicationUser> { doctor.User },
+                Specialties = await _doctorsRepo.GetActiveSpecialtiesAsync()
+            };
+
+            return View("Edit", vm);
+        }
+        //====================== edit Doctor (POST) =====================
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(DoctorFormVM vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                vm.Specialties = await _doctorsRepo.GetActiveSpecialtiesAsync();
+                vm.Users = await _doctorsRepo.GetAvailableUsersAsync();
+                return View("Edit", vm);
+
+            }
+
+            var doctor = await _doctorsRepo.GetByIdWithDetailsAsync(vm.Doctor.Id);
+            if (doctor == null) return NotFound();
+
+            // Profile picture upload
+            if (vm.ProfilePicture != null && vm.ProfilePicture.Length > 0)
+            {
+                doctor.User.ProfilePicture = await SaveProfileImageAsync(vm.ProfilePicture);
+                doctor.User.UpdatedAt = DateTime.Now;
+            }
+
+            // Update doctor details
+            doctor.SpecialtyId = vm.Doctor.SpecialtyId;
+            doctor.ClinicAddress = vm.Doctor.ClinicAddress;
+            doctor.Bio = vm.Doctor.Bio;
+            doctor.LicenseNumber = vm.Doctor.LicenseNumber;
+            doctor.ConsultationFee = vm.Doctor.ConsultationFee;
+            doctor.ExperienceYears = vm.Doctor.ExperienceYears;
+            doctor.Certifications = vm.Doctor.Certifications;
+            doctor.Education = vm.Doctor.Education;
+            doctor.IsVerified = vm.Doctor.IsVerified;
+            doctor.UpdatedAt = DateTime.Now;
+
+            _doctorsRepo.Update(doctor);
+            await _doctorsRepo.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Doctor updated successfully.";
+            return RedirectToAction("Index");
         }
 
         // ===================== Delete Doctor =====================
