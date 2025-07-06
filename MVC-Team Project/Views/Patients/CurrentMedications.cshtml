@@ -1,0 +1,32 @@
+﻿@model MVC_Team_Project.View_Models.PatientVM
+
+@{
+    ViewData["Title"] = "Current Medications";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">Current Medications for @Model.FullName</h4>
+                </div>
+                <div class="card-body">
+                    @if (string.IsNullOrWhiteSpace(Model.CurrentMedications))
+                    {
+                        <p class="text-muted">No current medications found.</p>
+                    }
+                    else
+                    {
+                        <p>@Model.CurrentMedications</p>
+                    }
+                </div>
+                <div class="card-footer text-end">
+                    <a href="@Url.Action("Profile", "Patients")" class="btn btn-secondary">
+                        Back to Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

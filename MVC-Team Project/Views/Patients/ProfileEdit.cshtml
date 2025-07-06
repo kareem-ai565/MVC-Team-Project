@@ -108,9 +108,21 @@
                         <!-- Medical Info -->
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label asp-for="BloodType" class="form-label"></label>
-                                <input asp-for="BloodType" class="form-control" />
+                                <label asp-for="BloodType" class="form-label">Blood Type</label>
+                                <select asp-for="BloodType" class="form-select">
+                                    <option value="">-- Select Blood Type --</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                                <span asp-validation-for="BloodType" class="text-danger"></span>
                             </div>
+
                             <div class="col-md-6 mb-3">
                                 <label asp-for="InsuranceProvider" class="form-label"></label>
                                 <input asp-for="InsuranceProvider" class="form-control" />

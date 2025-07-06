@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MVC_Team_Project.Models;
 using MVC_Team_Project.Repositories.Interfaces;
+using MVC_Team_Project.View_Models;
 
 namespace MVC_Team_Project.Repositories
 {
@@ -75,6 +76,33 @@ namespace MVC_Team_Project.Repositories
                 .ThenInclude(d => d.User)
                 .FirstOrDefaultAsync(p => p.UserId == userId);
         }
+
+        public async Task<PatientVM?> GetPatientVMByIdAsync(int id)
+        {
+            return await _context.Patients
+                .Include(p => p.User)
+                .Include(p => p.Appointments)
+                    .ThenInclude(a => a.Doctor)
+                        .ThenInclude(d => d.User)
+                .Where(p => p.Id == id)
+                .Select(p => new PatientVM
+                {
+                    Id = p.Id,
+                    UserId = p.UserId.ToString(),
+                    FullName = p.User.FullName,
+                    CurrentMedications = p.CurrentMedications,
+
+                    Appointments = p.Appointments.Select(a => new PatientAppointmentVM
+                    {
+                        AppointmentDate = a.AppointmentDate,
+                        Status = a.Status,
+                        DoctorName = a.Doctor.User.FullName
+                    }).ToList()
+                })
+                .FirstOrDefaultAsync();
+        }
+
+
 
     }
 }
