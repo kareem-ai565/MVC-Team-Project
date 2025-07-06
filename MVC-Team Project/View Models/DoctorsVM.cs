@@ -1,4 +1,7 @@
-﻿namespace MVC_Team_Project.View_Models
+﻿using MVC_Team_Project.Models;
+using System.ComponentModel.DataAnnotations;
+
+namespace MVC_Team_Project.View_Models
 {
     public class DoctorsVM
     {
@@ -19,6 +22,8 @@
         public int ExperienceYears { get; set; }
 
         public bool IsVerified { get; set; }
+
+        //public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
 
         public List<DoctorAvailabilityVM> Availabilities { get; set; } = new();
         public List<DoctorAppointmentVM> Appointments { get; set; } = new();

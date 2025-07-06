@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MVC_Team_Project.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace MVC_Team_Project.View_Models
 {
