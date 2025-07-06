@@ -1,0 +1,99 @@
+﻿@model List<MedicalRecord>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_DashbordLayout";
+}
+
+<style>
+    .table-wrapper {
+        background-color: #f8fcff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .table-title {
+        color: #538493;
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 25px;
+        text-align: center;
+        border-bottom: 3px solid #538493;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    .styled-table thead {
+        background-color: #538493;
+        color: white;
+    }
+
+    .styled-table tbody tr:hover {
+        background-color: #e9f3f7;
+        transition: 0.2s ease-in-out;
+    }
+
+    .styled-table th,
+    .styled-table td {
+        text-align: center;
+        vertical-align: middle;
+        padding: 14px;
+    }
+
+    .styled-table {
+        border: 2px solid #d0e1ea;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="table-wrapper">
+        <h2 class="table-title">🩺 Your Medical Records</h2>
+
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info text-center">No medical records found for this patient.</div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table styled-table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Record Type</th>
+                            <th>Doctor ID</th>
+                            <th>Patient ID</th>
+                            <th>Appointment ID</th>
+                            <th>Diagnosis</th>
+                            <th>Test Results</th>
+                            <th>Prescription</th>
+                            <th>Notes</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            var record = Model[i];
+                            <tr>
+                                <td>@(@i + 1)</td>
+                                <td>@record.RecordType</td>
+                                <td>@record.DoctorId</td>
+                                <td>@record.PatientId</td>
+                                <td>@record.AppointmentId</td>
+                                <td>@record.Diagnosis</td>
+                                <td>@record.TestResults</td>
+                                <td>@record.Prescription</td>
+                                <td>@record.Notes</td>
+                                <td>@record.RecordDate.ToString("yyyy-MM-dd")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

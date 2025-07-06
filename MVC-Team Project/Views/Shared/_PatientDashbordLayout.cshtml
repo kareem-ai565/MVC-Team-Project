@@ -313,7 +313,7 @@
                         <ul>
                             <li class="menu-title">Main</li>
                             <li class="@(currentController == "MedicalRecord" ? "active" : "")">
-                                <a asp-controller="MedicalRecord" asp-action="MyPatientsRecords"><i class="fa fa-dashboard"></i> <span>Medical Records</span></a>
+                        <a asp-controller="PatientMedicalRecord" asp-action="Index"><i class="fa fa-dashboard"></i> <span>Medical Records</span></a>
                             </li>
 
                             <li class="@(currentController == "Availability" ? "active" : "")">
@@ -321,8 +321,12 @@
                             </li>
 
                             <li class="@(currentController == "DoctorAppointment" ? "active" : "")">
-                                <a asp-controller="DoctorAppointment" asp-action="Index"><i class="fa fa-calendar"></i> <span>Appointments </span></a>
+                                <a  asp-controller="DoctorAppointment" asp-action="Index"><i class="fa fa-calendar"></i> <span>Appointments </span></a>
                             </li>
+
+                            @* <li class="@(currentController == "DoctorAppointment" ? "active" : "")">
+                                <a asp-controller="DoctorAppointment" asp-action="Index"><i class="fa fa-calendar"></i> <span>Appointments </span></a>
+                            </li> *@
                         </ul>
                     </div>
                 </div>
