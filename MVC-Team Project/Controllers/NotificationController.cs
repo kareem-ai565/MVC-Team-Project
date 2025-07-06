@@ -46,6 +46,25 @@ namespace MVC_Team_Project.Controllers
         }
 
 
+        //[HttpPost]
+
+        //public IActionResult AddNotification(Notification notification)
+        //{
+        //    //if (ModelState.IsValid)
+        //    //{
+        //        notificationRepository.Add(notification);
+        //        notificationRepository.save();
+        //        return RedirectToAction("Index");
+        //    //}
+
+
+        //    //else
+        //    //{
+
+        //    //}
+        //}
+
+
 
 
     }

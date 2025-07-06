@@ -1,7 +1,22 @@
 ﻿@model List<Notification>
 @{
     ViewData["Title"] = "Notifications";
-    Layout = "_Layout";
+
+    if (User.IsInRole("Doctor"))
+    {
+
+        Layout = "_DoctorDashbordLayout";
+
+
+    }
+
+
+    else if (User.IsInRole("Patient"))
+    {
+        Layout = "_Layout";
+
+
+    }
 }
 
 <style>
