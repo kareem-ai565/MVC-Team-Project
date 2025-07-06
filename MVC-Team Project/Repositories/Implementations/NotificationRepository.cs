@@ -36,6 +36,9 @@ namespace MVC_Team_Project.Repositories.Implementations
             clinicSystemContext.SaveChanges();
         }
 
-
+        public void Add(Notification notification)
+        {
+            clinicSystemContext.Notifications.Add(notification);
+        }
     }
 }
