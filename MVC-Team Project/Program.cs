@@ -1,9 +1,10 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MVC_Team_Project.Models;
 using MVC_Team_Project.Repositories;
 using MVC_Team_Project.Repositories.Implementations;
 using MVC_Team_Project.Repositories.Interfaces;
+using MVC_Team_Project.Seeders;
 using MVC_Team_Project.Services.Auth;
 
 namespace MVC_Team_Project
@@ -87,15 +88,33 @@ namespace MVC_Team_Project
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            // Initialize admin user only
-            try
+            // ✅ Seeding database and creating admin
+            using (var scope = app.Services.CreateScope())
             {
-                await EnsureAdminUserCreated(app.Services);
-            }
-            catch (Exception ex)
-            {
-                var logger = app.Services.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex, "An error occurred while creating the default admin.");
+                var services = scope.ServiceProvider;
+                var logger = services.GetRequiredService<ILogger<Program>>();
+
+                try
+                {
+                    var context = services.GetRequiredService<ClinicSystemContext>();
+                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
+
+                    // 1. Seed roles
+                    RoleSeeder.Seed(roleManager);
+
+                    // 2. Seed rest of the data
+                    DbSeeder.Seed(context, userManager, roleManager);
+
+                    // 3. Create default admin
+                    await EnsureAdminUserCreated(services);
+
+                    logger.LogInformation("✅ Database seeding and admin setup completed.");
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "❌ An error occurred while seeding the database or creating admin.");
+                }
             }
 
             app.Run();
@@ -127,18 +146,18 @@ namespace MVC_Team_Project
                     if (result.Succeeded)
                     {
                         await userManager.AddToRoleAsync(adminUser, "Admin");
-                        logger.LogInformation("Default admin user created successfully");
+                        logger.LogInformation("✅ Default admin user created successfully.");
                     }
                     else
                     {
-                        logger.LogError("Failed to create admin user: {Errors}",
+                        logger.LogError("❌ Failed to create admin user: {Errors}",
                             string.Join(", ", result.Errors.Select(e => e.Description)));
                     }
                 }
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error while creating default admin user.");
+                logger.LogError(ex, "❌ Error while creating default admin user.");
                 throw;
             }
         }

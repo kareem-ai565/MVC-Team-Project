@@ -17,29 +17,55 @@ namespace MVC_Team_Project.Seeders
 
             var appointments = new List<Appointment>();
 
-            for (int i = 1; i <= 10; i++)
+            var availabilities = context.Availabilities
+                .Where(a => !a.IsBooked)
+                .OrderBy(a => a.DoctorId)
+                .ThenBy(a => a.AvailableDate)
+                .ToList();
+
+            int patientCounter = 1;
+
+            foreach (var availability in availabilities)
             {
-                appointments.Add(new Appointment
+                var totalSlots = (int)((availability.EndTime - availability.StartTime).TotalMinutes / availability.SlotDuration);
+                var slotStartTime = availability.StartTime;
+
+                for (int i = 0; i < totalSlots && patientCounter <= 25; i++)
                 {
-                    PatientId = i,
-                    DoctorId = i,
-                    AppointmentDate = DateTime.Today.AddDays(i),
-                    StartTime = new TimeSpan(9, 0, 0),
-                    EndTime = new TimeSpan(10, 0, 0),
-                    Status = "Scheduled",
-                    PatientNotes = $"Patient notes {i}",
-                    Symptoms = $"Symptoms {i}",
-                    Diagnosis = $"Diagnosis {i}",
-                    Prescription = $"Prescription {i}",
-                    DoctorNotes = $"Doctor notes {i}",
-                    IsFollowUpRequired = false,
-                    CreatedAt = DateTime.Now.AddDays(-i),
-                    IsDeleted = false,
-                });
+                    var slotEndTime = slotStartTime.Add(TimeSpan.FromMinutes(availability.SlotDuration));
+
+                    appointments.Add(new Appointment
+                    {
+                        PatientId = patientCounter,
+                        DoctorId = availability.DoctorId,
+                        AppointmentDate = availability.AvailableDate,
+                        StartTime = slotStartTime,
+                        EndTime = slotEndTime,
+                        Status = "Scheduled",
+                        PatientNotes = $"Patient notes {patientCounter}",
+                        Symptoms = $"Symptoms {patientCounter}",
+                        Diagnosis = null,
+                        Prescription = null,
+                        DoctorNotes = null,
+                        IsFollowUpRequired = false,
+                        CreatedAt = DateTime.Now,
+                        IsDeleted = false
+                    });
+
+                    availability.IsBooked = true;
+
+                    slotStartTime = slotEndTime;
+                    patientCounter++;
+                }
+
+                if (patientCounter > 25) break;
             }
 
             context.Appointments.AddRange(appointments);
             context.SaveChanges();
+            context.SaveChanges();
+
+            Console.WriteLine("Seeded appointments for first 25 patients based on availability.");
         }
     }
 }

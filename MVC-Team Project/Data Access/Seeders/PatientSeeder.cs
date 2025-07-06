@@ -20,28 +20,30 @@ namespace MVC_Team_Project.Seeders
             var genders = new[] { "Male", "Female", "Other" };
             var bloodTypes = new[] { "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" };
 
-            for (int i = 1; i <= 10; i++)
+            for (int i = 26; i <= 50; i++)
             {
                 patients.Add(new Patient
                 {
-                    UserId = i,
+                    UserId = i, 
                     Gender = genders[i % genders.Length],
-                    DOB = DateTime.Today.AddYears(-20 - i),
-                    Address = $"Address #{i} Main Street, City",
-                    EmergencyContact = $"Contact Person {i}",
-                    EmergencyPhone = $"010000000{i:D2}",
+                    DOB = DateTime.Today.AddYears(-20 - (i % 10)),
+                    Address = $"Building {i}, Street {i}, City",
+                    EmergencyContact = $"Relative {i}",
+                    EmergencyPhone = $"0100{i:D7}",
                     BloodType = bloodTypes[i % bloodTypes.Length],
-                    Allergies = "None",
-                    MedicalHistory = $"Medical history details {i}",
-                    CurrentMedications = $"Medications {i}",
-                    InsuranceProvider = $"Insurance Co {i}",
-                    InsurancePolicyNumber = $"POLICY-{1000 + i}",
-                    CreatedAt = DateTime.Now.AddDays(-i * 10)
+                    Allergies = i % 2 == 0 ? "None" : "Pollen",
+                    MedicalHistory = $"Chronic conditions history #{i}",
+                    CurrentMedications = i % 3 == 0 ? $"Med {i}" : "None",
+                    InsuranceProvider = $"HealthCare Inc {i % 5}",
+                    InsurancePolicyNumber = $"POL-{2000 + i}",
+                    CreatedAt = DateTime.Now.AddDays(-i)
                 });
             }
 
             context.Patients.AddRange(patients);
             context.SaveChanges();
+
+            Console.WriteLine("Seeded 25 patients successfully.");
         }
     }
 }
