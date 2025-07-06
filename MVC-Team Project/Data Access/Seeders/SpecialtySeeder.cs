@@ -17,16 +17,69 @@ namespace MVC_Team_Project.Seeders
 
             var specialties = new List<Specialty>()
             {
-                new Specialty { Name = "Cardiology", Description = "Heart related specialty", IsActive = true, CreatedAt = DateTime.Now },
-                new Specialty { Name = "Dermatology", Description = "Skin specialist", IsActive = true, CreatedAt = DateTime.Now },
-                new Specialty { Name = "Orthopedics", Description = "Bone specialist", IsActive = true, CreatedAt = DateTime.Now },
-                new Specialty { Name = "Neurology", Description = "Nervous system specialist", IsActive = true, CreatedAt = DateTime.Now },
-                new Specialty { Name = "Pediatrics", Description = "Child specialist", IsActive = true, CreatedAt = DateTime.Now },
-                new Specialty { Name = "Psychiatry", Description = "Mental health specialist", IsActive = true, CreatedAt = DateTime.Now },
-                new Specialty { Name = "General Surgery", Description = "General surgical procedures", IsActive = true, CreatedAt = DateTime.Now },
-                new Specialty { Name = "Oncology", Description = "Cancer specialist", IsActive = true, CreatedAt = DateTime.Now },
-                new Specialty { Name = "Anesthesiology", Description = "Anesthesia specialist", IsActive = true, CreatedAt = DateTime.Now },
-                new Specialty { Name = "Radiology", Description = "Imaging specialist", IsActive = true, CreatedAt = DateTime.Now }
+                new Specialty
+                {
+                    Name = "Cardiology",
+                    Description = "Diagnosis and treatment of heart and blood vessel disorders.",
+                    IsActive = true,
+                    CreatedAt = DateTime.Now
+                },
+                new Specialty
+                {
+                    Name = "Dermatology",
+                    Description = "Specialized in skin, hair, and nail conditions.",
+                    IsActive = true,
+                    CreatedAt = DateTime.Now
+                },
+                new Specialty
+                {
+                    Name = "Orthopedics",
+                    Description = "Focuses on the musculoskeletal system: bones, joints, and muscles.",
+                    IsActive = true,
+                    CreatedAt = DateTime.Now
+                },
+                new Specialty
+                {
+                    Name = "Neurology",
+                    Description = "Deals with disorders of the nervous system.",
+                    IsActive = true,
+                    CreatedAt = DateTime.Now
+                },
+                new Specialty
+                {
+                    Name = "Pediatrics",
+                    Description = "Medical care for infants, children, and adolescents.",
+                    IsActive = true,
+                    CreatedAt = DateTime.Now
+                },
+                new Specialty
+                {
+                    Name = "Psychiatry",
+                    Description = "Focus on mental, emotional, and behavioral disorders.",
+                    IsActive = true,
+                    CreatedAt = DateTime.Now
+                },
+                new Specialty
+                {
+                    Name = "Oncology",
+                    Description = "Diagnosis and treatment of cancer.",
+                    IsActive = true,
+                    CreatedAt = DateTime.Now
+                },
+                new Specialty
+                {
+                    Name = "Anesthesiology",
+                    Description = "Pain relief and anesthesia during surgeries.",
+                    IsActive = true,
+                    CreatedAt = DateTime.Now
+                },
+                new Specialty
+                {
+                    Name = "Obstetrics and Gynecology",
+                    Description = "Women's reproductive health, pregnancy, and childbirth.",
+                    IsActive = true,
+                    CreatedAt = DateTime.Now
+                },
             };
 
             context.Specialties.AddRange(specialties);

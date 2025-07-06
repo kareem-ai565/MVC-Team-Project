@@ -16,28 +16,33 @@ namespace MVC_Team_Project.Seeders
             }
 
             var records = new List<MedicalRecord>();
+            var random = new Random();
 
-            for (int i = 1; i <= 10; i++)
+            for (int patientId = 1; patientId <= 25; patientId++)
             {
+                int doctorId = random.Next(1, 26); 
+
                 records.Add(new MedicalRecord
                 {
-                    PatientId = i,
-                    DoctorId = i,
+                    PatientId = patientId,
+                    DoctorId = doctorId,
                     RecordType = "General Checkup",
-                    Diagnosis = $"Diagnosis detail {i}",
-                    Treatment = $"Treatment detail {i}",
-                    Prescription = $"Prescription detail {i}",
-                    TestResults = $"Test results {i}",
-                    Notes = $"Notes {i}",
-                    RecordDate = DateTime.Today.AddDays(-i * 10),
+                    Diagnosis = $"Diagnosis for patient {patientId}",
+                    Treatment = $"Treatment for patient {patientId}",
+                    Prescription = $"Prescription #{patientId}",
+                    TestResults = $"Test results for patient {patientId}",
+                    Notes = $"Follow-up in 2 weeks.",
+                    RecordDate = DateTime.Today.AddDays(-patientId),
                     IsConfidential = false,
                     IsDeleted = false,
-                    CreatedAt = DateTime.Now.AddDays(-i * 10),
+                    CreatedAt = DateTime.Now.AddDays(-patientId)
                 });
             }
 
             context.MedicalRecords.AddRange(records);
             context.SaveChanges();
+
+            Console.WriteLine("Seeded 25 medical records successfully.");
         }
     }
 }
