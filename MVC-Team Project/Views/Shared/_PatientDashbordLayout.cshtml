@@ -311,13 +311,17 @@
                         <a asp-controller="PatientMedicalRecord" asp-action="Index"><i class="fa fa-dashboard"></i> <span>Medical Records</span></a>
                             </li>
 
-                            <li class="@(currentController == "Availability" ? "active" : "")">
+                            <li class="@(currentController == "MedicalRecord" ? "active" : "")">
+                        <a asp-controller="Notification" asp-action="Index"><i class="fa fa-dashboard"></i> <span>Notification</span></a>
+                            </li>
+
+                      @*       <li class="@(currentController == "Availability" ? "active" : "")">
                                 <a asp-controller="Availability" asp-action="Index"><i class="fa fa-calendar"></i> <span>Availability </span></a>
                             </li>
 
                             <li class="@(currentController == "DoctorAppointment" ? "active" : "")">
                         <a asp-controller="patientappointment" asp-action="index"><i class="fa fa-calendar"></i> <span>Appointments </span></a>
-                            </li>
+                            </li> *@
                         </ul>
                     </div>
                 </div>
