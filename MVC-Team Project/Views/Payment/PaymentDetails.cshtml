@@ -46,15 +46,16 @@
 
 <div class="container mt-5 w-50">
     <div class="plain-card">
-        <p><strong>DoctorId:</strong> @Model.DoctorId</p>
-        <p><strong>PatientId:</strong> @Model.PatientId</p>
-        <p><strong>Appointment:</strong> @Model.Appointment</p>
-        <p><strong>Amount:</strong> @Model.Amount</p>
-        <p><strong>PaymentMethod:</strong> @Model.PaymentMethod</p>
-        <p><strong>PaymentStatus:</strong> @Model.PaymentStatus</p>
-        <p><strong>TransactionId:</strong> @Model.TransactionId</p>
-        <p><strong>PaymentDate:</strong> @Model.PaymentDate</p>
-        <p><strong>DueDate:</strong> @Model.DueDate</p>
+        <p><strong>DoctorId:</strong> @Model?.DoctorId</p>
+        <p><strong>PatientId:</strong> @Model?.PatientId</p>
+       @* <p><strong>PatientName:</strong> @Model?.patient.FirstName</p>  *@
+        <p><strong>Appointment:</strong> @Model?.Appointment</p>
+        <p><strong>Amount:</strong> @Model?.Amount</p>
+        <p><strong>PaymentMethod:</strong> @Model?.PaymentMethod</p>
+        <p><strong>PaymentStatus:</strong> @Model?.PaymentStatus</p>
+        <p><strong>TransactionId:</strong> @Model?.TransactionId</p>
+        <p><strong>PaymentDate:</strong> @Model?.PaymentDate</p>
+        <p><strong>DueDate:</strong> @Model?.DueDate</p>
         <p><strong>PaidDate:</strong> @Model.PaidDate</p>
         <p><strong>RefundAmount:</strong> @Model.RefundAmount</p>
         <p><strong>RefundDate:</strong> @Model.RefundDate</p>

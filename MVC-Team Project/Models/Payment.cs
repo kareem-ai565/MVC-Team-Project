@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using MVC_Team_Project.View_Models;
 
 namespace MVC_Team_Project.Models;
 
@@ -68,7 +69,9 @@ public partial class Payment
     [InverseProperty("Payments")]
     public virtual Doctor Doctor { get; set; }
 
+
     [ForeignKey("PatientId")]
     [InverseProperty("Payments")]
     public virtual Patient Patient { get; set; }
+
 }
