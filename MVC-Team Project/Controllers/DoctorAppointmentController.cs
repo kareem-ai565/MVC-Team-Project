@@ -107,6 +107,7 @@ public class DoctorAppointmentController : Controller
                 TempData["ErrorMessage"] = "patient not found.";
                 return BadRequest();
             }
+           
 
 
             Notification notificate = new Notification()
@@ -120,8 +121,12 @@ public class DoctorAppointmentController : Controller
                 };
 
 
-                notification.Add(notificate);
-                notification.save();
+            await _ctx.Notifications.AddAsync(notificate);
+
+            await _ctx.SaveChangesAsync();
+
+                //notification.Add(notificate);
+                //notification.save();
 
             }
         
