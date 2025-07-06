@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MVC_Team_Project.Models;
+using MVC_Team_Project.Repositories;
 using MVC_Team_Project.Repositories.Interfaces;
 using MVC_Team_Project.View_Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace MVC_Team_Project.Controllers
 {
@@ -409,6 +410,41 @@ namespace MVC_Team_Project.Controllers
             };
 
             return View("Profile", vm);
+        }
+
+///////////============for profile 
+        [HttpGet]
+        public async Task<IActionResult> CurrentMedications(int id)
+        {
+            var patient = await _patientRepo.GetPatientVMByIdAsync(id); // Adjusted method to async
+
+            if (patient == null)
+            {
+                return View(new PatientVM
+                {
+                    FullName = "Unknown Patient",
+                    CurrentMedications = null
+                });
+            }
+
+            return View(patient);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Appointments(int id)
+        {
+            var patient = await _patientRepo.GetPatientVMByIdAsync(id); // This must include Appointments
+
+            if (patient == null)
+            {
+                return View(new PatientVM
+                {
+                    FullName = "Unknown Patient",
+                    Appointments = new List<PatientAppointmentVM>()
+                });
+            }
+
+            return View(patient);
         }
 
 
