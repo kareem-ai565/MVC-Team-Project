@@ -7,8 +7,8 @@
 <style>
     body {
         background: #f4f7fa;
-        min-height: 100vh;
-        padding: 30px;
+        /* min-height: 100vh; */
+        /* padding: 30px; */
         font-family: 'Segoe UI', sans-serif;
     }
 
@@ -117,7 +117,7 @@
 
 @if (!Model.Any())
 {
-    <div class="container">
+    <div class="container mb-4">
         <div class="no-notifications-glass text-center mx-auto">
             <i class="bi bi-bell-slash-fill empty-icon mb-3"></i>
             <h4>No Notifications Yet</h4>
@@ -130,7 +130,7 @@
 
 else{
 
-<div class="container">
+<div class="container mb-4">
     <h2 class="mb-4" style="color:#4A778A">🔔 Your Notifications</h2>
 
     @foreach (var n in Model)
