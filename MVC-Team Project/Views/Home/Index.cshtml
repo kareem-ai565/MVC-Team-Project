@@ -447,7 +447,7 @@
 
 @* <h2 class="doctors-heading ">🌟 Meet Our Expert Doctors</h2> *@
 <!-- Slides Section -->
-<section class="slider-section" data-aos="zoom-in" id="#doctors">
+<section class="slider-section" data-aos="zoom-in" id="doctors">
     <div class="slider-container">
         <div class="slider-head">
             <p>MEET OUR EXPERIENCED TEAM</p>
@@ -464,7 +464,8 @@
                             <div class="flip-card-inner">
                                 <!-- Front -->
                                 <div class="flip-card-front">
-                                    <img src="@i.ProfilePicture" alt="Doctor" class="doc-img" />
+                                    @* <img src="@i.ProfilePicture" alt="Doctor" class="doc-img" /> *@
+                                    <img src="@(i.ProfilePicture != null ? $"{i.ProfilePicture}" : "/images/default-patient.jpg")" alt="Doctor" class="doc-img" />
                                     <h5 class="doctor-name">Dr. @i.FullName</h5>
                                     <p class="specialty">Specialist</p>
                                 </div>
