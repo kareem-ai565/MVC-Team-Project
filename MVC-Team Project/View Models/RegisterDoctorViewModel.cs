@@ -4,6 +4,8 @@ namespace MVC_Team_Project.View_Models
 {
     public class RegisterDoctorViewModel
     {
+        public IFormFile? ProfilePicture { get; set; }
+
         [Required(ErrorMessage = "Full name is required")]
         public string FullName { get; set; }
 

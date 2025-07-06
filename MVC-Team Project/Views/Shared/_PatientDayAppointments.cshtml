@@ -1,0 +1,23 @@
+﻿@model IEnumerable<MVC_Team_Project.View_Models.AppointmentViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Patient Name</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.PatientName</td>
+                <td>@item.StartTime.ToString("hh:mm tt")</td>
+                <td>@item.EndTime.ToString("hh:mm tt")</td>
+                <td>@item.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>

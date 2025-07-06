@@ -1,0 +1,30 @@
+﻿@model MVC_Team_Project.View_Models.AppointmentViewModel
+
+<div class="modal fade" id="bookModal" tabindex="-1" aria-labelledby="bookModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookModalLabel">Book Appointment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Book" asp-controller="Appointment" method="post">
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <div class="mb-3">
+                        <label class="form-label">Doctor</label>
+                        <input type="text" class="form-control" value="@Model.DoctorName" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Date</label>
+                        <input type="text" class="form-control" value="@Model.AppointmentDate.ToString("yyyy-MM-dd")" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Time</label>
+                        <input type="text" class="form-control" value="@Model.StartTime.ToString("hh:mm tt") - @Model.EndTime.ToString("hh:mm tt")" readonly>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Book</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

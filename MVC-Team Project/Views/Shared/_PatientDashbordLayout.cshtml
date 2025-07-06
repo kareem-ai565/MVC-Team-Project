@@ -1,0 +1,422 @@
+﻿@using Microsoft.AspNetCore.Mvc.Controllers
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <title>Preclinic - Medical & Hospital - Bootstrap 4 Admin Template</title>
+    <link rel="stylesheet" type="text/css" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/bootstrap-datetimepicker.min.css">
+    <!-- DataTables with Bootstrap 4 -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style.css">
+
+    <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        :root {
+            --main-primary: rgb(54, 112, 129);
+            --main-primary-hover: rgba(54, 112, 129, 0.85);
+            --main-secondary: rgb(44, 92, 109);
+            --accent-color: rgb(236, 162, 84);
+            --accent-hover: rgba(236, 162, 84, 0.85);
+        }
+
+        /* Primary Styles */
+        .btn-primary,
+        .bg-primary,
+        .text-primary,
+        .border-primary {
+            background-color: var(--main-primary) !important;
+            border-color: var(--main-primary) !important;
+            color: #fff !important;
+        }
+
+            .btn-primary:hover,
+            .btn-primary:focus,
+            .btn-primary:active,
+            .bg-primary:hover,
+            .text-primary:hover,
+            .border-primary:hover {
+                background-color: var(--main-primary-hover) !important;
+                border-color: var(--main-primary-hover) !important;
+                color: #fff !important;
+            }
+
+            .btn-primary:visited {
+                background-color: var(--main-primary-hover) !important;
+            }
+
+            .btn-primary:disabled {
+                background-color: #ccc !important;
+                border-color: #ccc !important;
+                color: #888 !important;
+            }
+
+        .btn-outline-primary {
+            color: var(--main-primary) !important;
+            border-color: var(--main-primary) !important;
+        }
+
+            .btn-outline-primary:hover,
+            .btn-outline-primary:focus,
+            .btn-outline-primary:active {
+                background-color: var(--main-primary) !important;
+                color: #fff !important;
+            }
+
+        /* Secondary Styles */
+        .btn-secondary,
+        .bg-secondary,
+        .text-secondary,
+        .border-secondary {
+            background-color: var(--main-secondary) !important;
+            border-color: var(--main-secondary) !important;
+            color: #fff !important;
+        }
+
+            .btn-secondary:hover,
+            .btn-secondary:focus,
+            .btn-secondary:active {
+                background-color: rgba(44, 92, 109, 0.85) !important;
+                border-color: rgba(44, 92, 109, 0.85) !important;
+                color: #fff !important;
+            }
+
+        .btn-outline-secondary {
+            color: var(--main-secondary) !important;
+            border-color: var(--main-secondary) !important;
+        }
+
+            .btn-outline-secondary:hover,
+            .btn-outline-secondary:focus,
+            .btn-outline-secondary:active {
+                background-color: var(--main-secondary) !important;
+                color: #fff !important;
+                border-color: var(--main-secondary) !important;
+            }
+
+        /* Accent/Interacting Color */
+        .btn-accent {
+            background-color: var(--accent-color) !important;
+            border-color: var(--accent-color) !important;
+            color: #fff !important;
+        }
+
+            .btn-accent:hover,
+            .btn-accent:focus,
+            .btn-accent:active {
+                background-color: var(--accent-hover) !important;
+                border-color: var(--accent-hover) !important;
+                color: #fff !important;
+            }
+
+        /* Links + Nav */
+        a:hover,
+        .active span,
+        .active a,
+        .active i {
+            color: var(--main-primary-hover) !important;
+        }
+
+        .sidebar-menu > ul > li > a:hover {
+            color: var(--main-primary) !important;
+        }
+
+        /* Pagination */
+        .page-item.active .page-link {
+            background-color: var(--main-primary) !important;
+            color: #fff !important;
+            border-color: var(--main-primary) !important;
+        }
+
+        .pagination > li > a,
+        .pagination > li > span {
+            color: var(--main-primary) !important;
+        }
+
+        /* Replace default hardcoded Bootstrap blue/gray */
+        [style*="color: #007bff"],
+        [style*="color:#007bff"],
+        [style*="color: rgb(0, 123, 255)"] {
+            color: var(--main-primary) !important;
+        }
+
+        [style*="background-color: #007bff"],
+        [style*="background-color:#007bff"],
+        [style*="background-color: rgb(0, 123, 255)"] {
+            background-color: var(--main-primary) !important;
+        }
+
+        [style*="background-color: #6c757d"],
+        [style*="background-color:#6c757d"],
+        [style*="background-color: rgb(108, 117, 125)"] {
+            background-color: var(--main-secondary) !important;
+        }
+
+        [style*="color: #6c757d"],
+        [style*="color:#6c757d"],
+        [style*="color: rgb(108, 117, 125)"] {
+            color: var(--main-secondary) !important;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="main-wrapper">
+        <!-- Header -->
+        <div class="main-wrapper">
+            <div class="header" style="background-color:rgba(54, 112, 129, 0.85)">
+                <div class="header-left">
+                    <a href="index-2.html" class="logo">
+                        <img src="~/assets/img/logo.png" width="35" height="35" alt=""> <span>Preclinic</span>
+                    </a>
+                </div>
+                <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+                <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+                <ul class="nav user-menu float-right">
+                    <li class="nav-item dropdown d-none d-sm-block">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
+                        <div class="dropdown-menu notifications">
+                            <div class="topnav-dropdown-header">
+                                <span>Notifications</span>
+                            </div>
+                            <div class="drop-scroll">
+                                <ul class="notification-list">
+                                    <li class="notification-message">
+                                        <a href="activities.html">
+                                            <div class="media">
+                                                <span class="avatar">
+                                                    <img alt="John Doe" src="~/assets/img/user.jpg" class="img-fluid">
+                                                </span>
+                                                <div class="media-body">
+                                                    <p class="noti-details"><span class="noti-title">John Doe</span> added new task <span class="noti-title">Patient appointment booking</span></p>
+                                                    <p class="noti-time"><span class="notification-time">4 mins ago</span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="notification-message">
+                                        <a href="activities.html">
+                                            <div class="media">
+                                                <span class="avatar">V</span>
+                                                <div class="media-body">
+                                                    <p class="noti-details"><span class="noti-title">Tarah Shropshire</span> changed the task name <span class="noti-title">Appointment booking with payment gateway</span></p>
+                                                    <p class="noti-time"><span class="notification-time">6 mins ago</span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="notification-message">
+                                        <a href="activities.html">
+                                            <div class="media">
+                                                <span class="avatar">L</span>
+                                                <div class="media-body">
+                                                    <p class="noti-details"><span class="noti-title">Misty Tison</span> added <span class="noti-title">Domenic Houston</span> and <span class="noti-title">Claire Mapes</span> to project <span class="noti-title">Patient available module</span></p>
+                                                    <p class="noti-time"><span class="notification-time">8 mins ago</span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="notification-message">
+                                        <a href="activities.html">
+                                            <div class="media">
+                                                <span class="avatar">G</span>
+                                                <div class="media-body">
+                                                    <p class="noti-details"><span class="noti-title">Rolland Webber</span> completed task <span class="noti-title">Patient and Doctor video conferencing</span></p>
+                                                    <p class="noti-time"><span class="notification-time">12 mins ago</span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="notification-message">
+                                        <a href="activities.html">
+                                            <div class="media">
+                                                <span class="avatar">V</span>
+                                                <div class="media-body">
+                                                    <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span> added new task <span class="noti-title">Private chat module</span></p>
+                                                    <p class="noti-time"><span class="notification-time">2 days ago</span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="topnav-dropdown-footer">
+                                <a href="activities.html">View all Notifications</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown d-none d-sm-block">
+                        <a href="javascript:void(0);" id="open_msg_box" class="hasnotifications nav-link"><i class="fa fa-comment-o"></i> <span class="badge badge-pill bg-danger float-right">8</span></a>
+                    </li>
+                    <li class="nav-item dropdown has-arrow">
+                        <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                            <span class="user-img">
+                                <img class="rounded-circle" src="~/assets/img/user.jpg" width="40" alt="patient">
+                                <span class="status online"></span>
+                            </span>
+                            <span>Patient</span>
+                        </a>
+                        <div class="dropdown-menu">
+                            @if (User.IsInRole("Patient"))
+                            {
+                                <a class="dropdown-item" asp-controller="Patients" asp-action="Profile">
+                                    <i class="fa fa-user-md"></i> My Profile
+                                </a>
+                                <a class="dropdown-item" asp-controller="Patients" asp-action="ProfileEdit">
+                                    <i class="fa fa-edit"></i> Edit Profile
+                                </a>
+
+                            }
+
+                            @* <a class="dropdown-item" asp-controller="Settings" asp-action="Index"> *@
+                            @*     <i class="fa fa-cog"></i> Settings *@
+                            @* </a> *@
+                            <form id="logoutForm" asp-controller="Auth" asp-action="Logout" method="post" class="d-none"></form>
+                            <a href="javascript:void(0);" class="dropdown-item text-danger" onclick="document.getElementById('logoutForm').submit();">
+                                <i class="fa fa-sign-out m-r-5"></i> Logout
+                            </a>
+                        </div>
+                        
+
+                    </li>
+                </ul>
+                <div class="dropdown mobile-user-menu float-right">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="profile.html">My Profile</a>
+                        <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
+                        <a class="dropdown-item" href="settings.html">Settings</a>
+                        <a class="dropdown-item" href="login.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+
+        <!-- Sidebar -->
+        <!--CHANGE THE LINKS TO PATIENT RELATED-->
+        <!--AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-inner slimscroll">
+                    <div id="sidebar-menu" class="sidebar-menu">
+                        <ul>
+                            <li class="menu-title">Main</li>
+                            <li class="@(currentController == "MedicalRecord" ? "active" : "")">
+                                <a asp-controller="MedicalRecord" asp-action="MyPatientsRecords"><i class="fa fa-dashboard"></i> <span>Medical Records</span></a>
+                            </li>
+
+                            <li class="@(currentController == "Availability" ? "active" : "")">
+                                <a asp-controller="Availability" asp-action="Index"><i class="fa fa-calendar"></i> <span>Availability </span></a>
+                            </li>
+
+                            <li class="@(currentController == "DoctorAppointment" ? "active" : "")">
+                                <a asp-controller="DoctorAppointment" asp-action="Index"><i class="fa fa-calendar"></i> <span>Appointments </span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+        <!-- Main Content Area -->
+        <div class="page-wrapper">
+            @RenderBody()
+        </div>
+
+        <!-- Toasts -->
+                    <div aria-live="polite" aria-atomic="true"
+                         style="position: fixed; top: 20px; right: 20px; z-index: 9999; min-width: 300px;">
+
+                        @if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="toast" id="successToast" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header bg-success text-white">
+                                    <strong class="mr-auto">Success</strong>
+                                    <small class="text-light">just now</small>
+                                    <button type="button" class="ml-2 mb-1 close btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                    @TempData["SuccessMessage"]
+                                </div>
+                            </div>
+                        }
+
+                        @if (TempData["ErrorMessage"] != null)
+                        {
+                            <div class="toast" id="errorToast" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header bg-danger text-white">
+                                    <strong class="mr-auto">Error</strong>
+                                    <small class="text-light">just now</small>
+                                    <button type="button" class="ml-2 mb-1 close btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                    @TempData["ErrorMessage"]
+                                </div>
+                            </div>
+                        }
+
+                        @if (TempData["InfoMessage"] != null)
+                        {
+                            <div class="toast" id="infoToast" data-delay="5000" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header bg-info text-white">
+                                    <strong class="mr-auto">Info</strong>
+                                    <small class="text-light">just now</small>
+                                    <button type="button" class="ml-2 mb-1 close btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                    @TempData["InfoMessage"]
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var successToast = new bootstrap.Toast(document.getElementById('successToast'));
+                            var errorToast = new bootstrap.Toast(document.getElementById('errorToast'));
+                            var infoToast = new bootstrap.Toast(document.getElementById('infoToast'));
+
+                            if (document.getElementById('successToast')) successToast.show();
+                            if (document.getElementById('errorToast')) errorToast.show();
+                            if (document.getElementById('infoToast')) infoToast.show();
+
+                            document.querySelectorAll('[data-bs-dismiss="toast"]').forEach(function (button) {
+                                button.addEventListener('click', function () {
+                                    var toast = bootstrap.Toast.getInstance(this.closest('.toast'));
+                                    if (toast) toast.hide();
+                                });
+                            });
+                        });
+                    </script>
+                    <div class="sidebar-overlay" data-reff=""></div>
+                    <script src="~/assets/js/jquery-3.2.1.min.js"></script>
+                    <script src="~/assets/js/popper.min.js"></script>
+                    <script src="~/assets/js/bootstrap.min.js"></script>
+                    <script src="~/assets/js/jquery.slimscroll.js"></script>
+                    <script src="~/assets/js/select2.min.js"></script>
+                    <script src="~/assets/js/moment.min.js"></script>
+                    <script src="~/assets/js/bootstrap-datetimepicker.min.js"></script>
+                    <script src="~/assets/js/app.js"></script>
+                    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+                    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+
+
+                    @RenderSection("Scripts", required: false)
+
+
+
+
+</body>
+</html>

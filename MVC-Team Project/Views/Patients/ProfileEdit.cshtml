@@ -1,0 +1,158 @@
+﻿@model MVC_Team_Project.View_Models.PatientFormVM
+@{
+    ViewData["Title"] = "Edit Profile";
+    Layout = "_PatientDashbordLayout";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-user-edit me-2"></i> Edit Profile</h5>
+                    <a asp-action="Profile" class="btn btn-light btn-sm">
+                        <i class="fas fa-arrow-left"></i> Back to Profile
+                    </a>
+                </div>
+
+                <div class="card-body">
+                    <form asp-action="ProfileEdit" method="post" enctype="multipart/form-data">
+
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="UserId" />
+
+                        <!-- Current Profile Picture -->
+                        <div class="mb-4 text-center">
+                            <img src="@(!string.IsNullOrEmpty(Model.ProfilePicture) 
+                                ? Model.ProfilePicture 
+                                : Url.Content("~/images/default-patient.jpg"))"
+                                alt="Profile Picture"
+                                class="rounded-circle shadow"
+                                width="120" height="120"
+                                style="object-fit: cover;" />
+                            <p class="mt-2 text-muted">Current Profile Picture</p>
+                        </div>
+
+                        <!-- Identity Info -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="FirstName" class="form-label"></label>
+                                <input asp-for="FirstName" class="form-control" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="LastName" class="form-label"></label>
+                                <input asp-for="LastName" class="form-control" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Email" class="form-label"></label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Phone" class="form-label"></label>
+                                <input asp-for="Phone" class="form-control" />
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Profile Picture URL -->
+                        <div class="mb-3">
+                            <label asp-for="ProfileImageFile" class="form-label"></label>
+                            <input asp-for="ProfileImageFile" type="file" class="form-control" />
+                            <span asp-validation-for="ProfileImageFile" class="text-danger"></span>
+                        </div>
+
+
+                        <!-- Personal & Medical Info -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Gender" class="form-label"></label>
+                                <select asp-for="Gender" class="form-control">
+                                    <option value="">-- Select Gender --</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="DOB" class="form-label"></label>
+                                <input asp-for="DOB" type="date" class="form-control" />
+                                <span asp-validation-for="DOB" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Address" class="form-label"></label>
+                            <input asp-for="Address" class="form-control" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <!-- Emergency Contact -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="EmergencyContact" class="form-label"></label>
+                                <input asp-for="EmergencyContact" class="form-control" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="EmergencyPhone" class="form-label"></label>
+                                <input asp-for="EmergencyPhone" class="form-control" />
+                            </div>
+                        </div>
+
+                        <!-- Medical Info -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="BloodType" class="form-label"></label>
+                                <input asp-for="BloodType" class="form-control" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="InsuranceProvider" class="form-label"></label>
+                                <input asp-for="InsuranceProvider" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="InsurancePolicyNumber" class="form-label"></label>
+                                <input asp-for="InsurancePolicyNumber" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Allergies" class="form-label"></label>
+                            <textarea asp-for="Allergies" rows="2" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="MedicalHistory" class="form-label"></label>
+                            <textarea asp-for="MedicalHistory" rows="2" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="CurrentMedications" class="form-label"></label>
+                            <textarea asp-for="CurrentMedications" rows="2" class="form-control"></textarea>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save me-1"></i> Save Changes
+                            </button>
+                            <a asp-action="Profile" class="btn btn-secondary">
+                                <i class="fas fa-times me-1"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

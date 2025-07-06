@@ -7,14 +7,14 @@
     <div class="container">
         <!-- Header Section -->
         <div class="mb-4">
-            <h2 class="text-dark font-weight-bold mb-2">Doctors in @Model.Name</h2>
-            <p class="text-muted lead">@Model.Description</p>
+            <h2 class="text-dark font-weight-bold mb-2 bigger">Doctors in @Model.Name</h2>
+            <p class="text-muted lead bigger2">@Model.Description</p>
         </div>
 
         @if (!Model.Doctors.Any())
         {
-            <div class="alert alert-warning border-0 shadow-sm" style="border-radius: 10px;">
-                <i class="fas fa-exclamation-triangle me-2"></i>
+            <div class="alert alert-warning border-0 shadow-sm bigger" style="border-radius: 10px;">
+                <i class="fas fa-exclamation-triangle me-2 bigger"></i>
                 No doctors found in this specialty.
             </div>
         }
@@ -33,9 +33,9 @@
                                         <i class="fas fa-user-md text-white" style="font-size: 24px;"></i>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <h5 class="card-title font-weight-bold text-dark mb-1">@doctor.FullName</h5>
+                                        <h5 class="card-title font-weight-bold text-dark mb-1 bigger1">@doctor.FullName</h5>
                                         <div class="d-flex align-items-center mb-2">
-                                            <span class="badge badge-experience me-2" style="background-color: #e3f2fd; color: #1976d2; padding: 4px 8px; border-radius: 12px; font-size: 12px;">
+                                            <span class="badge badge-experience me-2 bigger2" style="background-color: #e3f2fd; color: #1976d2; padding: 4px 8px; border-radius: 12px; font-size: 12px;">
                                                 @doctor.ExperienceYears yrs experience
                                             </span>
                                             @if (doctor.IsVerified)
@@ -49,7 +49,7 @@
                                 </div>
 
                                 <div class="doctor-info mb-3">
-                                    <p class="card-text text-muted mb-3" style="font-size: 14px; line-height: 1.5;">
+                                    <p class="card-text text-muted mb-3 bigger2" style="font-size: 14px; line-height: 1.5;">
                                         @doctor.Bio
                                     </p>
                                     
@@ -61,7 +61,7 @@
                                         <div class="d-flex align-items-center">
                                             <i class="fas fa-dollar-sign text-muted me-2" style="width: 16px;"></i>
                                             <span class="text-dark font-weight-bold">@doctor.ConsultationFee.ToString("C")</span>
-                                            <span class="text-muted ms-1" style="font-size: 14px;">consultation fee</span>
+                                            <span class="text-muted ms-1" style="font-size: 16px;">consultation fee</span>
                                         </div>
                                     </div>
                                 </div>
@@ -69,13 +69,17 @@
                                 <div class="card-actions mt-auto">
                                     <div class="row">
                                         <div class="col-6">
-                                            <button class="btn btn-success btn-sm w-100" style="border-radius: 6px; font-weight: 500;">
-                                                <i class="fas fa-calendar-plus me-1"></i>
-                                                Book Now
+                                            <button class="btn btn-success btn-sm w-100" style="border-radius: 6px; font-weight: 500;  height:40px;">
+                                                <a href="/PatientAppointment/Index?doctorId=@doctor.Id" class="btn btn-success btn-sm w-100 bigger2">
+                                                    <i class="fas fa-calendar-plus me-1"></i> Book Now
+                                                </a>
                                             </button>
+
+                                            
+
                                         </div>
                                         <div class="col-6">
-                                            <button class="btn btn-outline-primary btn-sm w-100" style="border-radius: 6px; font-weight: 500;">
+                                            <button class="btn btn-outline-primary btn-sm w-100 bigger2" style="border-radius: 6px; font-weight: 500; height:40px; ">
                                                 <i class="fas fa-info-circle me-1"></i>
                                                 View Profile
                                             </button>

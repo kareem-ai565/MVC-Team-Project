@@ -14,7 +14,7 @@
                     </h3>
                 </div>
                 <div class="card-body">
-                    <form asp-action="Create" method="post">
+                    <form asp-action="Create" method="post" enctype="multipart/form-data">
                         <div asp-validation-summary="All" class="text-danger"></div>
 
                         <!-- User Information Section -->
@@ -99,6 +99,12 @@
                             <textarea asp-for="Bio" class="form-control" rows="3" placeholder="Write a short bio..."></textarea>
                             <span asp-validation-for="Bio" class="text-danger"></span>
                         </div>
+                        <!--profile pic-->
+                        @* <div class="form-group">
+                            <label asp-for="ProfileImage" class="form-label">Profile Image</label>
+                            <input asp-for="ProfileImage" type="file" class="form-control" accept=".jpg,.jpeg,.png" />
+                            <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                        </div> *@
 
                         <div class="row">
                             <div class="form-group col-md-6">

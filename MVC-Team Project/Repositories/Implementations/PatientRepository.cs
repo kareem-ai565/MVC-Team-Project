@@ -66,5 +66,15 @@ namespace MVC_Team_Project.Repositories
         {
             await _context.SaveChangesAsync();
         }
+        public async Task<Patient?> GetByUserIdAsync(int userId)
+        {
+            return await _context.Patients
+                .Include(p => p.User)
+                .Include(p => p.Appointments)
+                .ThenInclude(a => a.Doctor)
+                .ThenInclude(d => d.User)
+                .FirstOrDefaultAsync(p => p.UserId == userId);
+        }
+
     }
 }

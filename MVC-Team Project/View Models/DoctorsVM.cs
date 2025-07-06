@@ -6,6 +6,8 @@
 
         public string FullName { get; set; }
 
+        public string? ProfilePicture { get; set; }
+
         public string SpecialtyName { get; set; }
 
         public string Bio { get; set; }
