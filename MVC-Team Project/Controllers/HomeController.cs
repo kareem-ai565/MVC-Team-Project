@@ -7,16 +7,19 @@ namespace MVC_Team_Project.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ClinicSystemContext clinicSystemContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger  ,  ClinicSystemContext clinicSystemContext )
         {
             _logger = logger;
+            this.clinicSystemContext = clinicSystemContext;
         }
 
 
         public IActionResult Index()
         {
-            return View();
+          List<Doctor> doctors =   clinicSystemContext.Doctors.Where(d=>d.Id<=3).ToList();
+            return View("Index", doctors);
         }
 
         public IActionResult Privacy()
