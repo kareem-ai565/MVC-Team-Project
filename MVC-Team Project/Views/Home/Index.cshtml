@@ -1,4 +1,5 @@
-﻿@model List<Doctor>
+﻿@using MVC_Team_Project.View_Models
+@model List<RegisterDoctorViewModel>
 
 @{
     ViewData["Title"] = "Home";
@@ -463,14 +464,14 @@
                             <div class="flip-card-inner">
                                 <!-- Front -->
                                 <div class="flip-card-front">
-                                    <img src="https://localhost:7283/images/default-doctor.jpg" alt="Doctor" class="doc-img" />
-                                    <h5 class="doctor-name">Dr. @i.Id</h5>
+                                    <img src="@i.ProfilePicture" alt="Doctor" class="doc-img" />
+                                    <h5 class="doctor-name">Dr. @i.FullName</h5>
                                     <p class="specialty">Specialist</p>
                                 </div>
 
                                 <!-- Back -->
                                 <div class="flip-card-back">
-                                    <p><strong>Bio:</strong> @i.Id</p>
+                                    <p><strong>Name:</strong> @i.FullName</p>
                                     <p><strong>Address:</strong> @i.ClinicAddress</p>
                                     <p><strong>License:</strong> @i.LicenseNumber</p>
                                     @* <a class="view-btn" asp-controller="Doctors" asp-action="Details" asp-route-Id="@i.Id">View Profile</a> *@

@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Team_Project.Models;
+using MVC_Team_Project.View_Models;
 
 namespace MVC_Team_Project.Controllers
 {
@@ -18,7 +19,17 @@ namespace MVC_Team_Project.Controllers
 
         public IActionResult Index()
         {
-          List<Doctor> doctors =   clinicSystemContext.Doctors.Where(d=>d.Id<=3).ToList();
+          List<RegisterDoctorViewModel> doctors = clinicSystemContext.Doctors.Select(d=>new RegisterDoctorViewModel{
+             
+              FullName=d.User.FullName,
+               ProfilePicturePath=d.User.ProfilePicture,
+              SpecialtyId=d.SpecialtyId,
+              ClinicAddress=d.ClinicAddress
+              
+
+
+            }).Take(3).ToList();
+            ;
             return View("Index", doctors);
         }
 
