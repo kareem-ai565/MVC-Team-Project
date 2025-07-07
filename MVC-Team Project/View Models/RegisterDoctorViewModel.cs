@@ -4,6 +4,7 @@ namespace MVC_Team_Project.View_Models
 {
     public class RegisterDoctorViewModel
     {
+        public int Id { get; set; }
         public IFormFile? ProfilePicture { get; set; }
         public string? ProfilePicturePath { get; set; }    
 

@@ -22,10 +22,9 @@ namespace MVC_Team_Project.Controllers
         public IActionResult Index()
         {
 
-            var doctors = clinicSystemContext.Doctors.Include(c=>c.Specialty).Take(3).
+            var doctors = clinicSystemContext.Doctors.Include(c=>c.Specialty).
                 Select(d => new RegisterDoctorViewModel {
-
-
+                Id = d.Id,
                 FullName = d.User.FullName,
                 ProfilePicturePath = d.User.ProfilePicture,
                 SpecialtyId = d.SpecialtyId,
