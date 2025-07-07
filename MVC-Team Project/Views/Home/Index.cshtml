@@ -464,17 +464,19 @@
                             <div class="flip-card-inner">
                                 <!-- Front -->
                                 <div class="flip-card-front">
+
                                     @* <img src="@i.ProfilePicture" alt="Doctor" class="doc-img" /> *@
-                                    <img src="@(i.ProfilePicture != null ? $"{i.ProfilePicture}" : "/images/default-patient.jpg")" alt="Doctor" class="doc-img" />
+                                    <img src="@(i.ProfilePicturePath != null ? $"{i.ProfilePicturePath}" : "/images/default-doctor.jpg")" alt="Doctor" class="doc-img" />
                                     <h5 class="doctor-name">Dr. @i.FullName</h5>
-                                    <p class="specialty">Specialist</p>
+                                    <p class="specialty">Speciality : @i.SpecialityName</p>
+                                   
                                 </div>
 
                                 <!-- Back -->
                                 <div class="flip-card-back">
                                     <p><strong>Name:</strong> @i.FullName</p>
                                     <p><strong>Address:</strong> @i.ClinicAddress</p>
-                                    <p><strong>License:</strong> @i.LicenseNumber</p>
+                                    <p><strong>Speciality:</strong> @i.SpecialityName</p>
                                     @* <a class="view-btn" asp-controller="Doctors" asp-action="Details" asp-route-Id="@i.Id">View Profile</a> *@
                                 </div>
                             </div>
