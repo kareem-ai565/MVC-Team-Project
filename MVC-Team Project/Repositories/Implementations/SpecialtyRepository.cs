@@ -97,6 +97,7 @@ namespace MVC_Team_Project.Repositories.Implementations
 
             return new SpecialtyForShowVM
             {
+                //User = specialty.User,
                 Id = specialty.Id,
                 Name = specialty.Name,
                 Description = specialty.Description,

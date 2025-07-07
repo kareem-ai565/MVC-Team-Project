@@ -45,15 +45,33 @@ namespace MVC_Team_Project.Controllers
 
         }
 
+        //[HttpGet]
+        //public IActionResult UnreadCount()
+        //{
+        //    int id = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+        //    if (id != null) { 
+        //        int unreadCount = notificationRepository.GetAllNotifications(id).Count(n => !n.IsRead);
+        //        return Json(new { count = unreadCount });
+
+        //    }
+        //    else
+        //    {
+        //        return Json(new { count = 0 });
+        //    }
+
+        //}
         [HttpGet]
         public IActionResult UnreadCount()
         {
-            int id = int.Parse(User.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
-            int unreadCount = notificationRepository.GetAllNotifications(id).Count(n => !n.IsRead);
+            var claim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            if (claim == null || !int.TryParse(claim.Value, out int id))
+            {
+                return Json(new { count = 0 });
+            }
 
+            int unreadCount = notificationRepository.GetAllNotifications(id).Count(n => !n.IsRead);
             return Json(new { count = unreadCount });
         }
-
 
         //[HttpPost]
 
