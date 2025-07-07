@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MVC_Team_Project.Models;
 using MVC_Team_Project.Repositories.Interfaces;
 using MVC_Team_Project.View_Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace MVC_Team_Project.Repositories.Implementations
 {
@@ -114,7 +115,46 @@ namespace MVC_Team_Project.Repositories.Implementations
                 }).ToList()
             };
         }
+        // Alternative implementation - replace the previous method with this one
+        public async Task<(IEnumerable<Doctor> doctors, int totalCount)> GetAllDoctorsPagedAsync(string? search, int page, int pageSize)
+        {
+            try
+            {
+                var query = _context.Doctors
+                    .Include(d => d.User)
+                    .Include(d => d.Specialty)
+                    .AsQueryable();
 
+                // Apply search filter if provided
+                if (!string.IsNullOrEmpty(search))
+                {
+                    query = query.Where(d =>
+                        EF.Functions.Like(d.User.FullName, $"%{search}%") ||
+                        EF.Functions.Like(d.User.Email, $"%{search}%") ||
+                        (d.User.PhoneNumber != null && EF.Functions.Like(d.User.PhoneNumber, $"%{search}%")) ||
+                        EF.Functions.Like(d.Specialty.Name, $"%{search}%") ||
+                        (d.Bio != null && EF.Functions.Like(d.Bio, $"%{search}%")) ||
+                        (d.ClinicAddress != null && EF.Functions.Like(d.ClinicAddress, $"%{search}%"))
+                    );
+                }
+
+                var totalCount = await query.CountAsync();
+
+                var doctors = await query
+                    .OrderBy(d => d.User.FullName)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+
+                return (doctors, totalCount);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if you have logging configured
+                // For now, return empty result
+                return (new List<Doctor>(), 0);
+            }
+        }
 
     }
 }

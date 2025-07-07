@@ -11,6 +11,8 @@ namespace MVC_Team_Project.Repositories.Interfaces
         Task<(IEnumerable<Specialty> data, int totalCount)> GetPagedAsync(string? search, int page, int pageSize);
 
         Task<SpecialtyForShowVM?> GetSpecialtyWithDoctorsAsync(int id);
+        // Add this new method
+        Task<(IEnumerable<Doctor> doctors, int totalCount)> GetAllDoctorsPagedAsync(string? search, int page, int pageSize);
 
     }
 }

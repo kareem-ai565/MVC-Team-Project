@@ -138,7 +138,19 @@ namespace MVC_Team_Project.Controllers
         }
 
 
+        // Add this action to your SpecialtyController class
+        public async Task<IActionResult> AllDoctors(string? search, int page = 1, int pageSize = 12)
+        {
+            var (doctors, totalCount) = await _specialtyRepo.GetAllDoctorsPagedAsync(search, page, pageSize);
 
+            ViewBag.Search = search;
+            ViewBag.Page = page;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalCount = totalCount;
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+            return View(doctors);
+        }
 
 
     }

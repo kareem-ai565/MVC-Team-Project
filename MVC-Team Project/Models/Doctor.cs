@@ -69,6 +69,7 @@ public partial class Doctor
     [ForeignKey("UserId")]
     [InverseProperty("Doctor")]
     public virtual ApplicationUser User { get; set; }
+    public bool IsActive { get; internal set; }
 
     //public string? ProfileImagePath { get; set; }
 
