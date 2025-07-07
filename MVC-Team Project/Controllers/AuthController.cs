@@ -69,7 +69,7 @@ namespace MVC_Team_Project.Controllers
             }
 
             await _authService.LoginAsync(new LoginViewModel { Email = model.Email, Password = model.Password });
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("MyPatientsRecords", "MedicalRecord");
         }
 
         // ======================= Login =======================
