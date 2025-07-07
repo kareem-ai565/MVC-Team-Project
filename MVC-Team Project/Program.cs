@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MVC_Team_Project.Models;
 using MVC_Team_Project.Repositories;
@@ -15,40 +15,38 @@ namespace MVC_Team_Project
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Repositories
             builder.Services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
             builder.Services.AddScoped<IAvailabilityRepository, AvailabilityRepository>();
-
             builder.Services.AddScoped<IDoctorsRepository, DoctorsRepository>();
             builder.Services.AddScoped<IMedicalRecordRepository, MedicalRecordRepository>();
             builder.Services.AddScoped<IpaymentRepository, paymentRepository>();
             builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
-
-            builder.Services.AddScoped<IAvailabilityRepository, AvailabilityRepository>();
-
             builder.Services.AddScoped<IPatientRepository, PatientsRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-            // Add services to the container
-            builder.Services.AddDbContext<ClinicSystemContext>(
-                options => options.UseSqlServer(
+            // Services
+            builder.Services.AddScoped<IAuthService, AuthService>();
+
+            // DbContext
+            builder.Services.AddDbContext<ClinicSystemContext>(options =>
+                options.UseSqlServer(
                     builder.Configuration.GetConnectionString("DefaultConnection"),
                     sqlOptions => sqlOptions.EnableRetryOnFailure()));
 
+            // Identity
             builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
             {
-                // Password settings
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 6;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
 
-                // Lockout settings
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
                 options.Lockout.AllowedForNewUsers = true;
 
-                // User settings
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
@@ -65,8 +63,7 @@ namespace MVC_Team_Project
             });
 
             builder.Services.AddControllersWithViews();
-            builder.Services.AddScoped<IAuthService, AuthService>();
-            // Add logging
+
             builder.Services.AddLogging(logging =>
             {
                 logging.AddConsole();
@@ -75,7 +72,6 @@ namespace MVC_Team_Project
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -85,7 +81,6 @@ namespace MVC_Team_Project
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -93,62 +88,46 @@ namespace MVC_Team_Project
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            // Initialize database and roles
-            try
+            // ✅ Seeding database and creating admin
+            using (var scope = app.Services.CreateScope())
             {
-                await InitializeDatabaseAsync(app.Services);
-            }
-            catch (Exception ex)
-            {
-                var logger = app.Services.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex, "An error occurred while initializing the database.");
+                var services = scope.ServiceProvider;
+                var logger = services.GetRequiredService<ILogger<Program>>();
+
+                try
+                {
+                    var context = services.GetRequiredService<ClinicSystemContext>();
+                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole<int>>>();
+
+                    // 1. Seed roles
+                    RoleSeeder.Seed(roleManager);
+
+                    // 2. Seed rest of the data
+                    DbSeeder.Seed(context, userManager, roleManager);
+
+                    // 3. Create default admin
+                    await EnsureAdminUserCreated(services);
+
+                    logger.LogInformation("✅ Database seeding and admin setup completed.");
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "❌ An error occurred while seeding the database or creating admin.");
+                }
             }
 
             app.Run();
         }
 
-        private static async Task InitializeDatabaseAsync(IServiceProvider serviceProvider)
+        private static async Task EnsureAdminUserCreated(IServiceProvider serviceProvider)
         {
             using var scope = serviceProvider.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<ClinicSystemContext>();
-            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
             try
             {
-                // Ensure database is created
-                logger.LogInformation("Ensuring database is created...");
-                await context.Database.EnsureCreatedAsync();
-
-                // Run any pending migrations
-                logger.LogInformation("Applying pending migrations...");
-                await context.Database.MigrateAsync();
-
-                DbSeeder.Seed(context);
-                // Initialize roles
-                logger.LogInformation("Initializing roles...");
-                var roleNames = new[] { "Admin", "Doctor", "Patient" };
-                foreach (var roleName in roleNames)
-                {
-                    if (!await roleManager.RoleExistsAsync(roleName))
-                    {
-                        var role = new IdentityRole<int> { Name = roleName };
-                        var result = await roleManager.CreateAsync(role);
-                        if (result.Succeeded)
-                        {
-                            logger.LogInformation("Role {RoleName} created successfully", roleName);
-                        }
-                        else
-                        {
-                            logger.LogError("Failed to create role {RoleName}: {Errors}",
-                                roleName, string.Join(", ", result.Errors.Select(e => e.Description)));
-                        }
-                    }
-                }
-
-                // Create default Admin if not exists
-                logger.LogInformation("Creating default admin user...");
                 var adminEmail = "Mahmoud@clinic.com";
                 if (await userManager.FindByEmailAsync(adminEmail) == null)
                 {
@@ -167,20 +146,18 @@ namespace MVC_Team_Project
                     if (result.Succeeded)
                     {
                         await userManager.AddToRoleAsync(adminUser, "Admin");
-                        logger.LogInformation("Default admin user created successfully");
+                        logger.LogInformation("✅ Default admin user created successfully.");
                     }
                     else
                     {
-                        logger.LogError("Failed to create admin user: {Errors}",
+                        logger.LogError("❌ Failed to create admin user: {Errors}",
                             string.Join(", ", result.Errors.Select(e => e.Description)));
                     }
                 }
-
-                logger.LogInformation("Database initialization completed successfully");
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error during database initialization");
+                logger.LogError(ex, "❌ Error while creating default admin user.");
                 throw;
             }
         }

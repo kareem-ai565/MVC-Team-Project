@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC_Team_Project.Migrations
 {
     [DbContext(typeof(ClinicSystemContext))]
-    [Migration("20250706042405_init")]
-    partial class init
+    [Migration("20250706225612_last1")]
+    partial class last1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

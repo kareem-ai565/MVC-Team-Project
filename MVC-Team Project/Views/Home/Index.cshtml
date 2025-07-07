@@ -1,7 +1,318 @@
-﻿@{
+﻿@using MVC_Team_Project.View_Models
+@model List<RegisterDoctorViewModel>
+
+@{
     ViewData["Title"] = "Home";
     Layout = "_Layout";
 }
+<style>
+
+
+    .book-clean-section {
+        padding: 80px 0;
+        background: linear-gradient(to right, #033B48, #eef5f7);
+        position: relative;
+    }
+
+    .content-box {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .main-title {
+        font-size: 2.8rem;
+        font-weight: 800;
+        color: #2f4f59;
+    }
+
+        .main-title span {
+            color: #538493;
+        }
+
+    .description {
+        font-size: 1.15rem;
+        color: white;
+        line-height: 1.8;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .btn-book {
+        background-color: #538493;
+        color: white;
+        padding: 14px 36px;
+        font-size: 1.1rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s ease;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+        .btn-book:hover {
+            background-color: #3d697a;
+            transform: scale(1.05);
+        }
+
+    media (max-width: 768px) {
+        .main-title
+
+    {
+        font-size: 2rem;
+    }
+
+    .btn-book {
+        font-size: 1rem;
+        padding: 12px 28px;
+    }
+
+    }
+
+
+
+
+
+
+    .why-choose-us {
+        background: linear-gradient(to bottom right, #f4f8fa, #ffffff);
+    }
+
+    .section-heading {
+        font-size: 2.7rem;
+        font-weight: 800;
+        color: #033B48;
+        position: relative;
+        letter-spacing: 0.5px;
+    }
+
+        .section-heading::after {
+            content: "";
+            width: 80px;
+            height: 4px;
+            background-color: #538493;
+            display: block;
+            margin: 10px auto 0;
+            border-radius: 4px;
+        }
+
+    .feature-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 35px 25px;
+        text-align: center;
+        border: none;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        transition: 0.3s ease-in-out;
+    }
+
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(83, 132, 147, 0.2);
+        }
+
+    .icon-box {
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 30px;
+        border-radius: 50%;
+        color: white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .bg1, .bg2, .bg3 {
+        background-color: #033B48;
+    }
+
+
+    .feature-card h5 {
+        font-weight: bold;
+        font-size: 1.3rem;
+        color: #2f4f59;
+        margin-bottom: 10px;
+    }
+
+    .feature-card p {
+        font-size: 0.95rem;
+        color: #6c757d;
+        line-height: 1.6;
+    }
+
+    media (max-width: 576px) {
+        .section-heading
+
+    {
+        font-size: 2rem;
+    }
+
+    .feature-card {
+        padding: 25px 18px;
+    }
+
+    }
+
+
+    .doctors-heading {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, #033B48, #7aa9bc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 40px;
+        position: relative;
+    }
+
+        .doctors-heading::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background-color: #033B48;
+            display: block;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+
+
+    /* Swiper */
+    .swiper {
+        padding-bottom: 60px;
+    }
+
+    .swiper-slide {
+        display: flex;
+        justify-content: center;
+    }
+    .flip-card {
+        background-color: transparent;
+        width: 280px;
+        height: 360px;
+        perspective: 1000px;
+        margin: auto;
+    }
+
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+    }
+
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        backface-visibility: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .flip-card-front {
+        background: linear-gradient(to top, #e8f1f5, #ffffff);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .flip-card-front .doc-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #538493;
+            margin-bottom: 15px;
+        }
+
+    .doctor-name {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #033B48;
+    }
+
+    .specialty {
+        color: #033B48;
+        font-style: italic;
+    }
+
+    .flip-card-back {
+        background-color: #033B48;
+        color: white;
+        transform: rotateY(180deg);
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 25px;
+    }
+
+        .flip-card-back h5 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .flip-card-back p {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+    .view-btn {
+        background-color: white;
+        color: #538493;
+        padding: 8px 16px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 10px;
+        transition: 0.3s;
+    }
+
+        .view-btn:hover {
+            background-color: #e0e0e0;
+        }
+</style>
+<!-- BottomBar -->
+<div class="bottombar">
+    <div class="bottombar-container">
+        <div class="header-box">
+            <div class="box-icon"><i class="fas fa-hospital"></i></div>
+            <div class="box-content">
+                <h3>Number 1 Hospital</h3>
+                <p>In United States</p>
+            </div>
+        </div>
+        <div class="header-box">
+            <div class="box-icon"><i class="fas fa-user-md"></i></div>
+            <div class="box-content">
+                <h3>Personal Cabinet</h3>
+                <p>Qualified Staff</p>
+            </div>
+        </div>
+        <div class="header-box">
+            <div class="box-icon"><i class="fas fa-thumbs-up"></i></div>
+            <div class="box-content">
+                <h3>Get Result Online</h3>
+                <p>Satisfied Patients</p>
+            </div>
+        </div>
+    </div>
+    <div class="box-contact">
+        <span class="icon"><i class="fas fa-phone"></i></span>Toll Free : 1 123 456 78910
+    </div>
+</div>
+
 
 <!-- Carousel Section -->
 <div class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000">
@@ -93,7 +404,7 @@
 </section>
 
 <!-- Counter Section -->
-<div class="img-count" style="position: relative; background-color: var(--light);">
+<div class="img-count mb-5" style="position: relative; background-color: var(--light);">
     <img src="/./images/row-bgimage-6.jpg" alt="row-bgimage-6.jpg" class="img-fluid" data-aos="fade-right" />
     <div class="countup" data-aos="fade-left" style="background-color: var(--count); display: flex; flex-direction: column; align-items: flex-start; color: var(--white); margin: auto; width: 45%; padding: 1%; position: absolute; right: 0; top: 6%;">
         <p style="font-size: 13px; color: var(--light); text-transform: uppercase;">about medical</p>
@@ -127,40 +438,175 @@
     </div>
 </div>
 
+
+
+
+
+@* List Of Doctors *@
+
+
+@* <h2 class="doctors-heading ">🌟 Meet Our Expert Doctors</h2> *@
 <!-- Slides Section -->
- <section class="slider-section" data-aos="zoom-in">
+<section class="slider-section" data-aos="zoom-in" id="doctors">
     <div class="slider-container">
         <div class="slider-head">
             <p>MEET OUR EXPERIENCED TEAM</p>
             <h3>Our Dedicated Doctors Team</h3>
             <p>We offer extensive medical procedures to outbound and inbound patients what it is and we are very proud of achievement of our staff, We are all work together to help our all patients for recovery</p>
         </div>
-        @* <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="card" data-aos="zoom-in-up">
-                        <div><img src="/user1.jpg" alt="img card" /><div class="content"><a href="/user/1">+</a></div></div>
-                        <p>Cardiology</p>
-                        <h2>Dr. John Doe</h2>
+
+        <div class="swiper mySwiper ">
+            <div class="swiper-wrapper  d-flex  justify-content-around">
+                @foreach (var i in Model)
+                {
+                    <div class="swiper-slide">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <!-- Front -->
+                                <div class="flip-card-front">
+                                    @* <img src="@i.ProfilePicture" alt="Doctor" class="doc-img" /> *@
+                                    <img src="@(i.ProfilePicture != null ? $"{i.ProfilePicture}" : "/images/default-patient.jpg")" alt="Doctor" class="doc-img" />
+                                    <h5 class="doctor-name">Dr. @i.FullName</h5>
+                                    <p class="specialty">Specialist</p>
+                                </div>
+
+                                <!-- Back -->
+                                <div class="flip-card-back">
+                                    <p><strong>Name:</strong> @i.FullName</p>
+                                    <p><strong>Address:</strong> @i.ClinicAddress</p>
+                                    <p><strong>License:</strong> @i.LicenseNumber</p>
+                                    @* <a class="view-btn" asp-controller="Doctors" asp-action="Details" asp-route-Id="@i.Id">View Profile</a> *@
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card" data-aos="zoom-in-up">
-                        <div><img src="/user2.jpg" alt="img card" /><div class="content"><a href="/user/2">+</a></div></div>
-                        <p>Orthopedics</p>
-                        <h2>Dr. Jane Smith</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="buttons">
-                <button class="fa-solid fa-chevron-left"></button>
-                <button class="fa-solid fa-chevron-right"></button>
+                }
             </div>
         </div>
-    *@
-    
+
+
+
     </div>
-</section> 
+</section>
+
+
+@* 
+<div class="d-flex justify-content-end me-5 ">
+    <a asp-controller="" asp-action="" class="btn btn-outline-dark p-4 fs-4">Book Now</a>
+
+</div> *@
+
+
+
+
+
+
+@* why-choose Our Website *@
+
+
+<section class="why-choose-us py-5 ">
+    <div class="container">
+        <h2 class="section-heading text-center mb-5">🌟 Why Choose Our Clinic?</h2>
+
+        <div class="row g-4 justify-content-center">
+            <!-- Card 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card ">
+                    <div class="icon-box bg1">
+                        <i class="bi bi-person-heart"></i>
+                    </div>
+                    <h5 class="fs-2">Expert Doctors</h5>
+                    <p class="fs-3">Certified and compassionate doctors with years of experience to provide the best care possible.</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="icon-box bg2">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                    <h5 class="fs-2">Quick Appointments</h5>
+                    <p class="fs-3">Easy online booking with fast response times. Say goodbye to long queues and delays.</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="icon-box bg3">
+                        <i class="bi bi-file-earmark-medical"></i>
+                    </div>
+                    <h5 class="fs-2">Smart Diagnostics</h5>
+                    <p class="fs-3">Using AI-powered tools and modern labs to ensure precise and early diagnosis for every patient.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+@* Book An Appointment *@
+
+<style>
+    .book-clean-section{
+        background: var(--second) !important;
+    }
+</style>
+<section class="book-clean-section mt-5">
+    <div class="container text-center text-md-start">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="content-box ">
+                    <h2 class="main-title fs-3">Your Health <span>Comes First</span></h2>
+                    <p class="description mt-5 mb-5  fs-3">
+                        Book your appointment in seconds. Our doctors are ready to provide expert, compassionate care tailored to your needs.
+                    </p>
+                    <a href="/" class="btn-book mt-4 fs-3">
+                        🗓️ Book an Appointment
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        breakpoints: {
+            576: { slidesPerView: 2 },
+            768: { slidesPerView: 3 },
+            992: { slidesPerView: 4 },
+        },
+    });
+</script>
+
+
+
+
+
 
 
 @* 

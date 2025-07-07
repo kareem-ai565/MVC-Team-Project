@@ -16,13 +16,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-    <title>Preclinic - Medical & Hospital - Bootstrap 4 Admin Template</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/images/logo-img.png">
+    <title>Clinexa</title>
     <link rel="stylesheet" type="text/css" href="~/assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="~/assets/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="~/assets/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="~/assets/css/bootstrap-datetimepicker.min.css">
     <!-- DataTables with Bootstrap 4 -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="~/assets/css/style.css">
 
@@ -184,15 +188,17 @@
     <div class="main-wrapper" >
         <div class="header" style="background-color:rgba(54, 112, 129, 0.85)">
             <div class="header-left">
-                <a href="index-2.html" class="logo">
-                    <img src="~/assets/img/logo.png" width="35" height="35" alt=""> <span>Preclinic</span>
+                <a href="#" class="logo">
+                    @* <img src="~/assets/img/logo.png" width="35" height="35" alt=""> <span>Preclinic</span> *@
+                    <img src="~/images/logo-img.png" width="35" height="30" alt=""> <span>Clinexa</span>
+
                 </a>
             </div>
             <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <ul class="nav user-menu float-right">
-                <li class="nav-item dropdown d-none d-sm-block">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
+                @* <li class="nav-item dropdown d-none d-sm-block">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa-regular fa-bell"></i> <span class="badge badge-pill bg-danger float-right"></span></a> 
                     <div class="dropdown-menu notifications">
                         <div class="topnav-dropdown-header">
                             <span>Notifications</span>
@@ -262,7 +268,7 @@
                             <a href="activities.html">View all Notifications</a>
                         </div>
                     </div>
-                </li>
+                </li> *@
 @*                 <li class="nav-item dropdown d-none d-sm-block">
                     <a href="javascript:void(0);" id="open_msg_box" class="hasnotifications nav-link"><i class="fa fa-comment-o"></i> <span class="badge badge-pill bg-danger float-right">8</span></a>
                 </li> *@
@@ -298,6 +304,8 @@
 
                 </li>
             </ul>
+          
+            
             <div class="dropdown mobile-user-menu float-right">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
@@ -307,6 +315,8 @@
                     <a class="dropdown-item" href="login.html">Logout</a>
                 </div>
             </div>
+       
+        
         </div>
         <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
@@ -314,7 +324,7 @@
                     <ul>
                         <li class="menu-title">Main</li>
                         <li class="@(currentController == "MedicalRecord" ? "active" : "")">
-                            <a asp-controller="MedicalRecord" asp-action="MyPatientsRecords"><i class="fa fa-dashboard"></i> <span>Medical Records</span></a>
+                            <a asp-controller="MedicalRecord" asp-action="MyPatientsRecords"><i class="fa-solid fa-file-medical"></i> <span>Medical Records</span></a>
                         </li>
 
                         <li class="@(currentController == "Availability" ? "active" : "")">
@@ -322,7 +332,15 @@
                         </li>
 
                         <li class="@(currentController == "DoctorAppointment" ? "active" : "")">
-                            <a asp-controller="DoctorAppointment" asp-action="Index"><i class="fa fa-calendar"></i> <span>Appointments </span></a>
+                            <a asp-controller="DoctorAppointment" asp-action="Index"><i class="fa-regular fa-clock"></i> <span>Appointments </span></a>
+                        </li>
+
+
+                        <li class="@(currentController == "DoctorAppointment" ? "active" : "")">
+                            <a asp-controller="Notification" asp-action="Index">
+                                <i class="fa fa-bell"></i>
+                                <span>Notifications </span>
+                            </a>
                         </li>
                     </ul>
                 </div>

@@ -17,26 +17,33 @@ namespace MVC_Team_Project.Seeders
 
             var doctors = new List<Doctor>();
 
-            for (int i = 1; i <= 10; i++)
+            int totalDoctors = 25;
+            int totalSpecialties = 9;
+
+            for (int i = 1; i <= totalDoctors; i++)
             {
+                int specialtyId = ((i - 1) % totalSpecialties) + 1;
+
                 doctors.Add(new Doctor
                 {
                     UserId = i,
-                    SpecialtyId = i,
-                    Bio = $"Doctor bio {i}",
-                    ClinicAddress = $"Clinic address {i}",
+                    SpecialtyId = specialtyId,
+                    Bio = $"Dr. {i} is a highly experienced doctor in specialty #{specialtyId}.",
+                    ClinicAddress = $"Clinic #{i}, Street {i}, City",
                     LicenseNumber = $"LIC-{1000 + i}",
-                    ConsultationFee = 100 + i * 10,
-                    ExperienceYears = i + 5,
-                    Education = $"Education details {i}",
-                    Certifications = $"Certifications {i}",
+                    ConsultationFee = 150 + i * 5,
+                    ExperienceYears = 3 + (i % 10),
+                    Education = $"Graduated from Medical School #{(i % 5 + 1)}",
+                    Certifications = $"Certified in Specialty #{specialtyId}",
                     IsVerified = true,
-                    CreatedAt = DateTime.Now.AddDays(-i),
+                    CreatedAt = DateTime.Now.AddDays(-i)
                 });
             }
 
             context.Doctors.AddRange(doctors);
             context.SaveChanges();
+
+            Console.WriteLine("Seeded 25 doctors successfully.");
         }
     }
 }

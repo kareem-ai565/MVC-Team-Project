@@ -3,6 +3,12 @@
     ViewData["Title"] = $"Doctors in {Model.Name}";
 }
 
+<div class="container-fluid">
+    <div class="mb-5">
+        <img src="/images/research/ttm-pagetitle-bg.jpg" class="img-fluid w-100 rounded shadow-sm" />
+    </div>
+
+</div>
 <div class="container-fluid py-4" style="background-color: #f8f9fa;">
     <div class="container">
         <!-- Header Section -->
@@ -38,12 +44,12 @@
                                             <span class="badge badge-experience me-2 bigger2" style="background-color: #e3f2fd; color: #1976d2; padding: 4px 8px; border-radius: 12px; font-size: 12px;">
                                                 @doctor.ExperienceYears yrs experience
                                             </span>
-                                            @if (doctor.IsVerified)
+                                            @* @if (doctor.IsVerified)
                                             {
                                                 <span class="badge badge-verified" style="background-color: #e8f5e8; color: #2e7d32; padding: 4px 8px; border-radius: 12px; font-size: 12px;">
                                                     <i class="fas fa-check-circle me-1"></i>Verified
                                                 </span>
-                                            }
+                                            } *@
                                         </div>
                                     </div>
                                 </div>
@@ -78,12 +84,12 @@
                                             
 
                                         </div>
-                                        <div class="col-6">
+                                        @* <div class="col-6">
                                             <button class="btn btn-outline-primary btn-sm w-100 bigger2" style="border-radius: 6px; font-weight: 500; height:40px; ">
                                                 <i class="fas fa-info-circle me-1"></i>
                                                 View Profile
                                             </button>
-                                        </div>
+                                        </div> *@
                                     </div>
                                 </div>
                             </div>

@@ -1,8 +1,8 @@
 ﻿@model List<MedicalRecord>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "_PatientDashbordLayout";
+    ViewData["Title"] = "Medical Record";
+    Layout = "_Layout";
 
 }
 
@@ -67,9 +67,9 @@
                         <tr>
                             <th>#</th>
                             <th>Record Type</th>
-                            <th>Doctor ID</th>
-                            <th>Patient ID</th>
-                            <th>Appointment ID</th>
+                            @* <th>Doctor ID</th> *@
+                            @* <th>Patient ID</th> *@
+                            @* <th>Appointment ID</th> *@
                             <th>Diagnosis</th>
                             <th>Test Results</th>
                             <th>Prescription</th>
@@ -84,9 +84,9 @@
                             <tr>
                                 <td>@(@i + 1)</td>
                                 <td>@record.RecordType</td>
-                                <td>@record.DoctorId</td>
-                                <td>@record.PatientId</td>
-                                <td>@record.AppointmentId</td>
+                                @* <td>@record.DoctorId</td> *@
+                                @* <td>@record.PatientId</td> *@
+                                @* <td>@record.AppointmentId</td> *@
                                 <td>@record.Diagnosis</td>
                                 <td>@record.TestResults</td>
                                 <td>@record.Prescription</td>

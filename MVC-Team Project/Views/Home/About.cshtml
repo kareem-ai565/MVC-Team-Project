@@ -1,1 +1,296 @@
-// About.cshtml placeholder
+<style>
+    body {
+        font-size: 1.6rem !important;
+    }
+
+    .accordion-button {
+        font-size: 1.6rem;
+    }
+
+    .accordion-body {
+        font-size: 1.6rem;
+        line-height: 1.8;
+    }
+
+    .about-count-box h3,
+    .about-count-box p {
+        font-size: 1.6rem;
+    }
+
+    .about-count-box i {
+        font-size: 2.2rem;
+    }
+
+    .about-count-box {
+        padding: 1rem;
+    }
+
+    .ReviewIcons img {
+        max-height: 70px;
+        object-fit: contain;
+    }
+
+
+    /* Primary Styles */
+    .btn-primary,
+    .bg-primary,
+    .text-primary,
+    .border-primary {
+        background-color: var(--second) !important;
+        border-color: var(--second) !important;
+        color: #fff !important;
+    }
+
+        .btn-primary:hover,
+        .btn-primary:focus,
+        .btn-primary:active,
+        .bg-primary:hover,
+        .text-primary:hover,
+        .border-primary:hover {
+            background-color: var(--second) !important;
+            border-color: var(--second) !important;
+            color: #fff !important;
+        }
+
+        .btn-primary:visited {
+            background-color: var(--second) !important;
+        }
+
+        .btn-primary:disabled {
+            background-color: #ccc !important;
+            border-color: #ccc !important;
+            color: #888 !important;
+        }
+
+    .btn-outline-primary {
+        color: var(--second) !important;
+        border-color: var(--second) !important;
+    }
+
+        .btn-outline-primary:hover,
+        .btn-outline-primary:focus,
+        .btn-outline-primary:active {
+            background-color: var(--second) !important;
+            color: #fff !important;
+        }
+
+    /* Secondary Styles */
+    .btn-secondary,
+    .bg-secondary,
+    .text-secondary,
+    .border-secondary {
+        background-color: var(--second) !important;
+        border-color: var(--second) !important;
+        color: #fff !important;
+    }
+
+        .btn-secondary:hover,
+        .btn-secondary:focus,
+        .btn-secondary:active {
+            background-color: var(--second) !important;
+            border-color: var(--second) !important;
+            color: #fff !important;
+        }
+
+    .btn-outline-secondary {
+        color: var(--second) !important;
+        border-color: var(--second) !important;
+    }
+
+        .btn-outline-secondary:hover,
+        .btn-outline-secondary:focus,
+        .btn-outline-secondary:active {
+            background-color: var(--second) !important;
+            color: #fff !important;
+            border-color: var(--second) !important;
+        }
+
+    /* Accent/Interacting Color */
+    .btn-accent {
+        background-color: var(--second) !important;
+        border-color: var(--second) !important;
+        color: #fff !important;
+    }
+
+        .btn-accent:hover,
+        .btn-accent:focus,
+        .btn-accent:active {
+            background-color: var(--second) !important;
+            border-color: var(--second) !important;
+            color: #fff !important;
+        }
+
+    /* Links + Nav */
+    a:hover,
+    .active span,
+    .active a,
+    .active i {
+        color: var(--second) !important;
+    }
+
+    .sidebar-menu > ul > li > a:hover {
+        color: var(--second) !important;
+    }
+
+    /* Pagination */
+    .page-item.active .page-link {
+        background-color: var(--second) !important;
+        color: #fff !important;
+        border-color: var(--second) !important;
+    }
+
+    .pagination > li > a,
+    .pagination > li > span {
+        color: var(--second) !important;
+    }
+
+    /* Replace default hardcoded Bootstrap blue/gray */
+    [style*="color: #007bff"],
+    [style*="color:#007bff"],
+    [style*="color: rgb(0, 123, 255)"] {
+        color: var(--second) !important;
+    }
+
+    [style*="background-color: #007bff"],
+    [style*="background-color:#007bff"],
+    [style*="background-color: rgb(0, 123, 255)"] {
+        background-color: var(--second) !important;
+    }
+
+    [style*="background-color: #6c757d"],
+    [style*="background-color:#6c757d"],
+    [style*="background-color: rgb(108, 117, 125)"] {
+        background-color: var(--second) !important;
+    }
+
+    [style*="color: #6c757d"],
+    [style*="color:#6c757d"],
+    [style*="color: rgb(108, 117, 125)"] {
+        color: var(--second) !important;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="mb-5">
+        <img src="/images/research/ttm-pagetitle-bg.jpg" class="img-fluid w-100 rounded shadow-sm" />
+    </div>
+
+</div>
+<div class="container py-5">
+
+
+    <!-- What We Do Section -->
+    <div class="row align-items-start mb-5 gx-4">
+        <!-- Image Left -->
+        <div class="col-md-6" data-aos="zoom-in">
+            <img src="/images/single-img-four.png" alt="About Image" class="img-fluid rounded w-100 h-100" style="object-fit: cover;" />
+        </div>
+
+        <!-- Accordion Right -->
+        <div class="col-md-6" data-aos="zoom-in">
+            <p class="text-primary fw-bold mb-2 p-2 rounded rounded-2">WHAT WE DO</p>
+            <h2 class="fw-bold mb-3">We Have 25 Years Experience</h2>
+            <p class="mb-4">We offer extensive medical procedures to outbound and inbound patients, and we are very proud of the achievement of our patients’ recovery.</p>
+
+            <div class="accordion" id="aboutAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true">
+                            Our Mission
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#aboutAccordion">
+                        <div class="accordion-body">
+                            <img src="/images/blog/01.jpg" class="img-fluid mb-3 rounded" />
+                            Our Clinic has grown to provide a world class facility for the treatment of tooth loss, dental cosmetics, and more advanced restorative dentistry. We are among the most qualified implant providers in the AUS with over 30 years of quality training and experience.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                            Our Vision
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#aboutAccordion">
+                        <div class="accordion-body">
+                            <img src="/images/portfolio/01.jpg" class="img-fluid mb-3 rounded" />
+                            Our Clinic has grown to provide a world class facility for the treatment of tooth loss, dental cosmetics, and more advanced restorative dentistry...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                            Our Strategies
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#aboutAccordion">
+                        <div class="accordion-body">
+                            <img src="/images/portfolio/09.jpg" class="img-fluid mb-3 rounded" />
+                            Our Clinic has grown to provide a world class facility for the treatment of tooth loss, dental cosmetics, and more advanced restorative dentistry...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CountUp Section -->
+    <div class="bg-light py-5 rounded shadow-sm mb-5">
+        <div class="row text-center g-4">
+            <div class="col-md-3 col-6">
+                <div class="about-count-box">
+                    <i class="fa-regular fa-user"></i>
+                    <h3>3215</h3>
+                    <p>Clients</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="about-count-box">
+                    <i class="fa-regular fa-hospital"></i>
+                    <h3>152</h3>
+                    <p>Hospitals Rooms</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="about-count-box">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                    <h3>30</h3>
+                    <p>Years of Experience</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="about-count-box">
+                    <i class="fa-regular fa-thumbs-up"></i>
+                    <h3>124</h3>
+                    <p>Qualified Staffs</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Client Logos Section -->
+    <div class="py-4">
+        <div class="row justify-content-center align-items-center g-4 ReviewIcons">
+            <div class="col-auto">
+                <img src="/images/client/client-01.png" class="img-fluid" alt="Client 1" />
+            </div>
+            <div class="col-auto">
+                <img src="/images/client/client-02.png" class="img-fluid" alt="Client 2" />
+            </div>
+            <div class="col-auto">
+                <img src="/images/client/single-img-four.png" class="img-fluid" alt="Client 3" />
+            </div>
+            <div class="col-auto">
+                <img src="/images/client/client-01.png" class="img-fluid" alt="Client 4" />
+            </div>
+            <div class="col-auto">
+                <img src="/images/client/client-02.png" class="img-fluid" alt="Client 5" />
+            </div>
+        </div>
+    </div>
+
+</div>

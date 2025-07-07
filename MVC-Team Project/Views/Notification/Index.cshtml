@@ -1,14 +1,29 @@
 ﻿@model List<Notification>
 @{
-    ViewData["Title"] = "Index";
-    Layout = "_PatientDashbordLayout";
+    ViewData["Title"] = "Notifications";
+
+    if (User.IsInRole("Doctor"))
+    {
+
+        Layout = "_DoctorDashbordLayout";
+
+
+    }
+
+
+    else if (User.IsInRole("Patient"))
+    {
+        Layout = "_Layout";
+
+
+    }
 }
 
 <style>
     body {
         background: #f4f7fa;
-        min-height: 100vh;
-        padding: 30px;
+        /* min-height: 100vh; */
+        /* padding: 30px; */
         font-family: 'Segoe UI', sans-serif;
     }
 
@@ -61,15 +76,15 @@
     }
 
     .priority-high {
-        background-color: #ff6b6b; /* أحمر ناعم */
+        background-color: #ff6b6b; 
     }
 
     .priority-normal {
-        background-color: #ffdd57; /* أصفر هادي */
+        background-color: #ffdd57;
     }
 
     .priority-low {
-        background-color: #8ef5b7; /* أخضر باهت */
+        background-color: #8ef5b7;
     }
 
     .no-notifications-glass {
@@ -117,12 +132,12 @@
 
 @if (!Model.Any())
 {
-    <div class="container">
+    <div class="container mb-4">
         <div class="no-notifications-glass text-center mx-auto">
             <i class="bi bi-bell-slash-fill empty-icon mb-3"></i>
             <h4>No Notifications Yet</h4>
-            <p class="text-muted">You're all caught up! We'll let you know when something new arrives 🌟</p>
-            <a href="" class="btn btn-outline-primary mt-3">Back</a>
+            <p class="text-muted bigger2">You're all caught up! We'll let you know when something new arrives 🌟</p>
+            <a href="" class="btn btn-outline-primary mt-3 bigger2">Back</a>
         </div>
     </div>
 }
@@ -130,7 +145,7 @@
 
 else{
 
-<div class="container">
+<div class="container my-4">
     <h2 class="mb-4" style="color:#4A778A">🔔 Your Notifications</h2>
 
     @foreach (var n in Model)
@@ -146,7 +161,7 @@ else{
         <div class="notif-glass">
             <div class="d-flex align-items-center">
                 <i class="bi bi-bell-fill notif-icon"></i>
-                <div class="notif-title">@n.Title</div>
+                    <div class="notif-title bigger2">@n.Title</div>
             </div>
 
             <div class="notif-message">@n.Message</div>
@@ -162,7 +177,7 @@ else{
 
 
             <form asp-action="EditStatus" asp-route-Id="@n.Id">
-                <button type="submit" class="btn btn-outline-secondary p-2">Done</button>
+                <button type="submit" class="btn btn-outline-secondary p-2 bigger2 text-white border-white">Done</button>
 
             </form>
         </div>

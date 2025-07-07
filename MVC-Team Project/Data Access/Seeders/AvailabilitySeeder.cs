@@ -16,24 +16,33 @@ namespace MVC_Team_Project.Seeders
             }
 
             var availabilities = new List<Availability>();
+            var startTime = new TimeSpan(16, 0, 0); // 4:00 PM
+            var endTime = new TimeSpan(20, 0, 0);   // 8:00 PM
+            int slotDuration = 15; // 15 minutes
+            int maxPatientsPerSlot = (int)((endTime - startTime).TotalMinutes / slotDuration); // 16 slots
 
-            for (int i = 1; i <= 10; i++)
+            for (int doctorId = 1; doctorId <= 25; doctorId++)
             {
-                availabilities.Add(new Availability
+                for (int dayOffset = 0; dayOffset < 7; dayOffset++)
                 {
-                    DoctorId = i,
-                    AvailableDate = DateTime.Today.AddDays(i),
-                    StartTime = new TimeSpan(8, 0, 0),
-                    EndTime = new TimeSpan(12, 0, 0),
-                    IsBooked = false,
-                    SlotDuration = 30,
-                    MaxPatients = 10,
-                    CreatedAt = DateTime.Now.AddDays(-i),
-                });
+                    availabilities.Add(new Availability
+                    {
+                        DoctorId = doctorId,
+                        AvailableDate = DateTime.Today.AddDays(dayOffset),
+                        StartTime = startTime,
+                        EndTime = endTime,
+                        SlotDuration = slotDuration,
+                        MaxPatients = maxPatientsPerSlot,
+                        IsBooked = false,
+                        CreatedAt = DateTime.Now.AddDays(-dayOffset)
+                    });
+                }
             }
 
             context.Availabilities.AddRange(availabilities);
             context.SaveChanges();
+
+            Console.WriteLine("Seeded availability for 25 doctors successfully.");
         }
     }
 }

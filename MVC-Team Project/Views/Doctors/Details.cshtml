@@ -1,6 +1,6 @@
 ﻿@model MVC_Team_Project.Models.Doctor
 @{
-    Layout = "_DashbordLayout";
+    Layout = "_DoctorDashbordLayout";
     ViewData["Title"] = "Doctor Details";
 }
 
@@ -51,6 +51,6 @@
         }
 
         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">Edit</a>
-        <a asp-action="Index" class="btn btn-secondary">Back</a>
+        <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
     </div>
 </div>
