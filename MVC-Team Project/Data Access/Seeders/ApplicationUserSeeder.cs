@@ -31,6 +31,7 @@ namespace MVC_Team_Project.Seeders
                 ("Sara Adel", "sara6@domain.com", "Pass@123"),
                 ("Nour Ashraf", "nour7@domain.com", "Pass@123"),
                 ("Mahmoud Nabil", "mahmoud8@domain.com", "Pass@123"),
+
                 ("Fatma Ali", "fatma9@domain.com", "Pass@123"),
                 ("Hazem Amr", "hazem10@domain.com", "Pass@123"),
                 ("Yara Mostafa", "yara11@domain.com", "Pass@123"),
@@ -41,6 +42,7 @@ namespace MVC_Team_Project.Seeders
                 ("Nesma Taha", "nesma16@domain.com", "Pass@123"),
                 ("Rania Fathy", "rania17@domain.com", "Pass@123"),
                 ("Abdelrahman Hany", "abdel18@domain.com", "Pass@123"),
+
                 ("Heba Gamal", "heba19@domain.com", "Pass@123"),
                 ("Karim Sayed", "karim20@domain.com", "Pass@123"),
                 ("Mariam Samir", "mariam21@domain.com", "Pass@123"),
@@ -48,6 +50,9 @@ namespace MVC_Team_Project.Seeders
                 ("Laila Emad", "laila23@domain.com", "Pass@123"),
                 ("Ziad Ehab", "ziad24@domain.com", "Pass@123"),
                 ("Noha Saeed", "noha25@domain.com", "Pass@123"),
+
+
+
                 ("Walid Hatem", "walid26@domain.com", "Pass@123"),
                 ("Salma Reda", "salma27@domain.com", "Pass@123"),
                 ("Tarek Younis", "tarek28@domain.com", "Pass@123"),

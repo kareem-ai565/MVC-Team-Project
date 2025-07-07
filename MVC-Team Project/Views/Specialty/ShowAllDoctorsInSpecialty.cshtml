@@ -38,6 +38,13 @@
                                     <div class="doctor-avatar me-3" style="width: 60px; height: 60px; background: linear-gradient(135deg, #28a745, #20c997); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                                         <i class="fas fa-user-md text-white" style="font-size: 24px;"></i>
                                     </div>
+
+                                    @* <div class="doctor-avatar me-3" style="width: 100px; height: 100px; background: linear-gradient(135deg, #28a745, #20c997); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <img src="@(doctor.User.ProfilePicture ?? "/images/default-doctor.jpg")"
+                                             alt="@doctor.User.FullName"
+                                             class="rounded-circle shadow-sm"
+                                             style="width: 100px; height: 100px; object-fit: cover;" />
+                                    </div> *@
                                     <div class="flex-grow-1">
                                         <h5 class="card-title font-weight-bold text-dark mb-1 bigger1">@doctor.FullName</h5>
                                         <div class="d-flex align-items-center mb-2">
@@ -55,7 +62,7 @@
                                 </div>
 
                                 <div class="doctor-info mb-3">
-                                    <p class="card-text text-muted mb-3 bigger2" style="font-size: 14px; line-height: 1.5;">
+                                    <p class="card-text text-muted mb-3" style="font-size: 14px; line-height: 1.5;">
                                         @doctor.Bio
                                     </p>
                                     

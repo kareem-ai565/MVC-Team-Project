@@ -12,5 +12,6 @@ namespace MVC_Team_Project.View_Models
 
         // List of doctors in that specialty
         public List<DoctorsVM> Doctors { get; set; }
+
     }
 }
