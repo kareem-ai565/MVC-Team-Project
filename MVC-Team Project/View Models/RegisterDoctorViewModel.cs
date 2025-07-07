@@ -37,6 +37,7 @@ namespace MVC_Team_Project.View_Models
 
         [Required(ErrorMessage = "Specialty is required")]
         public int? SpecialtyId { get; set; }
+        public string? SpecialityName { get; set; }
 
         [Required(ErrorMessage = "Clinic address is required")]
         public string ClinicAddress { get; set; }
