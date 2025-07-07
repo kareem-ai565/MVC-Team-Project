@@ -60,7 +60,7 @@
                 <nav class="navbar">
                     <a href="/">Home</a>
                     <a asp-controller="Home" asp-action="About">About</a>
-                    <a href="/#doctors">Doctors</a>
+                    <a asp-controller="Specialty" asp-action="AllDoctors">Doctors</a>
                     <a asp-controller="Specialty" asp-action="ShowAll">Specialties</a>
 
                     @if (User.Identity.IsAuthenticated && User.IsInRole("Patient"))
